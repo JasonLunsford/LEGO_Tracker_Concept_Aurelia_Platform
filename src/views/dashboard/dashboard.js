@@ -6,6 +6,8 @@ import {CoreServices} from '../../services/core_services';
 
 @inject(CoreServices)
 export class Dashboard {
+    MEGABYTE = 1048576;
+
     constructor(coreServices) {
         this.coreServices = coreServices;
     }
@@ -72,7 +74,7 @@ export class Dashboard {
         let source = await this.coreServices.getMetaInfo('size', collection);
 
         return {
-            size: _.chain(source.size).divide(1048576).round(2).value()
+            size: _.chain(source.size).divide(this.MEGABYTE).round(2).value()
         }
     }    
 }
