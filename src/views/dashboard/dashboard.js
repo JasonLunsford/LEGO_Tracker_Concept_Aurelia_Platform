@@ -4,17 +4,19 @@ import _ from 'lodash';
 
 import {CoreServices} from '../../services/core_services';
 
+const MEGABYTE = 1048576;
+
 @inject(CoreServices)
 export class Dashboard {
-    MEGABYTE = 1048576;
-
     constructor(coreServices) {
         this.coreServices = coreServices;
     }
 
     attached() {
-        this.model = [];
-        this.message = 'Dashboard Shell / Home Page';
+        this.model = {};
+        
+        _.set(this.model, 'pageTitle', 'Dashboard');
+        _.set(this.model, 'greeting', 'Hello Jason Lunsford!');
 
         this.init();
     }
@@ -25,6 +27,12 @@ export class Dashboard {
         return _.map(source, item => {
             return item.name;
         });
+    }
+
+    _getTodaysDate() {
+        // 1) install Moment
+        // 2) get and prepare date in format: January 7, 2018
+        // 3) return during attached
     }
 
     async init() {
@@ -38,9 +46,15 @@ export class Dashboard {
             return this.getSize(name)
         });
 
-        let promises = [...countPromises, ...sizePromises];
+        const promises = [...countPromises, ...sizePromises];
         
-        Promise.all(promises).then(results => {
+        const categories = await this.getCategories(names, promises);
+
+        _.set(this.model, 'categories', categories);
+    }
+
+    async getCategories(names, promises) {
+        return Promise.all(promises).then(results => {
             let data = [];
             let counts = _.filter(results, result => result.count >= 0 );
             let sizes = _.filter(results, result => result.size >= 0 );
@@ -56,12 +70,12 @@ export class Dashboard {
                 });
             });
 
-            this.model = [...data];
+            return data;
         });
     }
 
     async getNames() {
-        let cols = await this.coreServices.getMetaInfo('names');
+        const cols = await this.coreServices.getMetaInfo('names');
 
         return this._extractNames(cols);
     }
@@ -71,10 +85,14 @@ export class Dashboard {
     }
 
     async getSize(collection) {
-        let source = await this.coreServices.getMetaInfo('size', collection);
+        const source = await this.coreServices.getMetaInfo('size', collection);
 
         return {
-            size: _.chain(source.size).divide(this.MEGABYTE).round(2).value()
+            size: _.chain(source.size).divide(MEGABYTE).round(2).value()
         }
-    }    
+    }
+
+    async getLastModified(collection) {
+        // are the mongodb APIs this flexible??
+    }
 }

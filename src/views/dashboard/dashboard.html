@@ -1,3 +1,9 @@
 <template>
-    <h1>${message}</h1>
+    <h1>${model.pageTitle}</h1>
+    <h3>${model.greeting}</h1>
+    <div class="list" repeat.for="category of model.categories">
+        <span>${category.name}</span>
+        <span>${category.count}</span>
+        <span>${category.size}</span>
+    </div>
 </template>
