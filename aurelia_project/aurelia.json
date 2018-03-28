@@ -95,6 +95,11 @@
             "path": "../node_modules/axios/dist",
             "main": "axios.min"
           },
+          {
+            "name": "moment",
+            "path": "../node_modules/moment/min",
+            "main": "moment.min"
+          },
           "text"
         ]
       }

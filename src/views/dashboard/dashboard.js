@@ -1,6 +1,7 @@
 import {inject} from 'aurelia-framework';
 
 import _ from 'lodash';
+import moment from 'moment';
 
 import {CoreServices} from '../../services/core_services';
 
@@ -17,22 +18,21 @@ export class Dashboard {
         
         _.set(this.model, 'pageTitle', 'Dashboard');
         _.set(this.model, 'greeting', 'Hello Jason Lunsford!');
+        _.set(this.model, 'date', this.getDate.today());
 
         this.init();
     }
 
     detached() {}
 
+    getDate = {
+        today: () => { return moment().format('MMMM Do YYYY'); }
+    }
+
     _extractNames(source) {
         return _.map(source, item => {
             return item.name;
         });
-    }
-
-    _getTodaysDate() {
-        // 1) install Moment
-        // 2) get and prepare date in format: January 7, 2018
-        // 3) return during attached
     }
 
     async init() {
@@ -93,6 +93,7 @@ export class Dashboard {
     }
 
     async getLastModified(collection) {
-        // are the mongodb APIs this flexible??
+        // will need to add a lastModified document property to each
+        // collection, and handle updating it manually upon POST/PUT
     }
 }
