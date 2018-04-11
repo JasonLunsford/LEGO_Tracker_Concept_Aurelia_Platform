@@ -1,5 +1,9 @@
 import {inject} from 'aurelia-framework';
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+import DashboardBadge from './react/DashboardBadge'
+
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -7,10 +11,11 @@ import {CoreServices} from '../../services/core_services';
 
 const MEGABYTE = 1048576;
 
-@inject(CoreServices)
+@inject(CoreServices, Element)
 export class Dashboard {
-    constructor(coreServices) {
+    constructor(coreServices, element) {
         this.coreServices = coreServices;
+        this.element = element;
     }
 
     attached() {
@@ -27,6 +32,15 @@ export class Dashboard {
 
     getDate = {
         today: () => { return moment().format('MMMM Do YYYY'); }
+    }
+
+    render() {
+        ReactDOM.render(
+          <DashboardBadge 
+            model={this.model}
+          />,
+          this.element
+        );
     }
 
     _extractNames(source) {
@@ -51,6 +65,8 @@ export class Dashboard {
         const categories = await this.getCategories(names, promises);
 
         _.set(this.model, 'categories', categories);
+
+        this.render();
     }
 
     async getCategories(names, promises) {

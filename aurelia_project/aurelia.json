@@ -24,6 +24,7 @@
         "name": "app-bundle.js",
         "source": [
           "[**/*.js]",
+          "[**/*.jsx]",
           "**/*.{css,html}"
         ]
       },
@@ -100,6 +101,16 @@
             "path": "../node_modules/moment/min",
             "main": "moment.min"
           },
+          {
+            "name": "react",
+            "path": "../node_modules/react/dist",
+            "main": "react.min"
+          },
+          {
+            "name": "react-dom",
+            "path": "../node_modules/react-dom/dist",
+            "main": "react-dom.min"
+          },
           "text"
         ]
       }
@@ -133,7 +144,8 @@
     "fileExtension": ".js",
     "options": {
       "plugins": [
-        "transform-es2015-modules-amd"
+        "transform-es2015-modules-amd",
+        "transform-react-jsx"
       ]
     },
     "source": "src/**/*.js"
@@ -148,7 +160,7 @@
     "id": "sass",
     "displayName": "Sass",
     "fileExtension": ".scss",
-    "source": "src/**/*.scss"
+    "source": "src/views/**/*.scss"
   },
   "editor": {
     "id": "sublime",
