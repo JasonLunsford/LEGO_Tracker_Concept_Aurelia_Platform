@@ -10,15 +10,15 @@ export default class DashboardBadge extends React.Component {
 
     return (
       <div className="dashboard">
-        <h1>${pageTitle}</h1>
-        <h3>${greeting}</h3>
-        <h3>${date}</h3>
+        <h1>{pageTitle}</h1>
+        <h3>{greeting}</h3>
+        <h3>{date}</h3>
         <ul className="list">
             {categories.map(category => 
               <li>
-                <span>${category.name}</span>
-                <span>${category.count}</span>
-                <span>${category.size}</span>
+                <span>{category.name}</span>
+                <span>{category.count}</span>
+                <span>{category.size}</span>
               </li>
             )}
         </ul>
