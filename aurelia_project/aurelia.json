@@ -103,13 +103,13 @@
           },
           {
             "name": "react",
-            "path": "../node_modules/react/dist",
-            "main": "react.min"
+            "path": "../node_modules/react/umd",
+            "main": "react.development"
           },
           {
             "name": "react-dom",
-            "path": "../node_modules/react-dom/dist",
-            "main": "react-dom.min"
+            "path": "../node_modules/react-dom/umd",
+            "main": "react-dom.development"
           },
           "text"
         ]

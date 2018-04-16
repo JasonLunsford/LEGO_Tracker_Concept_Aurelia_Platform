@@ -14,8 +14,8 @@ export default class DashboardBadge extends React.Component {
         <h3>{greeting}</h3>
         <h3>{date}</h3>
         <ul className="list">
-            {categories.map(category => 
-              <li>
+            {categories.map((category, index) => 
+              <li key={index}>
                 <span>{category.name}</span>
                 <span>{category.count}</span>
                 <span>{category.size}</span>
