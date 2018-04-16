@@ -2,7 +2,7 @@ import {inject} from 'aurelia-framework';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DashboardBadge from './react/DashboardBadge'
+import DashboardBadge from '../react/DashboardBadge'
 
 import _ from 'lodash';
 import moment from 'moment';
