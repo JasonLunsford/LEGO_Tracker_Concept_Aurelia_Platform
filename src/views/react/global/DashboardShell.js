@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-export default class DashboardBadge extends React.Component {
+export default class DashboardShell extends Component {
   constructor(props) {
     super(props);
   }
@@ -27,7 +27,7 @@ export default class DashboardBadge extends React.Component {
   }
 }
 
-DashboardBadge.defaultProps = { 
+DashboardShell.defaultProps = { 
     pageTitle: 'Badge',
     greeting:  'Hello World',
     date:      'January 1, 2018'
