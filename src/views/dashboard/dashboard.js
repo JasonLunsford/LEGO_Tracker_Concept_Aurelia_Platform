@@ -2,7 +2,7 @@ import {inject} from 'aurelia-framework';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DashboardBadge from '../react/DashboardBadge'
+import DashboardShell from '../react/global/DashboardShell'
 
 import _ from 'lodash';
 import moment from 'moment';
@@ -36,7 +36,7 @@ export class Dashboard {
 
     render() {
         ReactDOM.render(
-          <DashboardBadge 
+          <DashboardShell 
             model={this.model}
           />,
           this.element
