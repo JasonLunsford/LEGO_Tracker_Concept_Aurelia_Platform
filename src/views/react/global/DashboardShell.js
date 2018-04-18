@@ -8,13 +8,25 @@ export default class DashboardShell extends Component {
   render() {
     let { pageTitle, greeting, date, categories } = this.props.model;
 
-    return (
-      <div className="dashboard">
-        <h1>{pageTitle}</h1>
-        <h3>{greeting}</h3>
-        <h3>{date}</h3>
-        <ul className="list">
-            {categories.map((category, index) => 
+    let PageTitle = contents => {
+      return (
+        <h1>{contents.pageTitle}</h1>
+      );
+    }
+
+    let Banner = contents => {
+      return (
+        <div>
+          <h3>{contents.greeting}</h3>
+          <h3>{contents.date}</h3>
+        </div>
+      );
+    }
+
+    let List = contents => {
+      return (
+        <ul className={contents.className}>
+            {contents.categories.map((category, index) => 
               <li key={index}>
                 <span>{category.name}</span>
                 <span>{category.count}</span>
@@ -22,7 +34,21 @@ export default class DashboardShell extends Component {
               </li>
             )}
         </ul>
-      </div>
+      );
+    }
+
+    let Dashboard = contents => {
+      return (
+        <div className={contents.className}>
+          <PageTitle pageTitle={pageTitle} />
+          <Banner greeting={greeting} date={date} />
+          <List className="list" categories={categories} />
+        </div>
+      );
+    }
+
+    return (
+      <Dashboard className="dashboard" />
     );
   }
 }
