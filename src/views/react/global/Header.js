@@ -1,48 +1,24 @@
 import React, {Component} from 'react';
 
-import styled, {css} from 'styled-components';
-import {HeaderContainer, 
-        BannerContainer,
-        BannerHeader,
-        InfoContainer,
-        InfoHeader} from './header_style';
+import Banner from './Banner';
+import Info from './Info';
 
-const Banner = ({pageTitle}) => {
-  return (
-    <BannerContainer>
-        <BannerHeader>{pageTitle}</BannerHeader>
-    </BannerContainer>
-  );
-}
-
-const Info = ({greeting, date}) => {
-  return (
-    <InfoContainer>
-      <InfoHeader>{greeting}</InfoHeader>
-      <InfoHeader right>{date}</InfoHeader>
-    </InfoContainer>
-  );
-}
+import styled from 'styled-components';
+import {HeaderContainer} from './header_style';
 
 export default class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    let { pageTitle, greeting, date } = this.props;
-
-    let Header = () => {
-      return (
-        <HeaderContainer>
-          <Banner pageTitle={pageTitle} />
-          <Info greeting={greeting} date={date} />
-        </HeaderContainer>
-      );
+    constructor(props) {
+        super(props);
     }
 
-    return (
-      <Header />
-    );
-  }
+    render() {
+        let { pageTitle, greeting, date } = this.props;
+
+        return (
+            <HeaderContainer>
+                <Banner pageTitle={pageTitle} />
+                <Info greeting={greeting} date={date} />
+            </HeaderContainer>
+        );
+    }
 }
