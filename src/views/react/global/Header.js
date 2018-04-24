@@ -1,27 +1,28 @@
 import React, {Component} from 'react';
 
 import styled, {css} from 'styled-components';
+import {HeaderContainer, 
+        BannerContainer,
+        BannerHeader,
+        InfoContainer,
+        InfoHeader} from './header_style';
 
-export const PageTitle = ({pageTitle}) => {
+const Banner = ({pageTitle}) => {
   return (
-    <h1>{pageTitle}</h1>
+    <BannerContainer>
+        <BannerHeader>{pageTitle}</BannerHeader>
+    </BannerContainer>
   );
 }
 
-export const Banner = ({greeting, date}) => {
+const Info = ({greeting, date}) => {
   return (
-    <div>
-      <h3>{greeting}</h3>
-      <h3>{date}</h3>
-    </div>
+    <InfoContainer>
+      <InfoHeader>{greeting}</InfoHeader>
+      <InfoHeader right>{date}</InfoHeader>
+    </InfoContainer>
   );
 }
-
-// export const StyledPageTitle = () => {
-//     return styled(PageTitle)`
-//       color: green;
-//     `;
-// }
 
 export default class Header extends Component {
   constructor(props) {
@@ -31,12 +32,12 @@ export default class Header extends Component {
   render() {
     let { pageTitle, greeting, date } = this.props;
 
-    let Header = contents => {
+    let Header = () => {
       return (
-        <div>
-          <PageTitle pageTitle={pageTitle} />
-          <Banner greeting={greeting} date={date} />
-        </div>
+        <HeaderContainer>
+          <Banner pageTitle={pageTitle} />
+          <Info greeting={greeting} date={date} />
+        </HeaderContainer>
       );
     }
 
