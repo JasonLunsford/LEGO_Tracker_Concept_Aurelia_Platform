@@ -111,6 +111,11 @@
             "path": "../node_modules/react-dom/umd",
             "main": "react-dom.development"
           },
+          {
+            "name": "styled-components",
+            "path": "../node_modules/styled-components/dist",
+            "main": "styled-components.min"
+          },
           "text"
         ]
       }
@@ -160,7 +165,7 @@
     "id": "sass",
     "displayName": "Sass",
     "fileExtension": ".scss",
-    "source": "src/views/**/*.scss"
+    "source": "src/views/react/**/*.scss"
   },
   "editor": {
     "id": "sublime",

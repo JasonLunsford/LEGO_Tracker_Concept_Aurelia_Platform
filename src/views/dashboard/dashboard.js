@@ -2,12 +2,13 @@ import {inject} from 'aurelia-framework';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DashboardShell from '../react/global/DashboardShell'
 
 import _ from 'lodash';
 import moment from 'moment';
 
 import {CoreServices} from '../../services/core_services';
+
+import DashboardShell from '../react/shells/DashboardShell';
 
 const MEGABYTE = 1048576;
 
