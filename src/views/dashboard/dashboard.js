@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import {CoreServices} from '../../services/core_services';
 
-import DashboardShell from '../react/shells/DashboardShell';
+import Shell from '../react/Shell';
 
 const MEGABYTE = 1048576;
 
@@ -22,7 +22,9 @@ export class Dashboard {
     attached() {
         this.model = {};
         
-        _.set(this.model, 'pageTitle', 'Dashboard');
+        _.set(this.model, 'title', 'LEGO Tracker');
+        _.set(this.model, 'currentView', 'Dashboard');
+        _.set(this.model, 'sectionTitle', 'Dashboard');
         _.set(this.model, 'greeting', 'Hello Jason Lunsford!');
         _.set(this.model, 'date', this.getDate.today());
 
@@ -37,7 +39,7 @@ export class Dashboard {
 
     render() {
         ReactDOM.render(
-          <DashboardShell 
+          <Shell 
             model={this.model}
           />,
           this.element

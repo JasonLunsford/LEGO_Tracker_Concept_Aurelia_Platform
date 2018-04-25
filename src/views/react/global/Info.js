@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import styled, {css} from 'styled-components';
 import {InfoContainer,
-        InfoHeader} from './header_style';
+        InfoHeader} from './styles/info';
 
 export default class Info extends Component {
     constructor(props) {

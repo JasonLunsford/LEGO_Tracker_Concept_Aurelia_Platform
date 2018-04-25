@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import styled from 'styled-components';
 import {BannerContainer,
-        BannerHeader} from './header_style';
+        BannerHeader} from './styles/banner';
 
 export default class Banner extends Component {
     constructor(props) {
@@ -10,11 +10,11 @@ export default class Banner extends Component {
     }
 
     render() {
-        let { pageTitle } = this.props;
+        let { title } = this.props;
 
         return (
             <BannerContainer>
-                <BannerHeader>{pageTitle}</BannerHeader>
+                <BannerHeader>{title}</BannerHeader>
             </BannerContainer>
         );
     }
