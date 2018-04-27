@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import styled from 'styled-components';
-import {DashboardContainer, List, Span} from './styles/dashboard';
+import {Container, List, Span} from './styles/dashboard';
 
 export default class Dashboard extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class Dashboard extends Component {
         let { categories } = this.props;
 
         return (
-            <DashboardContainer>
+            <Container>
                 <List>
                     {categories.map((category, index) => 
                       <li key={index}>
@@ -22,7 +22,7 @@ export default class Dashboard extends Component {
                       </li>
                     )}
                 </List>
-            </DashboardContainer>
+            </Container>
         );
     }
 }

@@ -2,18 +2,19 @@ import React, {Component} from 'react';
 
 import styled from 'styled-components';
 import {Container,
-        Title,
-        Lego} from './styles/banner';
+        Title} from './styles/section_title';
 
-export default class Banner extends Component {
+export default class SectionTitle extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
+        let { title } = this.props;
+
         return (
             <Container>
-                <Title><Lego>LEGO</Lego> Tracker</Title>
+                <Title>{title}</Title>
             </Container>
         );
     }

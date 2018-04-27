@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
-export const DashboardContainer = styled.div`
+export const Container = styled.div`
     margin:  0;
-    padding: 10px 5px;
+    padding: 5px 5px 5px 7px;
 `;
 
 export const List = styled.ul`

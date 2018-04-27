@@ -8,7 +8,7 @@ import moment from 'moment';
 
 import {CoreServices} from '../../services/core_services';
 
-import Shell from '../react/Shell';
+import Shell from '../react/global/Shell';
 
 const MEGABYTE = 1048576;
 
@@ -22,7 +22,6 @@ export class Dashboard {
     attached() {
         this.model = {};
         
-        _.set(this.model, 'title', 'LEGO Tracker');
         _.set(this.model, 'currentView', 'Dashboard');
         _.set(this.model, 'sectionTitle', 'Dashboard');
         _.set(this.model, 'greeting', 'Hello Jason Lunsford!');
