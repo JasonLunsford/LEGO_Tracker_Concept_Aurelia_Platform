@@ -12,6 +12,8 @@ import Dashboard from '../components/dashboard/Dashboard';
 injectGlobal`
   body {
     font-family: "Verdana", sans-serif;
+    margin:      0;
+    padding:     0px 10px;
   }
 `
 
