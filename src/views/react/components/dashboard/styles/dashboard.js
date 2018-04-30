@@ -1,0 +1,18 @@
+import React, {Component} from 'react';
+
+import styled from 'styled-components';
+
+export const Container = styled.div`
+    margin:  0;
+    padding: 5px 2px 5px;
+`;
+
+export const List = styled.ul`
+    list-style: none;
+    margin:     0;
+    padding:    0;
+`;
+
+export const Span = styled.span`
+    padding-right: 10px;
+`;

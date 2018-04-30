@@ -4,7 +4,7 @@ import Banner from './Banner';
 import Info from './Info';
 
 import styled from 'styled-components';
-import {HeaderContainer} from './header_style';
+import {Container} from './styles/header';
 
 export default class Header extends Component {
     constructor(props) {
@@ -12,13 +12,13 @@ export default class Header extends Component {
     }
 
     render() {
-        let { pageTitle, greeting, date } = this.props;
+        let { greeting, date } = this.props;
 
         return (
-            <HeaderContainer>
-                <Banner pageTitle={pageTitle} />
+            <Container>
+                <Banner />
                 <Info greeting={greeting} date={date} />
-            </HeaderContainer>
+            </Container>
         );
     }
 }
