@@ -116,6 +116,11 @@
             "path": "../node_modules/styled-components/dist",
             "main": "styled-components.min"
           },
+          {
+            "name": "prop-types",
+            "path": "../node_modules/prop-types",
+            "main": "prop-types.min"
+          },
           "text"
         ]
       }

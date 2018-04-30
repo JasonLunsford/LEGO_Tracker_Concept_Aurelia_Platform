@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import styled, {injectGlobal} from 'styled-components';
 import {Container} from './styles/shell';
@@ -39,3 +40,7 @@ export default class Shell extends Component {
     );
   }
 }
+
+Shell.propTypes = {
+  model: PropTypes.object
+};

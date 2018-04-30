@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 import Banner from './Banner';
 import Info from './Info';
@@ -22,3 +23,8 @@ export default class Header extends Component {
         );
     }
 }
+
+Header.propTypes = {
+  greeting: PropTypes.string,
+  date: PropTypes.string
+};
