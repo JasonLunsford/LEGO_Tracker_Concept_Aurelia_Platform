@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import {Container,
-        Title} from './styles/section_title';
+        Title} from './styles/section_title.sc';
 
 export default class SectionTitle extends Component {
     constructor(props) {
@@ -20,7 +19,3 @@ export default class SectionTitle extends Component {
         );
     }
 }
-
-SectionTitle.propTypes = {
-  title: PropTypes.string
-};

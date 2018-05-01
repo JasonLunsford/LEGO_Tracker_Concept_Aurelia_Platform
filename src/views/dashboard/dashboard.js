@@ -24,7 +24,7 @@ export class Dashboard {
         
         _.set(this.model, 'currentView', 'Dashboard');
         _.set(this.model, 'sectionTitle', 'Dashboard');
-        _.set(this.model, 'greeting', 'Hello Jason Lunsford!');
+        _.set(this.model, 'message', 'Hello Jason Lunsford!');
         _.set(this.model, 'date', this.getDate.today());
 
         this.init();

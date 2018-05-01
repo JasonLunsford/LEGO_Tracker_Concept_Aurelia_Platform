@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import styled, {injectGlobal} from 'styled-components';
-import {Container} from './styles/shell';
+import {Container} from './styles/shell.sc';
 
 import Header from './Header';
 import SectionTitle from './SectionTitle';
@@ -25,22 +25,39 @@ export default class Shell extends Component {
   }
 
   render() {
-    let { greeting,
+    let { message,
           date,
           categories,
           sectionTitle,
           currentView } = this.props.model;
 
+    let viewToggle = view => {
+      //let renderView;
+      switch (view) {
+        case 'Dashboard':
+          //renderView = <Dashboard categories={categories} />
+          return <Dashboard categories={categories} />
+          break;
+      }
+      //return renderView;
+    }
+
     return (
       <Container>
-        <Header greeting={greeting} date={date} />
+        <Header message={message} date={date} />
         <SectionTitle title={sectionTitle} />
-        <Dashboard categories={categories} />
+        {viewToggle(currentView)}
       </Container>
     );
   }
 }
 
 Shell.propTypes = {
-  model: PropTypes.object
+  model: PropTypes.shape({
+           message: PropTypes.string,
+           date: PropTypes.string.isRequired,
+           categories: PropTypes.array,
+           sectionTitle: PropTypes.string.isRequired,
+           currentView: PropTypes.string.isRequired
+         })
 };

@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import Banner from './Banner';
 import Info from './Info';
 
 import styled from 'styled-components';
-import {Container} from './styles/header';
+import {Container} from './styles/header.sc';
 
 export default class Header extends Component {
     constructor(props) {
@@ -13,18 +12,13 @@ export default class Header extends Component {
     }
 
     render() {
-        let { greeting, date } = this.props;
+        let { message, date } = this.props;
 
         return (
             <Container>
                 <Banner />
-                <Info greeting={greeting} date={date} />
+                <Info message={message} date={date} />
             </Container>
         );
     }
 }
-
-Header.propTypes = {
-  greeting: PropTypes.string,
-  date: PropTypes.string
-};
