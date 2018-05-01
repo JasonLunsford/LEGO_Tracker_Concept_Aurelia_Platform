@@ -24,6 +24,14 @@ export default class Shell extends Component {
     super(props);
   }
 
+  viewToggle({currentView, categories = []}) {
+      switch (currentView) {
+        case 'Dashboard':
+          return <Dashboard categories={categories} />
+          break;
+      }
+  }
+
   render() {
     let { message,
           date,
@@ -31,22 +39,11 @@ export default class Shell extends Component {
           sectionTitle,
           currentView } = this.props.model;
 
-    let viewToggle = view => {
-      //let renderView;
-      switch (view) {
-        case 'Dashboard':
-          //renderView = <Dashboard categories={categories} />
-          return <Dashboard categories={categories} />
-          break;
-      }
-      //return renderView;
-    }
-
     return (
       <Container>
         <Header message={message} date={date} />
         <SectionTitle title={sectionTitle} />
-        {viewToggle(currentView)}
+        {this.viewToggle({currentView, categories})}
       </Container>
     );
   }
