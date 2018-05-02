@@ -7,6 +7,8 @@ import {Container} from './styles/shell.sc';
 import Header from './Header';
 import SectionTitle from './SectionTitle';
 import Dashboard from '../components/dashboard/Dashboard';
+import Collections from '../components/collections/Collections';
+import Details from '../components/details/Details';
 
 // Global style
 // eslint-disable-next-line
@@ -24,10 +26,16 @@ export default class Shell extends Component {
     super(props);
   }
 
-  viewToggle({currentView, categories = []}) {
+  viewToggle({currentView, categories = [], trialMessage}) {
       switch (currentView) {
         case 'Dashboard':
           return <Dashboard categories={categories} />
+          break;
+        case 'Collections':
+          return <Collections trialMessage={trialMessage} />
+          break;
+        case 'Details':
+          return <Details trialMessage={trialMessage} />
           break;
       }
   }
@@ -37,13 +45,14 @@ export default class Shell extends Component {
           date,
           categories,
           sectionTitle,
-          currentView } = this.props.model;
+          currentView,
+          trialMessage } = this.props.model;
 
     return (
       <Container>
         <Header message={message} date={date} />
         <SectionTitle title={sectionTitle} />
-        {this.viewToggle({currentView, categories})}
+        {this.viewToggle({currentView, categories, trialMessage})}
       </Container>
     );
   }
@@ -55,6 +64,7 @@ Shell.propTypes = {
            date: PropTypes.string.isRequired,
            categories: PropTypes.array,
            sectionTitle: PropTypes.string.isRequired,
-           currentView: PropTypes.string.isRequired
+           currentView: PropTypes.string.isRequired,
+           trialMessage: PropTypes.string
          })
 };
