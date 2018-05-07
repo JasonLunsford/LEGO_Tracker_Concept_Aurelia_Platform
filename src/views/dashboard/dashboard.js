@@ -20,12 +20,7 @@ export class Dashboard {
     }
 
     attached() {
-        this.model = {};
-        
-        _.set(this.model, 'currentView', 'Dashboard');
-        _.set(this.model, 'sectionTitle', 'Dashboard');
-        _.set(this.model, 'message', 'Hello Jason Lunsford!');
-        _.set(this.model, 'date', this.getDate.today());
+        this._prepareView();
 
         this.init();
     }
@@ -49,6 +44,15 @@ export class Dashboard {
         return _.map(source, item => {
             return item.name;
         });
+    }
+
+    _prepareView() {
+        this.model = {};
+        
+        _.set(this.model, 'currentView', 'Dashboard');
+        _.set(this.model, 'sectionTitle', 'Dashboard');
+        _.set(this.model, 'message', 'Hello Jason Lunsford!');
+        _.set(this.model, 'date', this.getDate.today());
     }
 
     async init() {

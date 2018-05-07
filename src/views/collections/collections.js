@@ -1,4 +1,4 @@
-import {inject} from 'aurelia-framework';
+import {inject, observable} from 'aurelia-framework';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -12,6 +12,8 @@ const MEGABYTE = 1048576;
 
 @inject(Element)
 export class Collections {
+    @observable type;
+
     constructor(element) {
         this.element = element;
     }
@@ -23,19 +25,18 @@ export class Collections {
     }
 
     attached() {
-        this.message = `Collection Details for ${this.type} Displayed Here`;
-        this.model = {};
-        
-        _.set(this.model, 'currentView', 'Collections');
-        _.set(this.model, 'sectionTitle', 'Collections');
-        _.set(this.model, 'message', 'Return to Dashboard');
-        _.set(this.model, 'date', this.getDate.today());
-        _.set(this.model, 'trialMessage', this.message);
-
-        this.render();
+        this._prepareView();
     }
 
     detached() {}
+
+    typeChanged(newType, oldType) {
+        if (_.isNil(oldType)) {
+            return;
+        }
+
+        this._prepareView();     
+    }
 
     getDate = {
         today: () => { return moment().format('MMMM Do YYYY'); }
@@ -48,5 +49,18 @@ export class Collections {
           />,
           this.element
         );
+    }
+
+    _prepareView() {
+        this.message = `Collection Details for ${this.type} Displayed Here`;
+        this.model = {};
+        
+        _.set(this.model, 'currentView', 'Collections');
+        _.set(this.model, 'sectionTitle', 'Collections');
+        _.set(this.model, 'message', 'Return to Dashboard');
+        _.set(this.model, 'date', this.getDate.today());
+        _.set(this.model, 'trialMessage', this.message);
+
+        this.render();
     }
 }
