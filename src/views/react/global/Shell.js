@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import moment from 'moment';
+
 import styled, {injectGlobal} from 'styled-components';
 import {Container} from './styles/shell.sc';
 
@@ -40,9 +42,12 @@ export default class Shell extends Component {
       }
   }
 
+  getDate = {
+      today: () => { return moment().format('MMMM Do YYYY'); }
+  }
+
   render() {
     let { message,
-          date,
           categories,
           sectionTitle,
           currentView,
@@ -50,7 +55,7 @@ export default class Shell extends Component {
 
     return (
       <Container>
-        <Header message={message} date={date} />
+        <Header message={message} date={this.getDate.today()} />
         <SectionTitle title={sectionTitle} />
         {this.viewToggle({currentView, categories, trialMessage})}
       </Container>
@@ -61,7 +66,6 @@ export default class Shell extends Component {
 Shell.propTypes = {
   model: PropTypes.shape({
            message: PropTypes.string,
-           date: PropTypes.string.isRequired,
            categories: PropTypes.array,
            sectionTitle: PropTypes.string.isRequired,
            currentView: PropTypes.string.isRequired,
