@@ -24,10 +24,6 @@ injectGlobal`
 
 export default class Shell extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   viewToggle({currentView, categories = [], trialMessage}) {
       switch (currentView) {
         case 'Dashboard':

@@ -5,10 +5,6 @@ import {Container,
         Title} from './styles/section_title.sc';
 
 export default class SectionTitle extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let { title } = this.props;
 

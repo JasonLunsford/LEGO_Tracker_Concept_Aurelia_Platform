@@ -4,10 +4,6 @@ import styled from 'styled-components';
 import {Container, List, Span} from './styles/dashboard.sc';
 
 export default class Dashboard extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         let { categories } = this.props;
 
