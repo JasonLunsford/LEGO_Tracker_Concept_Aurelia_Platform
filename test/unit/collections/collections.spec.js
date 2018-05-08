@@ -11,15 +11,21 @@ beforeEach(() => {
 });
 
 describe('attached', () => {
-    beforeEach(() => {
+    let _model = () => {
+        return {
+            currentView:  'Collections',
+            message :     'Return to Dashboard',
+            sectionTitle: 'Collections',
+            trialMessage: 'Collection Details for world Displayed Here'
+        };
+    };
+
+    it('should initialize the React model', () => {
+        spyOn(collections, '_prepareView').and.callThrough();
+        spyOn(collections, '_render');
         collections.attached();
-    });
 
-    it('should initialize a demo string', () => {
-        expect(collections.message).toEqual(jasmine.any(String));
-    });
-
-    it('should have access to one route parameters', () => {
-        expect(collections.type).toEqual(jasmine.any(String));
+        expect(collections.model).toEqual(_model());
+        expect(collections._prepareView).toHaveBeenCalled();
     });
 });

@@ -12,16 +12,21 @@ beforeEach(() => {
 });
 
 describe('attached', () => {
-    beforeEach(() => {
+    let _model = () => {
+        return {
+            currentView:  'Details',
+            message :     'Return to Dashboard',
+            sectionTitle: 'Edit Details',
+            trialMessage: 'Edit Entry Details for world and hello Displayed Here'
+        };
+    };
+
+    it('should initialize the React model', () => {
+        spyOn(editDetails, '_prepareView').and.callThrough();
+        spyOn(editDetails, '_render');
         editDetails.attached();
-    });
 
-    it('should initialize a demo string', () => {
-        expect(editDetails.message).toEqual(jasmine.any(String));
-    });
-
-    it('should have access to two route parameters', () => {
-        expect(editDetails.id).toEqual(jasmine.any(String));
-        expect(editDetails.type).toEqual(jasmine.any(String));
+        expect(editDetails.model).toEqual(_model());
+        expect(editDetails._prepareView).toHaveBeenCalled();
     });
 });

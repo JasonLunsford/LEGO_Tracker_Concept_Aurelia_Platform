@@ -7,31 +7,21 @@ let dashboard = new Dashboard();
 describe('attached', () => {
     let _model = () => {
         return {
-            pageTitle: 'Dashboard',
-            greeting:  'Hello Jason Lunsford!',
-            date:      moment().format('MMMM Do YYYY')
+            currentView:  'Dashboard',
+            message :     'Hello Jason Lunsford!',
+            sectionTitle: 'Dashboard'
         };
     };
 
-    it('should initialize an empty model and a welcome message', () => {
+    it('should initialize the React model', () => {
         spyOn(dashboard, 'init');
+        spyOn(dashboard, '_prepareView').and.callThrough();
         dashboard.attached();
 
         expect(dashboard.model).toEqual(_model());
         expect(dashboard.init).toHaveBeenCalled();
+        expect(dashboard._prepareView).toHaveBeenCalled();
     });
 });
 
-describe('getDate', () => {
-    let date;
 
-    beforeEach(() => {
-        date = moment().format('MMMM Do YYYY');
-    });
-
-    it('should return todays date when today method called', () => {
-        let actual = dashboard.getDate.today();
-
-        expect(actual).toEqual(date);
-    });
-});
