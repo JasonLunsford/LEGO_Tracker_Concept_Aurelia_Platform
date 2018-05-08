@@ -4,20 +4,16 @@ import Banner from './Banner';
 import Info from './Info';
 
 import styled from 'styled-components';
-import {Container} from './styles/header';
+import {Container} from './styles/header.sc';
 
 export default class Header extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
-        let { greeting, date } = this.props;
+        let { message, date } = this.props;
 
         return (
             <Container>
                 <Banner />
-                <Info greeting={greeting} date={date} />
+                <Info message={message} date={date} />
             </Container>
         );
     }

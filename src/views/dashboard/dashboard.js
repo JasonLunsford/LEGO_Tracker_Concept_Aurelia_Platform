@@ -4,13 +4,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import _ from 'lodash';
-import moment from 'moment';
 
 import {CoreServices} from '../../services/core_services';
+import {MEGABYTE} from '../../helpers/constants'
 
 import Shell from '../react/global/Shell';
-
-const MEGABYTE = 1048576;
 
 @inject(CoreServices, Element)
 export class Dashboard {
@@ -20,35 +18,34 @@ export class Dashboard {
     }
 
     attached() {
-        this.model = {};
-        
-        _.set(this.model, 'currentView', 'Dashboard');
-        _.set(this.model, 'sectionTitle', 'Dashboard');
-        _.set(this.model, 'greeting', 'Hello Jason Lunsford!');
-        _.set(this.model, 'date', this.getDate.today());
+        this._prepareView();
 
         this.init();
     }
 
     detached() {}
 
-    getDate = {
-        today: () => { return moment().format('MMMM Do YYYY'); }
-    }
-
-    render() {
-        ReactDOM.render(
-          <Shell 
-            model={this.model}
-          />,
-          this.element
-        );
-    }
-
     _extractNames(source) {
         return _.map(source, item => {
             return item.name;
         });
+    }
+
+    _prepareView() {
+        this.model = {};
+        
+        _.set(this.model, 'currentView', 'Dashboard');
+        _.set(this.model, 'sectionTitle', 'Dashboard');
+        _.set(this.model, 'message', 'Hello Jason Lunsford!');
+    }
+
+    _render() {
+        ReactDOM.render(
+          <Shell 
+            model={this.model}
+          />,
+          this.insert
+        );
     }
 
     async init() {
@@ -68,7 +65,7 @@ export class Dashboard {
 
         _.set(this.model, 'categories', categories);
 
-        this.render();
+        this._render();
     }
 
     async getCategories(names, promises) {
