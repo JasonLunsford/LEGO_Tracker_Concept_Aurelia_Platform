@@ -54,6 +54,7 @@ export default class Shell extends Component {
         <Header message={message} date={this.getDate.today()} />
         <SectionTitle title={sectionTitle} />
         {this.viewToggle({currentView, categories, trialMessage})}
+        <div>{this.state.count}</div>
       </Container>
     );
   }
