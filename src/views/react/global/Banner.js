@@ -6,6 +6,7 @@ import {Container,
         Lego} from './styles/banner.sc';
 
 export default class Banner extends Component {
+
     render() {
         return (
             <Container>

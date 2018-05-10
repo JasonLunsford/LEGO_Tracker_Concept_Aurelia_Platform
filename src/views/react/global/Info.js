@@ -5,6 +5,7 @@ import {Container,
         Bar} from './styles/info.sc';
 
 export default class Info extends Component {
+
     render() {
         let { message, date } = this.props;
 

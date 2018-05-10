@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import {Container} from './styles/header.sc';
 
 export default class Header extends Component {
+
     render() {
         let { message, date } = this.props;
 
