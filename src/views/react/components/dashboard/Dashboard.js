@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 
 import styled from 'styled-components';
-import {Container, List, Span} from './styles/dashboard.sc';
+import {Container, Badge, Span, TitleBox, 
+        Title, LastUpdate, CountBox, 
+        Count, SizeBox} from './styles/dashboard.sc';
 
 export default class Dashboard extends Component {
 
@@ -10,15 +12,22 @@ export default class Dashboard extends Component {
 
         return (
             <Container>
-                <List>
-                    {categories.map((category, index) => 
-                      <li key={index}>
-                        <Span>{category.name}</Span>
-                        <Span>{category.count}</Span>
-                        <Span>{category.size}</Span>
-                      </li>
-                    )}
-                </List>
+                {categories.map((category, index) => 
+                  <Badge key={index}>
+                    <TitleBox>
+                        <Title>{category.name}</Title>
+                        <LastUpdate>Last updated: March 16, 2018</LastUpdate>
+                    </TitleBox>
+                    <CountBox>
+                        <Count>{category.count}</Count>
+                        <Span>Documents</Span>
+                    </CountBox>
+                    <SizeBox>
+                        <Span>{category.size} MB</Span>
+                        <Span>Disk</Span>
+                    </SizeBox>
+                  </Badge>
+                )}
             </Container>
         );
     }
