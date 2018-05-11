@@ -39,7 +39,7 @@ export class NewDetails {
         this.message = `New Entry Details for ${this.type} Displayed Here`;
         this.model = {};
         
-        _.set(this.model, 'currentView', 'Details');
+        _.set(this.model, 'currentView', 'details');
         _.set(this.model, 'sectionTitle', 'New Details');
         _.set(this.model, 'message', 'Return to Dashboard');
         _.set(this.model, 'trialMessage', this.message);

@@ -6,24 +6,41 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 
 import {CoreServices} from '../../services/core_services';
-import {MEGABYTE} from '../../helpers/constants'
+import {ModelManager} from '../../helpers/model_manager';
+import {MEGABYTE} from '../../helpers/constants';
 
 import Shell from '../react/global/Shell';
 
-@inject(CoreServices, Element)
+@inject(CoreServices, Element, ModelManager)
 export class Dashboard {
-    constructor(coreServices, element) {
+    constructor(coreServices, element, modelManager) {
         this.coreServices = coreServices;
         this.element = element;
+        this.modelManager = modelManager;
+
+        this.currentView = 'dashboard';
+
+        this.initModel();
     }
 
     attached() {
-        this._prepareView();
-
         this.init();
     }
 
     detached() {}
+
+    initModel() {
+        let appModel = this.modelManager.getModel();
+
+        this.dashboardModel = _.get(appModel, 'dashboard');
+
+        _.set(this.dashboardModel, 'sectionTitle', 'Dashboard');
+        _.set(this.dashboardModel, 'message', 'Hello Jason Lunsford!');
+    }
+
+    saveModel() {
+        return this.modelManager.saveModel(this.dashboardModel, this.currentView);
+    }
 
     _extractNames(source) {
         return _.map(source, item => {
@@ -31,24 +48,25 @@ export class Dashboard {
         });
     }
 
-    _prepareView() {
-        this.model = {};
-        
-        _.set(this.model, 'currentView', 'Dashboard');
-        _.set(this.model, 'sectionTitle', 'Dashboard');
-        _.set(this.model, 'message', 'Hello Jason Lunsford!');
-    }
-
     _render() {
+        const model = this.saveModel();
+        
         ReactDOM.render(
           <Shell 
-            model={this.model}
+            model={model}
+            currentView={this.currentView}
           />,
           this.insert
         );
     }
 
     async init() {
+        if (_.get(this.dashboardModel, 'categories')) {
+            this._render();
+
+            return;
+        }
+
         const names = await this.getNames();
 
         let countPromises = _.map(names, name => {
@@ -63,7 +81,7 @@ export class Dashboard {
         
         const categories = await this.getCategories(names, promises);
 
-        _.set(this.model, 'categories', categories);
+        _.set(this.dashboardModel, 'categories', categories);
 
         this._render();
     }

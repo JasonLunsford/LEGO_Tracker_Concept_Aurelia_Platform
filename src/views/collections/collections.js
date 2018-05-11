@@ -39,7 +39,7 @@ export class Collections {
         this.message = `Collection Details for ${this.type} Displayed Here`;
         this.model = {};
         
-        _.set(this.model, 'currentView', 'Collections');
+        _.set(this.model, 'currentView', 'collections');
         _.set(this.model, 'sectionTitle', 'Collections');
         _.set(this.model, 'message', 'Return to Dashboard');
         _.set(this.model, 'trialMessage', this.message);
