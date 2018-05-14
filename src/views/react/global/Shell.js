@@ -81,7 +81,7 @@ Shell.propTypes = {
            message: PropTypes.string,
            categories: PropTypes.array,
            sectionTitle: PropTypes.string.isRequired,
-           currentView: PropTypes.string.isRequired,
            trialMessage: PropTypes.string
-         })
+         }),
+  currentView: PropTypes.string.isRequired
 };

@@ -20,7 +20,7 @@ export class Dashboard {
 
         this.currentView = 'dashboard';
 
-        this.initModel();
+        this.initAppModel();
     }
 
     attached() {
@@ -29,17 +29,21 @@ export class Dashboard {
 
     detached() {}
 
-    initModel() {
-        let appModel = this.modelManager.getModel();
+    initAppModel() {
+        const model = this.modelManager.getModel();
 
-        this.dashboardModel = _.get(appModel, 'dashboard');
+        this.appModel = _.get(model, this.currentView);
 
-        _.set(this.dashboardModel, 'sectionTitle', 'Dashboard');
-        _.set(this.dashboardModel, 'message', 'Hello Jason Lunsford!');
+        _.set(this.appModel, 'sectionTitle', this.convert.upperFirst());
+        _.set(this.appModel, 'message', 'Hello LEGO Super Fan!');
     }
 
     saveModel() {
-        return this.modelManager.saveModel(this.dashboardModel, this.currentView);
+        return this.modelManager.saveModel(this.appModel, this.currentView);
+    }
+
+    convert = {
+        upperFirst: () => { return _.upperFirst(this.currentView); }
     }
 
     _extractNames(source) {
@@ -61,7 +65,7 @@ export class Dashboard {
     }
 
     async init() {
-        if (_.get(this.dashboardModel, 'categories')) {
+        if (_.get(this.appModel, 'categories')) {
             this._render();
 
             return;
@@ -81,7 +85,7 @@ export class Dashboard {
         
         const categories = await this.getCategories(names, promises);
 
-        _.set(this.dashboardModel, 'categories', categories);
+        _.set(this.appModel, 'categories', categories);
 
         this._render();
     }
