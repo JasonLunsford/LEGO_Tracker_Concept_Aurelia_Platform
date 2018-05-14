@@ -5,14 +5,19 @@ import ReactDOM from 'react-dom';
 
 import _ from 'lodash';
 
+import {ModelManager} from '../../helpers/model_manager';
+
 import Shell from '../react/global/Shell';
 
-@inject(Element)
+@inject(Element, ModelManager)
 export class Collections {
     @observable type;
 
-    constructor(element) {
+    constructor(element, modelManager) {
         this.element = element;
+        this.modelManager = modelManager;
+
+        this.currentView = 'collections';
     }
 
     activate(params) {
@@ -22,7 +27,7 @@ export class Collections {
     }
 
     attached() {
-        this._prepareView();
+        this.initAppModel();
     }
 
     detached() {}
@@ -32,25 +37,46 @@ export class Collections {
             return;
         }
 
-        this._prepareView();     
+        this.updateAppModel();     
     }
 
-    _prepareView() {
+    saveModel() {
+        return this.modelManager.saveModel(this.appModel, this.currentView);
+    }
+
+    initAppModel() {
+        const model = this.modelManager.getModel();
+
+        this.appModel = _.get(model, this.currentView);
+
         this.message = `Collection Details for ${this.type} Displayed Here`;
-        this.model = {};
         
-        _.set(this.model, 'currentView', 'Collections');
-        _.set(this.model, 'sectionTitle', 'Collections');
-        _.set(this.model, 'message', 'Return to Dashboard');
-        _.set(this.model, 'trialMessage', this.message);
+        _.set(this.appModel, 'sectionTitle',  this.convert.upperFirst());
+        _.set(this.appModel, 'message', 'Return to Dashboard');
+        _.set(this.appModel, 'trialMessage', this.message);
 
         this._render();
     }
 
+    updateAppModel() {
+        this.message = `Collection Details for ${this.type} Displayed Here`;
+
+        _.set(this.appModel, 'trialMessage', this.message);
+
+        this._render();
+    }
+
+    convert = {
+        upperFirst: () => { return _.upperFirst(this.currentView); }
+    }
+
     _render() {
+        const model = this.saveModel();
+
         ReactDOM.render(
           <Shell 
-            model={this.model}
+            model={model}
+            currentView={this.currentView}
           />,
           this.insert
         );

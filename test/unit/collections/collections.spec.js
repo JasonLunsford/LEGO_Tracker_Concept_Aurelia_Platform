@@ -13,7 +13,7 @@ beforeEach(() => {
 describe('attached', () => {
     let _model = () => {
         return {
-            currentView:  'Collections',
+            currentView:  'collections',
             message :     'Return to Dashboard',
             sectionTitle: 'Collections',
             trialMessage: 'Collection Details for world Displayed Here'

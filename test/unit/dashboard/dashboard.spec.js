@@ -7,8 +7,8 @@ let dashboard = new Dashboard();
 describe('attached', () => {
     let _model = () => {
         return {
-            currentView:  'Dashboard',
-            message :     'Hello Jason Lunsford!',
+            currentView:  'dashboard',
+            message :     'Hello LEGO Super Fan!',
             sectionTitle: 'Dashboard'
         };
     };

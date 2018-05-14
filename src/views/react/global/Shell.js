@@ -24,15 +24,32 @@ injectGlobal`
 
 export default class Shell extends Component {
 
+  prepareView() {
+    let currentView = this.props.currentView;
+
+    let message = _.get(this.props.model[currentView], 'message');
+    let sectionTitle = _.get(this.props.model[currentView], 'sectionTitle');
+    let categories = _.get(this.props.model[currentView], 'categories');
+    let trialMessage = _.get(this.props.model[currentView], 'trialMessage');
+
+    return {
+      categories,
+      currentView,
+      message,
+      sectionTitle,
+      trialMessage
+    };
+  }
+
   viewToggle({currentView, categories = [], trialMessage}) {
       switch (currentView) {
-        case 'Dashboard':
+        case 'dashboard':
           return <Dashboard categories={categories} />
           break;
-        case 'Collections':
+        case 'collections':
           return <Collections trialMessage={trialMessage} />
           break;
-        case 'Details':
+        case 'details':
           return <Details trialMessage={trialMessage} />
           break;
       }
@@ -43,11 +60,11 @@ export default class Shell extends Component {
   }
 
   render() {
-    let { message,
-          categories,
-          sectionTitle,
+    let { categories,
           currentView,
-          trialMessage } = this.props.model;
+          message,
+          sectionTitle,
+          trialMessage } = this.prepareView();
 
     return (
       <Container>
@@ -64,7 +81,7 @@ Shell.propTypes = {
            message: PropTypes.string,
            categories: PropTypes.array,
            sectionTitle: PropTypes.string.isRequired,
-           currentView: PropTypes.string.isRequired,
            trialMessage: PropTypes.string
-         })
+         }),
+  currentView: PropTypes.string.isRequired
 };

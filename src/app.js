@@ -1,4 +1,13 @@
+import {inject} from 'aurelia-framework';
+
+import {ModelManager} from './helpers/model_manager';
+
+@inject(ModelManager)
 export class App {
+    constructor(modelManager) {
+        modelManager.initModel();
+    }
+
     configureRouter(config, router) {
         this.router = router;
 

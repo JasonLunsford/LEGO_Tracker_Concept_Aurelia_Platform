@@ -40,7 +40,7 @@ export class ViewDetails {
         this.message = `View Entry Details for ${this.type} and ${this.id} Displayed Here`;
         this.model = {};
         
-        _.set(this.model, 'currentView', 'Details');
+        _.set(this.model, 'currentView', 'details');
         _.set(this.model, 'sectionTitle', 'View Details');
         _.set(this.model, 'message', 'Return to Dashboard');
         _.set(this.model, 'trialMessage', this.message);

@@ -14,7 +14,7 @@ beforeEach(() => {
 describe('attached', () => {
     let _model = () => {
         return {
-            currentView:  'Details',
+            currentView:  'details',
             message :     'Return to Dashboard',
             sectionTitle: 'Edit Details',
             trialMessage: 'Edit Entry Details for world and hello Displayed Here'

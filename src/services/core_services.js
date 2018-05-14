@@ -11,7 +11,7 @@ export class CoreServices {
     constructor() {}
 
     convert = {
-        format: name => { return name.split(/(?=[A-Z])/).join('_').toLowerCase(); },
+        format: name => { return _.chain(name).toLower().replace(' ', '_').value() },
         search: term => { return _.chain(term).trim().escape().value(); }
     }
 
