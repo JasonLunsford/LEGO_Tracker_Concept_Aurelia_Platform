@@ -26,6 +26,7 @@ export default class Shell extends Component {
 
   prepareView() {
     let currentView = this.props.currentView;
+    let router = this.props.router;
 
     let message = _.get(this.props.model[currentView], 'message');
     let sectionTitle = _.get(this.props.model[currentView], 'sectionTitle');
@@ -37,14 +38,15 @@ export default class Shell extends Component {
       currentView,
       message,
       sectionTitle,
-      trialMessage
+      trialMessage,
+      router
     };
   }
 
-  viewToggle({currentView, categories = [], trialMessage}) {
+  viewToggle({currentView, categories = [], trialMessage, router}) {
       switch (currentView) {
         case 'dashboard':
-          return <Dashboard categories={categories} />
+          return <Dashboard categories={categories} router={router} />
           break;
         case 'collections':
           return <Collections trialMessage={trialMessage} />
@@ -64,13 +66,14 @@ export default class Shell extends Component {
           currentView,
           message,
           sectionTitle,
-          trialMessage } = this.prepareView();
+          trialMessage,
+          router } = this.prepareView();
 
     return (
       <Container>
         <Header message={message} date={this.getDate.today()} />
         <SectionTitle title={sectionTitle} />
-        {this.viewToggle({currentView, categories, trialMessage})}
+        {this.viewToggle({currentView, categories, trialMessage, router})}
       </Container>
     );
   }

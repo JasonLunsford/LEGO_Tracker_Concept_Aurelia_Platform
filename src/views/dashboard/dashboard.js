@@ -1,4 +1,5 @@
 import {inject} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -11,12 +12,13 @@ import {MEGABYTE} from '../../helpers/constants';
 
 import Shell from '../react/global/Shell';
 
-@inject(CoreServices, Element, ModelManager)
+@inject(CoreServices, Element, ModelManager, Router)
 export class Dashboard {
-    constructor(coreServices, element, modelManager) {
+    constructor(coreServices, element, modelManager, router) {
         this.coreServices = coreServices;
         this.element = element;
         this.modelManager = modelManager;
+        this.router = router;
 
         this.currentView = 'dashboard';
 
@@ -46,6 +48,17 @@ export class Dashboard {
         upperFirst: () => { return _.upperFirst(this.currentView); }
     }
 
+    myRouter(mode, aspects) {
+        let { target, state, parent, child } = aspects;
+
+        switch(mode) {
+            case 'collections':
+                let route = `${mode}/${target}`
+                this.router.navigate(route);
+                break;
+        }
+    }
+
     _extractNames(source) {
         return _.map(source, item => {
             return item.name;
@@ -59,6 +72,7 @@ export class Dashboard {
           <Shell 
             model={model}
             currentView={this.currentView}
+            router={this.myRouter.bind(this)}
           />,
           this.insert
         );

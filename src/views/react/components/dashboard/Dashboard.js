@@ -14,12 +14,14 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        let { categories } = this.props;
+        let { categories, router } = this.props;
+
+        const collectionRouter = target => router('collections', {target})
 
         return (
             <Container>
                 {categories.map((category, index) => 
-                  <Badge key={index}>
+                  <Badge key={index} onClick={() => collectionRouter(category.name)}>
                     <TitleBox>
                         <Title>{this.convert.pretty(category.name)}</Title>
                         <LastUpdate>Last updated: March 16, 2018</LastUpdate>
