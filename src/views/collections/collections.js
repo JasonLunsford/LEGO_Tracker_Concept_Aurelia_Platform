@@ -76,7 +76,7 @@ export class Collections {
         ReactDOM.render(
           <Shell 
             model={model}
-            currentView={this.currentView}
+            view={this.currentView}
           />,
           this.insert
         );

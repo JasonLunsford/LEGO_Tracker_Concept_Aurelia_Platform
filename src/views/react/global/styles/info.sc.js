@@ -19,3 +19,6 @@ export const Bar = styled.p`
     margin:        0;
     padding:       5px;
 `;
+ export const LinkBar = Bar.extend`
+    color: blue
+ `;

@@ -3,6 +3,7 @@ import environment from './environment';
 export function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
+    .router()
     .feature('resources');
 
   if (environment.debug) {

@@ -25,17 +25,17 @@ injectGlobal`
 export default class Shell extends Component {
 
   prepareView() {
-    let currentView = this.props.currentView;
+    let view = this.props.view;
     let router = this.props.router;
 
-    let message = _.get(this.props.model[currentView], 'message');
-    let sectionTitle = _.get(this.props.model[currentView], 'sectionTitle');
-    let categories = _.get(this.props.model[currentView], 'categories');
-    let trialMessage = _.get(this.props.model[currentView], 'trialMessage');
+    let message = _.get(this.props.model[view], 'message');
+    let sectionTitle = _.get(this.props.model[view], 'sectionTitle');
+    let categories = _.get(this.props.model[view], 'categories');
+    let trialMessage = _.get(this.props.model[view], 'trialMessage');
 
     return {
       categories,
-      currentView,
+      view,
       message,
       sectionTitle,
       trialMessage,
@@ -43,8 +43,8 @@ export default class Shell extends Component {
     };
   }
 
-  viewToggle({currentView, categories = [], trialMessage, router}) {
-      switch (currentView) {
+  viewToggle({view, categories = [], trialMessage, router}) {
+      switch (view) {
         case 'dashboard':
           return <Dashboard categories={categories} router={router} />
           break;
@@ -63,7 +63,7 @@ export default class Shell extends Component {
 
   render() {
     let { categories,
-          currentView,
+          view,
           message,
           sectionTitle,
           trialMessage,
@@ -71,9 +71,12 @@ export default class Shell extends Component {
 
     return (
       <Container>
-        <Header message={message} date={this.getDate.today()} />
+        <Header message={message} 
+                date={this.getDate.today()} 
+                view={view} 
+                router={router}/>
         <SectionTitle title={sectionTitle} />
-        {this.viewToggle({currentView, categories, trialMessage, router})}
+        {this.viewToggle({view, categories, trialMessage, router})}
       </Container>
     );
   }
@@ -86,5 +89,5 @@ Shell.propTypes = {
            sectionTitle: PropTypes.string.isRequired,
            trialMessage: PropTypes.string
          }),
-  currentView: PropTypes.string.isRequired
+  view: PropTypes.string.isRequired
 };
