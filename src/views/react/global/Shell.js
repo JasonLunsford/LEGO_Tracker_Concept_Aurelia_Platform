@@ -83,11 +83,12 @@ export default class Shell extends Component {
 }
 
 Shell.propTypes = {
-  model: PropTypes.shape({
-           message: PropTypes.string,
-           categories: PropTypes.array,
-           sectionTitle: PropTypes.string.isRequired,
-           trialMessage: PropTypes.string
-         }),
-  view: PropTypes.string.isRequired
+  model:  PropTypes.shape({
+            message: PropTypes.string,
+            categories: PropTypes.array,
+            sectionTitle: PropTypes.string.isRequired,
+            trialMessage: PropTypes.string
+          }),
+  view:   PropTypes.string.isRequired,
+  router: PropTypes.func.isRequired
 };

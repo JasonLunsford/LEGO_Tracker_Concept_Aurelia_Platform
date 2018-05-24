@@ -3,22 +3,20 @@ import React, {Component} from 'react';
 import styled, {css} from 'styled-components';
 import {Container,
         Bar,
-        LinkBar} from './styles/info.sc';
+        Span} from './styles/info.sc';
 
 export default class Info extends Component {
 
-  viewToggle({message, view}) {
-      switch (view) {
-        case 'dashboard':
-          return <Bar>{message}</Bar>
-          break;
-        case 'collections':
-          return <LinkBar>{message}</LinkBar>
-          break;
-        case 'details':
-          return <LinkBar>{message}</LinkBar>
-          break;
-      }
+    viewToggle({message, view, router}) {
+        const dashboardRouter = view => router('dashboard');
+
+        if (view === 'dashboard') {
+            return <Bar>{message}</Bar>
+        }
+
+        return <Bar onClick={dashboardRouter}>
+                   <Span>{message}</Span>
+               </Bar>
   }
 
     render() {
@@ -26,7 +24,7 @@ export default class Info extends Component {
 
         return (
             <Container>
-                {this.viewToggle({message, view})}
+                {this.viewToggle({message, view, router})}
                 <Bar right>{date}</Bar>
             </Container>
         );
