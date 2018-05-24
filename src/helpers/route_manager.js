@@ -1,11 +1,17 @@
 
 export class RouteManager {
-    myRouter(mode, aspects) {
+
+    myRouter(mode, aspects = {}) {
         let { target, state, parent, child } = aspects;
+        let route;
 
         switch(mode) {
             case 'collections':
-                let route = `${mode}/${target}`
+                route = `${mode}/${target}`;
+                this.router.navigate(route);
+                break;
+            case 'dashboard':
+                route = `${mode}`;
                 this.router.navigate(route);
                 break;
         }

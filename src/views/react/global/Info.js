@@ -8,7 +8,7 @@ import {Container,
 export default class Info extends Component {
 
     viewToggle({message, view, router}) {
-        const dashboardRouter = view => router('dashboard');
+        const dashboardRouter = () => router('dashboard');
 
         if (view === 'dashboard') {
             return <Bar>{message}</Bar>
