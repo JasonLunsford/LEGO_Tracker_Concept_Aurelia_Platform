@@ -7,7 +7,7 @@ import {Container,
 export default class SectionTitle extends Component {
 
     render() {
-        let { title } = this.props;
+        const { title } = this.props;
 
         return (
             <Container>

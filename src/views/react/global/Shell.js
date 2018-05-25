@@ -16,6 +16,7 @@ import Details from '../components/details/Details';
 // eslint-disable-next-line
 injectGlobal`
   body {
+    cursor:      default;
     font-family: "Verdana", sans-serif;
     margin:      0;
     padding:     0px 10px;
@@ -46,7 +47,8 @@ export default class Shell extends Component {
   viewToggle({view, categories = [], trialMessage, router}) {
       switch (view) {
         case 'dashboard':
-          return <Dashboard categories={categories} router={router} />
+          return <Dashboard categories={categories}
+                            router={router} />
           break;
         case 'collections':
           return <Collections trialMessage={trialMessage} />
@@ -62,12 +64,12 @@ export default class Shell extends Component {
   }
 
   render() {
-    let { categories,
-          view,
-          message,
-          sectionTitle,
-          trialMessage,
-          router } = this.prepareView();
+    const { categories,
+            view,
+            message,
+            trialMessage,
+            sectionTitle,
+            router } = this.prepareView();
 
     return (
       <Container>

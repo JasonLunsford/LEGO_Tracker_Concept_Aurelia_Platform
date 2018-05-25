@@ -14,9 +14,9 @@ export default class Dashboard extends Component {
     }
 
     render() {
-        let { categories, router } = this.props;
+        const { categories, router } = this.props;
 
-        const collectionRouter = target => router('collections', {target})
+        const collectionRouter = target => router('collections', {target});
 
         return (
             <Container>
