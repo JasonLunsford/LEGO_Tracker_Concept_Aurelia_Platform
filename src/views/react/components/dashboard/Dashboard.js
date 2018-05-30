@@ -7,19 +7,30 @@ import {Container, Badge, Span, TitleBox,
         Title, LastUpdate, CountBox, 
         Count, SizeBox} from './styles/dashboard.sc';
 
+import { setSectionTitle } from '../../global/mobx/appState';
+
 export default class Dashboard extends Component {
+
+    componentWillMount() {
+        setSectionTitle('Dashboard');
+    }
 
     convert = {
         pretty: name => { return _.chain(name).replace('_', ' ').startCase().value(); }
     }
 
     render() {
-        let { categories } = this.props;
+        const { categories, router } = this.props;
+
+        const collectionRouter = target => {
+            setSectionTitle(this.convert.pretty(target));
+            router('collections', {target});
+        }
 
         return (
             <Container>
                 {categories.map((category, index) => 
-                  <Badge key={index}>
+                  <Badge key={index} onClick={() => collectionRouter(category.name)}>
                     <TitleBox>
                         <Title>{this.convert.pretty(category.name)}</Title>
                         <LastUpdate>Last updated: March 16, 2018</LastUpdate>

@@ -12,12 +12,18 @@ export const Container = styled.div`
 `;
 
 export const Badge = styled.div`
-    border:  1px solid black;
+    border:  2px solid black;
     flex:    0 1 auto;
     height:  200px;
     margin:  0 20px 30px 0;
     padding: 5px;
     width:   250px;
+
+    &:hover {
+        background-color: #fff8dc;
+        border-color:     #ff8c00;
+        cursor:           pointer;
+    }
 `;
 
 export const Span = styled.span`
@@ -45,7 +51,7 @@ export const LastUpdate = styled.span`
 
 export const CountBox = styled.div`
     align-items:     center;
-    border-bottom:   2px solid black;
+    border-bottom:   1px solid black;
     display:         flex;
     justify-content: center;
     flex-direction:  column;

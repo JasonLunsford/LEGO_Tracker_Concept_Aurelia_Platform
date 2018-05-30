@@ -19,3 +19,8 @@ export const Bar = styled.p`
     margin:        0;
     padding:       5px;
 `;
+
+ export const Span = styled.span`
+    color:  blue;
+    cursor: pointer;
+ `;

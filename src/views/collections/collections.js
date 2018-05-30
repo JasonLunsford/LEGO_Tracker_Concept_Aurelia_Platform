@@ -1,4 +1,5 @@
 import {inject, observable} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -6,16 +7,19 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 
 import {ModelManager} from '../../helpers/model_manager';
+import {RouteManager} from '../../helpers/route_manager';
 
 import Shell from '../react/global/Shell';
 
-@inject(Element, ModelManager)
+@inject(Element, ModelManager, RouteManager, Router)
 export class Collections {
     @observable type;
 
-    constructor(element, modelManager) {
+    constructor(element, modelManager, routeManager, router) {
         this.element = element;
         this.modelManager = modelManager;
+        this.routeManager = routeManager;
+        this.router = router;
 
         this.currentView = 'collections';
     }
@@ -76,7 +80,8 @@ export class Collections {
         ReactDOM.render(
           <Shell 
             model={model}
-            currentView={this.currentView}
+            view={this.currentView}
+            router={this.routeManager.myRouter.bind(this)}
           />,
           this.insert
         );

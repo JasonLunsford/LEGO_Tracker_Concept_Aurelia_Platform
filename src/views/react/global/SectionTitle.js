@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
 
+import { observer } from 'mobx-react';
+
+import { getSectionTitle } from './mobx/appState'
+
 import styled from 'styled-components';
 import {Container,
         Title} from './styles/section_title.sc';
 
-export default class SectionTitle extends Component {
+@observer export default class SectionTitle extends Component {
 
     render() {
-        let { title } = this.props;
+        const { title } = this.props;
 
         return (
             <Container>
-                <Title>{title}</Title>
+                <Title>{getSectionTitle()}</Title>
             </Container>
         );
     }

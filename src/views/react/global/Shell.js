@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import styled, {injectGlobal} from 'styled-components';
@@ -16,6 +16,7 @@ import Details from '../components/details/Details';
 // eslint-disable-next-line
 injectGlobal`
   body {
+    cursor:      default;
     font-family: "Verdana", sans-serif;
     margin:      0;
     padding:     0px 10px;
@@ -25,26 +26,29 @@ injectGlobal`
 export default class Shell extends Component {
 
   prepareView() {
-    let currentView = this.props.currentView;
+    let view = this.props.view;
+    let router = this.props.router;
 
-    let message = _.get(this.props.model[currentView], 'message');
-    let sectionTitle = _.get(this.props.model[currentView], 'sectionTitle');
-    let categories = _.get(this.props.model[currentView], 'categories');
-    let trialMessage = _.get(this.props.model[currentView], 'trialMessage');
+    let message = _.get(this.props.model[view], 'message');
+    let sectionTitle = _.get(this.props.model[view], 'sectionTitle');
+    let categories = _.get(this.props.model[view], 'categories');
+    let trialMessage = _.get(this.props.model[view], 'trialMessage');
 
     return {
       categories,
-      currentView,
+      view,
       message,
       sectionTitle,
-      trialMessage
+      trialMessage,
+      router
     };
   }
 
-  viewToggle({currentView, categories = [], trialMessage}) {
-      switch (currentView) {
+  viewToggle({view, categories = [], trialMessage, router}) {
+      switch (view) {
         case 'dashboard':
-          return <Dashboard categories={categories} />
+          return <Dashboard categories={categories}
+                            router={router} />
           break;
         case 'collections':
           return <Collections trialMessage={trialMessage} />
@@ -60,28 +64,33 @@ export default class Shell extends Component {
   }
 
   render() {
-    let { categories,
-          currentView,
-          message,
-          sectionTitle,
-          trialMessage } = this.prepareView();
+    const { categories,
+            view,
+            message,
+            trialMessage,
+            sectionTitle,
+            router } = this.prepareView();
 
     return (
       <Container>
-        <Header message={message} date={this.getDate.today()} />
+        <Header message={message} 
+                date={this.getDate.today()} 
+                view={view} 
+                router={router}/>
         <SectionTitle title={sectionTitle} />
-        {this.viewToggle({currentView, categories, trialMessage})}
+        {this.viewToggle({view, categories, trialMessage, router})}
       </Container>
     );
   }
 }
 
 Shell.propTypes = {
-  model: PropTypes.shape({
-           message: PropTypes.string,
-           categories: PropTypes.array,
-           sectionTitle: PropTypes.string.isRequired,
-           trialMessage: PropTypes.string
-         }),
-  currentView: PropTypes.string.isRequired
+  model:  PropTypes.shape({
+            message: PropTypes.string,
+            categories: PropTypes.array,
+            sectionTitle: PropTypes.string.isRequired,
+            trialMessage: PropTypes.string
+          }),
+  view:   PropTypes.string.isRequired,
+  router: PropTypes.func.isRequired
 };

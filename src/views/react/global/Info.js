@@ -2,16 +2,29 @@ import React, {Component} from 'react';
 
 import styled, {css} from 'styled-components';
 import {Container,
-        Bar} from './styles/info.sc';
+        Bar,
+        Span} from './styles/info.sc';
 
 export default class Info extends Component {
 
+    viewToggle({message, view, router}) {
+        const dashboardRouter = () => router('dashboard');
+
+        if (view === 'dashboard') {
+            return <Bar>{message}</Bar>
+        }
+
+        return <Bar onClick={dashboardRouter}>
+                   <Span>{message}</Span>
+               </Bar>
+  }
+
     render() {
-        let { message, date } = this.props;
+        let { message, date, view, router } = this.props;
 
         return (
             <Container>
-                <Bar>{message}</Bar>
+                {this.viewToggle({message, view, router})}
                 <Bar right>{date}</Bar>
             </Container>
         );

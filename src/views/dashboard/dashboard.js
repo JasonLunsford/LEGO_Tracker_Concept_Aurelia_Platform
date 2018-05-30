@@ -1,4 +1,5 @@
 import {inject} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -7,16 +8,19 @@ import _ from 'lodash';
 
 import {CoreServices} from '../../services/core_services';
 import {ModelManager} from '../../helpers/model_manager';
+import {RouteManager} from '../../helpers/route_manager';
 import {MEGABYTE} from '../../helpers/constants';
 
 import Shell from '../react/global/Shell';
 
-@inject(CoreServices, Element, ModelManager)
+@inject(CoreServices, Element, ModelManager, RouteManager, Router)
 export class Dashboard {
-    constructor(coreServices, element, modelManager) {
+    constructor(coreServices, element, modelManager, routeManager, router) {
         this.coreServices = coreServices;
         this.element = element;
         this.modelManager = modelManager;
+        this.routeManager = routeManager;
+        this.router = router;
 
         this.currentView = 'dashboard';
 
@@ -58,7 +62,8 @@ export class Dashboard {
         ReactDOM.render(
           <Shell 
             model={model}
-            currentView={this.currentView}
+            view={this.currentView}
+            router={this.routeManager.myRouter.bind(this)}
           />,
           this.insert
         );
