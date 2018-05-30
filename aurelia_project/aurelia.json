@@ -121,6 +121,16 @@
             "path": "../node_modules/prop-types",
             "main": "prop-types.min"
           },
+          {
+            "name": "mobx",
+            "path": "../node_modules/mobx/lib",
+            "main": "mobx"
+          },
+          {
+            "name": "mobx-react",
+            "path": "../node_modules/mobx-react",
+            "main": "index.min"
+          },
           "text"
         ]
       }
