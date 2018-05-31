@@ -14,13 +14,12 @@ export const Container = styled.div`
 export const Badge = styled.div`
     border:  2px solid black;
     flex:    0 1 auto;
-    height:  200px;
+    height:  300px;
     margin:  0 20px 30px 0;
     padding: 5px;
     width:   250px;
 
     &:hover {
-        background-color: #fff8dc;
         border-color:     #ff8c00;
         cursor:           pointer;
     }
@@ -69,5 +68,8 @@ export const SizeBox = styled.div`
     display:         flex;
     justify-content: center;
     flex-direction:  column;
+    margin-bottom:   10px;
     padding:         0;
 `;
+
+export const SearchBox = SizeBox.extend``;

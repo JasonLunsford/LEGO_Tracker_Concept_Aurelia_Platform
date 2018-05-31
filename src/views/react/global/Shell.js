@@ -30,7 +30,6 @@ export default class Shell extends Component {
     let router = this.props.router;
 
     let message = _.get(this.props.model[view], 'message');
-    let sectionTitle = _.get(this.props.model[view], 'sectionTitle');
     let categories = _.get(this.props.model[view], 'categories');
     let trialMessage = _.get(this.props.model[view], 'trialMessage');
 
@@ -38,7 +37,6 @@ export default class Shell extends Component {
       categories,
       view,
       message,
-      sectionTitle,
       trialMessage,
       router
     };
@@ -68,7 +66,6 @@ export default class Shell extends Component {
             view,
             message,
             trialMessage,
-            sectionTitle,
             router } = this.prepareView();
 
     return (
@@ -77,7 +74,7 @@ export default class Shell extends Component {
                 date={this.getDate.today()} 
                 view={view} 
                 router={router}/>
-        <SectionTitle title={sectionTitle} />
+        <SectionTitle />
         {this.viewToggle({view, categories, trialMessage, router})}
       </Container>
     );
@@ -88,7 +85,6 @@ Shell.propTypes = {
   model:  PropTypes.shape({
             message: PropTypes.string,
             categories: PropTypes.array,
-            sectionTitle: PropTypes.string.isRequired,
             trialMessage: PropTypes.string
           }),
   view:   PropTypes.string.isRequired,

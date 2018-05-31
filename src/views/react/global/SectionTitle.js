@@ -11,8 +11,6 @@ import {Container,
 @observer export default class SectionTitle extends Component {
 
     render() {
-        const { title } = this.props;
-
         return (
             <Container>
                 <Title>{getSectionTitle()}</Title>

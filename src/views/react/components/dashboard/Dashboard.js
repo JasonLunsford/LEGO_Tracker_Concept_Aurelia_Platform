@@ -5,9 +5,10 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import {Container, Badge, Span, TitleBox, 
         Title, LastUpdate, CountBox, 
-        Count, SizeBox} from './styles/dashboard.sc';
+        Count, SizeBox, SearchBox} from './styles/dashboard.sc';
 
 import { setSectionTitle } from '../../global/mobx/appState';
+import MyDownshift from '../mydownshift/MyDownshift';
 
 export default class Dashboard extends Component {
 
@@ -18,6 +19,14 @@ export default class Dashboard extends Component {
     convert = {
         pretty: name => { return _.chain(name).replace('_', ' ').startCase().value(); }
     }
+
+    items = [
+      {value: 'apple'},
+      {value: 'pear'},
+      {value: 'orange'},
+      {value: 'grape'},
+      {value: 'banana'},
+    ];
 
     render() {
         const { categories, router } = this.props;
@@ -43,6 +52,9 @@ export default class Dashboard extends Component {
                         <Span>{category.size} MB</Span>
                         <Span>Disk</Span>
                     </SizeBox>
+                    <SearchBox>
+                        <MyDownshift items={this.items} />
+                    </SearchBox>
                   </Badge>
                 )}
             </Container>
