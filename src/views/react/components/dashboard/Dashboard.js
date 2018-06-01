@@ -17,7 +17,7 @@ export default class Dashboard extends Component {
     }
 
     selectionUpdate(selection) {
-        console.log('selection: ', selection);
+        console.log('selection: ', selection.value);
     }
 
     convert = {

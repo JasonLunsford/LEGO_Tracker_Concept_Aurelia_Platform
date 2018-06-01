@@ -7,10 +7,6 @@ import {Container, DownshiftBox, Input} from './styles/mydownshift.sc';
 
 export default class MyDownshift extends Component {
 
-    componentWillMount() {
-        console.log('props: ', this.props);
-    }
-
     render() {
         const { items, selectionUpdate } = this.props;
 
