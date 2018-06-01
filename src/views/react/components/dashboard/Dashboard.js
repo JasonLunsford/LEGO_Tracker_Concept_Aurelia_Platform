@@ -16,6 +16,10 @@ export default class Dashboard extends Component {
         setSectionTitle('Dashboard');
     }
 
+    selectionUpdate(selection) {
+        console.log('selection: ', selection);
+    }
+
     convert = {
         pretty: name => { return _.chain(name).replace('_', ' ').startCase().value(); }
     }
@@ -53,7 +57,8 @@ export default class Dashboard extends Component {
                         <Span>Disk</Span>
                     </SizeBox>
                     <SearchBox>
-                        <MyDownshift items={this.items} />
+                        <MyDownshift items={this.items}
+                                     selectionUpdate={this.selectionUpdate} />
                     </SearchBox>
                   </Badge>
                 )}

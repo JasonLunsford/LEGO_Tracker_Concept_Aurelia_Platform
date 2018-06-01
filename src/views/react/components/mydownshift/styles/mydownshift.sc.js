@@ -8,12 +8,22 @@ export const Container = styled.div`
 
 export const DownshiftBox = styled.div`
     > div {
-        border: 1px solid black;
-        height: 20px;
-        padding: 2px 5px;
+        border:         1px solid black;
+        height:         20px;
+        padding-top:    2px;
+        padding-bottom: 2px;
 
-        > div {
+        div.inputBox {
+            padding: 0px 5px;
+        }
+
+        div.menuBox {
             margin-top: 3px;
+            padding:    0;
+
+            > div {
+                padding: 0 5px;
+            }
         }
     }
 `;
@@ -29,5 +39,13 @@ export const Input = styled.input`
 
     &:focus {
         outline: none;
+    }
+`;
+
+export const Row = styled.div`
+    background-color: white;
+
+    &:hover {
+        background-color: lightgray;
     }
 `;

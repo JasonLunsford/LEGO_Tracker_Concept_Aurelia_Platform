@@ -3,12 +3,16 @@ import React, {Component} from 'react';
 import Downshift from 'downshift';
 
 import styled from 'styled-components';
-import {Container, DownshiftBox, Input} from './styles/mydownshift.sc';
+import {Container, DownshiftBox, Input, Row} from './styles/mydownshift.sc';
 
 export default class MyDownshift extends Component {
 
+    componentWillMount() {
+        console.log('props: ', this.props);
+    }
+
     render() {
-        const { items } = this.props;
+        const { items, selectionUpdate } = this.props;
 
         const killEvent = e => {
             e.preventDefault()
@@ -19,41 +23,36 @@ export default class MyDownshift extends Component {
             <Container onClick={e => killEvent(e)}>
                 <DownshiftBox>
                     <Downshift
-                        onChange={selection => alert(`You selected ${selection.value}`)}
+                        onChange={selection => selectionUpdate(selection)}
                         itemToString={item => (item ? item.value : '')}
                     >
                         {({
                           getInputProps,
                           getItemProps,
                           isOpen,
-                          inputValue,
-                          highlightedIndex,
-                          selectedItem,
+                          inputValue
                         }) => (
                           <div>
-                            <Input {...getInputProps()} />
-                            {isOpen ? (
-                              <div>
+                              <div className="inputBox">
+                                <Input {...getInputProps()} />
+                              </div>
+                              {isOpen ? (
+                              <div className="menuBox">
                                 {items
                                   .filter(item => !inputValue || item.value.includes(inputValue))
                                   .map((item, index) => (
-                                    <div
+                                    <Row
                                       {...getItemProps({
                                         key: item.value,
                                         index,
-                                        item,
-                                        style: {
-                                          backgroundColor:
-                                            highlightedIndex === index ? 'lightgray' : 'white',
-                                          fontWeight: selectedItem === item ? 'bold' : 'normal',
-                                        },
+                                        item
                                       })}
                                     >
                                       {item.value}
-                                    </div>
+                                    </Row>
                                   ))}
                               </div>
-                            ) : null}
+                              ) : null}
                           </div>
                         )}
                     </Downshift>
