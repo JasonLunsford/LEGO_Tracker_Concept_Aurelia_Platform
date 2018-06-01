@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Downshift from 'downshift';
 
 import styled from 'styled-components';
-import {Container, DownshiftBox, Input, Row} from './styles/mydownshift.sc';
+import {Container, DownshiftBox, Input} from './styles/mydownshift.sc';
 
 export default class MyDownshift extends Component {
 
@@ -30,7 +30,8 @@ export default class MyDownshift extends Component {
                           getInputProps,
                           getItemProps,
                           isOpen,
-                          inputValue
+                          inputValue,
+                          highlightedIndex
                         }) => (
                           <div>
                               <div className="inputBox">
@@ -41,15 +42,20 @@ export default class MyDownshift extends Component {
                                 {items
                                   .filter(item => !inputValue || item.value.includes(inputValue))
                                   .map((item, index) => (
-                                    <Row
+                                    <div
                                       {...getItemProps({
                                         key: item.value,
                                         index,
-                                        item
+                                        item,
+                                        style: {
+                                          backgroundColor: highlightedIndex === index
+                                            ? 'peachpuff'
+                                            : 'white'
+                                        }
                                       })}
                                     >
                                       {item.value}
-                                    </Row>
+                                    </div>
                                   ))}
                               </div>
                               ) : null}
