@@ -8,14 +8,11 @@ export const Container = styled.div`
 
 export const DownshiftBox = styled.div`
     > div {
-        height:         20px;
-        padding-top:    2px;
-        padding-bottom: 2px;
+        height: 20px;
 
         div.inputBox {
-            border:        1px solid black;
-            padding-left:  5px;
-            padding-right: 5px;
+            border:  1px solid black;
+            padding: 2px 5px;
         }
 
         div.menuBox {
@@ -23,7 +20,7 @@ export const DownshiftBox = styled.div`
             border-left:      1px solid black;
             border-right:     1px solid black;
             border-bottom:    1px solid black;
-            padding:          0 0 5px 0;
+            padding:          0;
 
             > div {
                 padding: 0 5px;
