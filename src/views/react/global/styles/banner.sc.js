@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-    border:      2px solid black;
+    border:      ${props => props.theme.borders.thick};
     flex:        1 1 auto;
     font-weight: 100;
     margin:      0;

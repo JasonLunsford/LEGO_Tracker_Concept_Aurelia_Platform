@@ -9,11 +9,11 @@ export const Container = styled.div`
 `;
 
 export const Bar = styled.p`
-    border-left:   ${props => props.right ? '0' : '2px solid black'};
-    border-right:  ${props => props.right ? '2px solid black' : '0'};
+    border-left:   ${props => props.right ? '0' : props.theme.borders.thick};
+    border-right:  ${props => props.right ? props.theme.borders.thick : '0'};
     text-align:    ${props => props.right ? 'right' : 'left'};
-    border-top:    2px solid black;
-    border-bottom: 2px solid black;
+    border-top:    ${props => props.theme.borders.thick};
+    border-bottom: ${props => props.theme.borders.thick};
     flex:          1 1 auto;
     font-size:     12px;
     margin:        0;
@@ -21,6 +21,6 @@ export const Bar = styled.p`
 `;
 
  export const Span = styled.span`
-    color:  blue;
+    color:  ${props => props.theme.colors.blue};
     cursor: pointer;
  `;

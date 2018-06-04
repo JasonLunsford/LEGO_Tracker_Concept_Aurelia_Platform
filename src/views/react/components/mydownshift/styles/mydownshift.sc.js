@@ -11,15 +11,15 @@ export const DownshiftBox = styled.div`
         height: 20px;
 
         div.inputBox {
-            border:  1px solid black;
+            border:  ${props => props.theme.borders.default};
             padding: 2px 5px;
         }
 
         div.menuBox {
             background-color: white;
-            border-left:      1px solid black;
-            border-right:     1px solid black;
-            border-bottom:    1px solid black;
+            border-left:      ${props => props.theme.borders.default};
+            border-right:     ${props => props.theme.borders.default};
+            border-bottom:    ${props => props.theme.borders.default};
             padding:          0;
 
             > div {

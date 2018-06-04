@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Badge = styled.div`
-    border:  2px solid black;
+    border:  ${props => props.theme.borders.thick};
     flex:    0 1 auto;
     height:  300px;
     margin:  0 20px 30px 0;
@@ -20,7 +20,7 @@ export const Badge = styled.div`
     width:   250px;
 
     &:hover {
-        border-color:     #ff8c00;
+        border-color:     ${props => props.theme.colors.orange};
         cursor:           pointer;
     }
 `;
@@ -50,7 +50,7 @@ export const LastUpdate = styled.span`
 
 export const CountBox = styled.div`
     align-items:     center;
-    border-bottom:   1px solid black;
+    border-bottom:   ${props => props.theme.borders.default};
     display:         flex;
     justify-content: center;
     flex-direction:  column;
