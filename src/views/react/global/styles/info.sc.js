@@ -15,7 +15,7 @@ export const Bar = styled.p`
     border-top:    ${props => props.theme.borders.thick};
     border-bottom: ${props => props.theme.borders.thick};
     flex:          1 1 auto;
-    font-size:     12px;
+    font-size:     ${props => props.theme.fonts.normal};
     margin:        0;
     padding:       5px;
 `;

@@ -16,13 +16,14 @@ export const DownshiftBox = styled.div`
         }
 
         div.menuBox {
-            background-color: white;
+            background-color: ${props => props.theme.colors.white};
             border-left:      ${props => props.theme.borders.default};
             border-right:     ${props => props.theme.borders.default};
             border-bottom:    ${props => props.theme.borders.default};
             padding:          0;
 
             > div {
+                font-size: ${props => props.theme.fonts.medium};
                 padding: 0 5px;
             }
         }
@@ -32,7 +33,7 @@ export const DownshiftBox = styled.div`
 export const Input = styled.input`
     border:    0;
     display:   block;
-    font-size: 18px;
+    font-size: ${props => props.theme.fonts.large};
     height:    100%;
     margin:    0;
     padding:   0;

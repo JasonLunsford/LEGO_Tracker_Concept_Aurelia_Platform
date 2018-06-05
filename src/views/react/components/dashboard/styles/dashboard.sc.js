@@ -39,12 +39,12 @@ export const TitleBox = styled.div`
 
 export const Title = styled.span`
     flex:       1 1 auto;
-    font-size:  20px;
+    font-size:  ${props => props.theme.fonts.large};
 `;
 
 export const LastUpdate = styled.span`
     flex:       1 1 auto;
-    font-size:  12px;
+    font-size:  ${props => props.theme.fonts.normal};
     font-style: italic;
 `;
 
@@ -52,15 +52,15 @@ export const CountBox = styled.div`
     align-items:     center;
     border-bottom:   ${props => props.theme.borders.default};
     display:         flex;
-    justify-content: center;
     flex-direction:  column;
+    justify-content: center;
     margin:          0 0 5px 0;
     padding:         0 0 5px 0;
 `;
 
 export const Count = styled.span`
     flex:       1 1 auto;
-    font-size:  40px;
+    font-size:  ${props => props.theme.fonts.xxlarge};
 `;
 
 export const SizeBox = styled.div`
