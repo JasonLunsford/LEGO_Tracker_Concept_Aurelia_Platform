@@ -11,7 +11,7 @@ export default class MyDownshift extends Component {
         const { items, selectionUpdate } = this.props;
 
         const killEvent = e => {
-            e.preventDefault()
+            e.preventDefault();
             e.stopPropagation();
         }
 

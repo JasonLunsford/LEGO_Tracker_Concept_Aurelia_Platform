@@ -72,4 +72,25 @@ export const SizeBox = styled.div`
     padding:         0;
 `;
 
-export const SearchBox = SizeBox.extend``;
+export const ButtonBox = styled.div`
+    align-items:     center;
+    display:         flex;
+    justify-content: space-between;
+    flex-direction:  row;
+    margin-bottom:   10px;
+    padding:         0;
+`;
+
+export const Button = styled.button`
+    border:        ${props => props.theme.buttons.default.border};
+    border-radius: ${props => props.theme.buttons.default.borderRadius};
+    color:         ${props => props.theme.buttons.default.color};
+    cursor:        ${props => props.theme.buttons.default.cursor};
+    flex:          0 1 auto;
+    font-size:     ${props => props.theme.buttons.default.fontSize};
+    padding:       ${props => props.theme.buttons.default.padding};
+
+    &:hover {
+        background: ${props => props.theme.buttons.default.hover.background};
+    }
+`;

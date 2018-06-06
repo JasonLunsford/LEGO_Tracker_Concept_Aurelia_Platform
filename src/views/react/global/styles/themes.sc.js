@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 
 import styled from 'styled-components';
 
+const coreBorders = {
+    default: '1px solid',
+    thick:   '2px solid'
+}
+
 const coreColors = {
     black:  '#000000',
     blue:   '#6495ed',
@@ -21,11 +26,23 @@ const coreFonts = {
 export const coreTheme = () => {
     return {
         borders: {
-            default: '1px solid ' + coreColors.black,
-            thick:   '2px solid ' + coreColors.black
+            default: `${coreBorders.default} ${coreColors.black}`,
+            thick:   `${coreBorders.thick} ${coreColors.black}`,
         },
         colors: coreColors,
-        buttons: {},
+        buttons: {
+            default: {
+                border:       `${coreBorders.thick} ${coreColors.black}`,
+                borderRadius: '4px',
+                color:        `${coreColors.black}`,
+                cursor:       'pointer',
+                fontSize:     `${coreFonts.medium}`,
+                padding:      '4px 8px',
+                hover: {
+                    background: `${coreColors.blue}`
+                }
+            }
+        },
         fonts: coreFonts
     }
 }

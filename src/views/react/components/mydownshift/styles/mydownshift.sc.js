@@ -4,11 +4,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     width: 100%;
+    margin-bottom: 10px;
 `;
 
 export const DownshiftBox = styled.div`
     > div {
-        height: 20px;
+        height: 30px;
 
         div.inputBox {
             border:  ${props => props.theme.borders.default};
@@ -21,6 +22,7 @@ export const DownshiftBox = styled.div`
             border-right:     ${props => props.theme.borders.default};
             border-bottom:    ${props => props.theme.borders.default};
             padding:          0;
+            z-index:          100;
 
             > div {
                 font-size: ${props => props.theme.fonts.medium};
