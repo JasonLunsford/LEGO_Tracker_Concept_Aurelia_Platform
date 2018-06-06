@@ -10,14 +10,16 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-    border:      2px solid black;
+    border:      ${props => props.theme.borders.thick};
     flex:        1 1 auto;
-    font-weight: 100;
+    font-size:   ${props => props.theme.fonts.xxlarge};
+    font-weight: normal;
     margin:      0;
     padding:     10px 0;
     text-align:  center;
 `;
 
 export const Lego = styled.span`
+    color:       ${props => props.theme.colors.orange};
     font-weight: bold;
 `;

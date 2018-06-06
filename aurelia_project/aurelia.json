@@ -131,6 +131,11 @@
             "path": "../node_modules/mobx-react",
             "main": "index.min"
           },
+          {
+            "name": "downshift",
+            "path": "../node_modules/downshift/dist",
+            "main": "downshift.umd.min"
+          },
           "text"
         ]
       }

@@ -12,16 +12,15 @@ export const Container = styled.div`
 `;
 
 export const Badge = styled.div`
-    border:  2px solid black;
+    border:  ${props => props.theme.borders.thick};
     flex:    0 1 auto;
-    height:  200px;
+    height:  300px;
     margin:  0 20px 30px 0;
     padding: 5px;
     width:   250px;
 
     &:hover {
-        background-color: #fff8dc;
-        border-color:     #ff8c00;
+        border-color:     ${props => props.theme.colors.orange};
         cursor:           pointer;
     }
 `;
@@ -40,28 +39,28 @@ export const TitleBox = styled.div`
 
 export const Title = styled.span`
     flex:       1 1 auto;
-    font-size:  20px;
+    font-size:  ${props => props.theme.fonts.large};
 `;
 
 export const LastUpdate = styled.span`
     flex:       1 1 auto;
-    font-size:  12px;
+    font-size:  ${props => props.theme.fonts.normal};
     font-style: italic;
 `;
 
 export const CountBox = styled.div`
     align-items:     center;
-    border-bottom:   1px solid black;
+    border-bottom:   ${props => props.theme.borders.default};
     display:         flex;
-    justify-content: center;
     flex-direction:  column;
+    justify-content: center;
     margin:          0 0 5px 0;
     padding:         0 0 5px 0;
 `;
 
 export const Count = styled.span`
     flex:       1 1 auto;
-    font-size:  40px;
+    font-size:  ${props => props.theme.fonts.xxlarge};
 `;
 
 export const SizeBox = styled.div`
@@ -69,5 +68,46 @@ export const SizeBox = styled.div`
     display:         flex;
     justify-content: center;
     flex-direction:  column;
+    margin-bottom:   10px;
     padding:         0;
+`;
+
+export const SearchBox = styled.div`
+    display: flex;
+`;
+
+export const ButtonBox = styled.div`
+    align-items:     center;
+    display:         flex;
+    justify-content: space-between;
+    flex-direction:  row;
+    margin-bottom:   10px;
+    padding:         0;
+    z-index:         0;
+`;
+
+export const Button = styled.button`
+    border:        ${props => props.disabled 
+                    ? props.theme.buttons.disabled.border 
+                    : props.theme.buttons.default.border };
+    border-radius: ${props => props.theme.buttons.default.borderRadius};
+    color:         ${props => props.disabled 
+                    ? props.theme.buttons.disabled.cursor 
+                    : props.theme.buttons.default.cursor };
+    cursor:        ${props => props.disabled 
+                    ? props.theme.buttons.disabled.color 
+                    : props.theme.buttons.default.color };
+    flex:          0 1 auto;
+    font-size:     ${props => props.theme.buttons.default.fontSize};
+    padding:       ${props => props.theme.buttons.default.padding};
+
+    &:hover {
+        background: ${props => props.disabled 
+            ? props.theme.buttons.disabled.background
+            : props.theme.buttons.default.hover.background};
+    }
+
+    &:focus {
+        outline: none;
+    }
 `;

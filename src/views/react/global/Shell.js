@@ -3,8 +3,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import styled, {injectGlobal} from 'styled-components';
+import styled, {injectGlobal, ThemeProvider} from 'styled-components';
 import {Container} from './styles/shell.sc';
+import {coreTheme} from './styles/themes.sc';
 
 import Header from './Header';
 import SectionTitle from './SectionTitle';
@@ -19,7 +20,7 @@ injectGlobal`
     cursor:      default;
     font-family: "Verdana", sans-serif;
     margin:      0;
-    padding:     0px 10px;
+    padding:     0 10px;
   }
 `
 
@@ -30,7 +31,6 @@ export default class Shell extends Component {
     let router = this.props.router;
 
     let message = _.get(this.props.model[view], 'message');
-    let sectionTitle = _.get(this.props.model[view], 'sectionTitle');
     let categories = _.get(this.props.model[view], 'categories');
     let trialMessage = _.get(this.props.model[view], 'trialMessage');
 
@@ -38,7 +38,6 @@ export default class Shell extends Component {
       categories,
       view,
       message,
-      sectionTitle,
       trialMessage,
       router
     };
@@ -68,18 +67,19 @@ export default class Shell extends Component {
             view,
             message,
             trialMessage,
-            sectionTitle,
             router } = this.prepareView();
 
     return (
-      <Container>
-        <Header message={message} 
-                date={this.getDate.today()} 
-                view={view} 
-                router={router}/>
-        <SectionTitle title={sectionTitle} />
-        {this.viewToggle({view, categories, trialMessage, router})}
-      </Container>
+      <ThemeProvider theme={coreTheme}>
+        <Container>
+          <Header message={message} 
+                  date={this.getDate.today()} 
+                  view={view} 
+                  router={router}/>
+          <SectionTitle />
+          {this.viewToggle({view, categories, trialMessage, router})}
+        </Container>
+      </ThemeProvider>
     );
   }
 }
@@ -88,7 +88,6 @@ Shell.propTypes = {
   model:  PropTypes.shape({
             message: PropTypes.string,
             categories: PropTypes.array,
-            sectionTitle: PropTypes.string.isRequired,
             trialMessage: PropTypes.string
           }),
   view:   PropTypes.string.isRequired,

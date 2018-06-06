@@ -9,8 +9,6 @@ import {Container} from './styles/header.sc';
 export default class Header extends Component {
 
     render() {
-        let { message, date, view, router } = this.props;
-
         return (
             <Container>
                 <Banner />
