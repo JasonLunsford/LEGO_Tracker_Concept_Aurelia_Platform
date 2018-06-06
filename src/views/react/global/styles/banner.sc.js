@@ -20,5 +20,6 @@ export const Title = styled.h1`
 `;
 
 export const Lego = styled.span`
+    color:       ${props => props.theme.colors.orange};
     font-weight: bold;
 `;
