@@ -10,6 +10,7 @@ const coreBorders = {
 const coreColors = {
     black:  '#000000',
     blue:   '#6495ed',
+    grey:   '#d3d3d3',
     orange: '#ff8c00',
     white:  '#ffffff'
 }
@@ -32,6 +33,7 @@ export const coreTheme = () => {
         colors: coreColors,
         buttons: {
             default: {
+                background:   `${coreColors.white}`,
                 border:       `${coreBorders.thick} ${coreColors.black}`,
                 borderRadius: '4px',
                 color:        `${coreColors.black}`,
@@ -41,6 +43,12 @@ export const coreTheme = () => {
                 hover: {
                     background: `${coreColors.blue}`
                 }
+            },
+            disabled: {
+                background: `${coreColors.white}`,
+                border:     `${coreBorders.thick} ${coreColors.grey}`,
+                color:      `${coreColors.grey}`,
+                cursor:     'default'
             }
         },
         fonts: coreFonts

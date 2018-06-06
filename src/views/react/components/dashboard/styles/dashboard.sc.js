@@ -87,15 +87,27 @@ export const ButtonBox = styled.div`
 `;
 
 export const Button = styled.button`
-    border:        ${props => props.theme.buttons.default.border};
+    border:        ${props => props.disabled 
+                    ? props.theme.buttons.disabled.border 
+                    : props.theme.buttons.default.border };
     border-radius: ${props => props.theme.buttons.default.borderRadius};
-    color:         ${props => props.theme.buttons.default.color};
-    cursor:        ${props => props.theme.buttons.default.cursor};
+    color:         ${props => props.disabled 
+                    ? props.theme.buttons.disabled.cursor 
+                    : props.theme.buttons.default.cursor };
+    cursor:        ${props => props.disabled 
+                    ? props.theme.buttons.disabled.color 
+                    : props.theme.buttons.default.color };
     flex:          0 1 auto;
     font-size:     ${props => props.theme.buttons.default.fontSize};
     padding:       ${props => props.theme.buttons.default.padding};
 
     &:hover {
-        background: ${props => props.theme.buttons.default.hover.background};
+        background: ${props => props.disabled 
+            ? props.theme.buttons.disabled.background
+            : props.theme.buttons.default.hover.background};
+    }
+
+    &:focus {
+        outline: none;
     }
 `;
