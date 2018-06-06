@@ -5,7 +5,8 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import {Container, Badge, Span, TitleBox, 
         Title, LastUpdate, CountBox, 
-        Count, SizeBox, ButtonBox, Button} from './styles/dashboard.sc';
+        Count, SizeBox, ButtonBox, SearchBox,
+        Button} from './styles/dashboard.sc';
 
 import { setSectionTitle } from '../../global/mobx/appState';
 import MyDownshift from '../mydownshift/MyDownshift';
@@ -70,10 +71,10 @@ export default class Dashboard extends Component {
                         <Span>{category.size} MB</Span>
                         <Span>Disk</Span>
                     </SizeBox>
-                    <div>
-                    <MyDownshift items={this.items}
-                                 selectionUpdate={this.selectionUpdate} />
-                    </div>
+                    <SearchBox>
+                        <MyDownshift items={this.items}
+                                     selectionUpdate={this.selectionUpdate} />
+                    </SearchBox>
                     <ButtonBox>
                         <Button onClick={e => action(e, 'view')}>View</Button>
                         <Button onClick={e => action(e, 'add')}>Add</Button>

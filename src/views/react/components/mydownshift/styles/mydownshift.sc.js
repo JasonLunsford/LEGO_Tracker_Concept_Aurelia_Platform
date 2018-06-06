@@ -3,8 +3,9 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    width: 100%;
     margin-bottom: 10px;
+    width:         100%;
+    z-index:       100;
 `;
 
 export const DownshiftBox = styled.div`
@@ -22,7 +23,6 @@ export const DownshiftBox = styled.div`
             border-right:     ${props => props.theme.borders.default};
             border-bottom:    ${props => props.theme.borders.default};
             padding:          0;
-            z-index:          100;
 
             > div {
                 font-size: ${props => props.theme.fonts.medium};

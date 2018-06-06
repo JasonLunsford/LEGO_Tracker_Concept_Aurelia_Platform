@@ -72,6 +72,10 @@ export const SizeBox = styled.div`
     padding:         0;
 `;
 
+export const SearchBox = styled.div`
+    display: flex;
+`;
+
 export const ButtonBox = styled.div`
     align-items:     center;
     display:         flex;
@@ -79,6 +83,7 @@ export const ButtonBox = styled.div`
     flex-direction:  row;
     margin-bottom:   10px;
     padding:         0;
+    z-index:         0;
 `;
 
 export const Button = styled.button`
