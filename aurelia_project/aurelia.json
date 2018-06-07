@@ -21,6 +21,17 @@
     },
     "bundles": [
       {
+        "name": "fonts_woff",
+        "includes": [
+          "[../src/views/assets/styles/webfonts/*.woff]"
+        ],
+        "options": {
+          "inject": true,
+          "minify": false,
+          "depCache": false
+        }
+      },
+      {
         "name": "app-bundle.js",
         "source": [
           "[**/*.js]",
@@ -151,7 +162,7 @@
             ".html",
             ".css"
           ],
-          "stub": true
+          "stub": false
         }
       ]
     }

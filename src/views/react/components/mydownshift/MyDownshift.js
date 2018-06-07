@@ -32,6 +32,7 @@ export default class MyDownshift extends Component {
                           <div>
                               <div className="inputBox">
                                 <Input {...getInputProps()} />
+                                <i className="fas fa-times"></i>
                               </div>
                               {isOpen ? (
                               <div className="menuBox">
