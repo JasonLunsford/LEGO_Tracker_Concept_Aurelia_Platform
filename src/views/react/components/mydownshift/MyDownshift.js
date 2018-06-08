@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Downshift from 'downshift';
 
 import styled from 'styled-components';
-import {Container, DownshiftBox, Input} from './styles/mydownshift.sc';
+import {Container, DownshiftBox, Input, I} from './styles/mydownshift.sc';
 
 export default class MyDownshift extends Component {
 
@@ -27,12 +27,14 @@ export default class MyDownshift extends Component {
                           getItemProps,
                           isOpen,
                           inputValue,
-                          highlightedIndex
+                          highlightedIndex,
+                          clearSelection
                         }) => (
                           <div>
                               <div className="inputBox">
+                                <I className="fas fa-search"></I>
                                 <Input {...getInputProps()} />
-                                <i className="fas fa-times"></i>
+                                <I className="fas fa-times" onClick={() => clearSelection()}></I>
                               </div>
                               {isOpen ? (
                               <div className="menuBox">
