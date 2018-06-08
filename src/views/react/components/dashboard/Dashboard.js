@@ -22,8 +22,7 @@ export default class Dashboard extends Component {
     }
 
     selectionUpdate(selection) {
-        console.log('selection: ', selection.value);
-        if (_.isEmpty(selection)) {
+        if (_.isNil(selection) || _.isEmpty(selection)) {
             this.setState({disabled: true});
             return;
         }
