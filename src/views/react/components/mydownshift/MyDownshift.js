@@ -7,6 +7,10 @@ import {Container, DownshiftBox, Input, I} from './styles/mydownshift.sc';
 
 export default class MyDownshift extends Component {
 
+    convert = {
+        lower: value => { return _.toLower(value)}
+    }
+
     render() {
         const { items, selectionUpdate } = this.props;
 
@@ -34,12 +38,16 @@ export default class MyDownshift extends Component {
                               <div className="inputBox">
                                 <I className="fas fa-search"></I>
                                 <Input {...getInputProps()} />
-                                <I className="fas fa-times" onClick={() => clearSelection()}></I>
+                                <I className="fas fa-times" 
+                                   onClick={() => clearSelection()}></I>
                               </div>
                               {isOpen ? (
                               <div className="menuBox">
                                 {items
-                                  .filter(item => !inputValue || item.value.includes(inputValue))
+                                  .filter(item => {
+                                        let value = this.convert.lower(inputValue);
+                                        return !value || item.value.includes(value)
+                                    })
                                   .map((item, index) => (
                                     <div
                                       {...getItemProps({

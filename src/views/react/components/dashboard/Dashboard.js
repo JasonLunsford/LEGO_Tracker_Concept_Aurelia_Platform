@@ -31,7 +31,7 @@ export default class Dashboard extends Component {
     }
 
     convert = {
-        pretty: name => { return _.chain(name).replace('_', ' ').startCase().value(); }
+        pretty: value => { return _.chain(value).replace('_', ' ').startCase().value(); }
     }
 
     items = [
@@ -51,16 +51,21 @@ export default class Dashboard extends Component {
             router('collections', {target});
         }
 
-        const action = (e, state) => {
+        const detailsRouter = (target, {state, parent, child = ''})  => {
+            setSectionTitle(this.convert.pretty(target));
+            router('details', {state, target, parent, child});
+        }
+
+        const action = (e, state, name) => {
             e.preventDefault();
             e.stopPropagation();
 
             switch (state) {
-                case 'add':
-                    console.log('fire add event');
+                case 'new':
+                    detailsRouter(name, {state, parent: 'goodbye'})
                     break;
                 case 'view':
-                    console.log('fire view event');
+                    detailsRouter(name, {state, parent: 'hello', child: 'world'})
                     break;
             }
         }
@@ -86,8 +91,8 @@ export default class Dashboard extends Component {
                                      selectionUpdate={this.selectionUpdate.bind(this)} />
                     </SearchBox>
                     <ButtonBox>
-                        <Button disabled={disabled} onClick={e => action(e, 'view')}>View</Button>
-                        <Button onClick={e => action(e, 'add')}>Add</Button>
+                        <Button disabled={disabled} onClick={e => action(e, 'view', category.name)}>View</Button>
+                        <Button onClick={e => action(e, 'new', category.name)}>Add</Button>
                     </ButtonBox>
                   </Badge>
                 )}

@@ -92,11 +92,11 @@ export const Button = styled.button`
                     : props.theme.buttons.default.border };
     border-radius: ${props => props.theme.buttons.default.borderRadius};
     color:         ${props => props.disabled 
-                    ? props.theme.buttons.disabled.cursor 
-                    : props.theme.buttons.default.cursor };
-    cursor:        ${props => props.disabled 
                     ? props.theme.buttons.disabled.color 
                     : props.theme.buttons.default.color };
+    cursor:        ${props => props.disabled 
+                    ? props.theme.buttons.disabled.cursor 
+                    : props.theme.buttons.default.cursor };
     flex:          0 1 auto;
     font-size:     ${props => props.theme.buttons.default.fontSize};
     padding:       ${props => props.theme.buttons.default.padding};

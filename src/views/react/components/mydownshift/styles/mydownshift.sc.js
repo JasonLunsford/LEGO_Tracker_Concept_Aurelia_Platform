@@ -29,7 +29,7 @@ export const DownshiftBox = styled.div`
 
             > div {
                 font-size: ${props => props.theme.fonts.medium};
-                padding: 0 5px 0 23px;
+                padding:   0 5px 0 23px;
             }
         }
     }
