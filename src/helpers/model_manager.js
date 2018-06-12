@@ -6,8 +6,8 @@ export class ModelManager {
     }
     
     initModel() {
-        _.set(this.model, 'dashboard', {});
         _.set(this.model, 'collections', {});
+        _.set(this.model, 'dashboard', {});
         _.set(this.model, 'details', {});
 
         return this.model;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import styled from 'styled-components';
+import styled, {injectGlobal} from 'styled-components';
 
 export const Container = styled.div`
     display:        flex;
@@ -13,3 +13,14 @@ export const Container = styled.div`
         flex: 1 1 auto;
     }
 `;
+
+export const InjectBody = () => {
+    injectGlobal`
+      body {
+        cursor:      default;
+        font-family: "Verdana", sans-serif;
+        margin:      0;
+        padding:     0 10px;
+      }
+    `;
+}

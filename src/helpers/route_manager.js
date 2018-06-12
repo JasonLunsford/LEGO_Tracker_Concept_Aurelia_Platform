@@ -12,11 +12,11 @@ export class RouteManager {
             case 'dashboard':
                 break;
             case 'details':
-                route = `${route}/${state}/${target}/${parent}`;
+                route = `${route}/${state}/${target}`;
                 switch (state) {
                     case 'edit':
                     case 'view':
-                        route = `${route}/${child}`;
+                        route = `${route}/${parent}/${child}`;
                         break;
                     default:
                         break;

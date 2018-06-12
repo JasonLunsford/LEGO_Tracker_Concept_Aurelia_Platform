@@ -51,7 +51,7 @@ export default class Dashboard extends Component {
             router('collections', {target});
         }
 
-        const detailsRouter = (target, {state, parent, child = ''})  => {
+        const detailsRouter = (target, {state, parent, child})  => {
             setSectionTitle(this.convert.pretty(target));
             router('details', {state, target, parent, child});
         }
@@ -62,7 +62,7 @@ export default class Dashboard extends Component {
 
             switch (state) {
                 case 'new':
-                    detailsRouter(name, {state, parent: 'goodbye'})
+                    detailsRouter(name, {state})
                     break;
                 case 'view':
                     detailsRouter(name, {state, parent: 'hello', child: 'world'})
@@ -91,7 +91,8 @@ export default class Dashboard extends Component {
                                      selectionUpdate={this.selectionUpdate.bind(this)} />
                     </SearchBox>
                     <ButtonBox>
-                        <Button disabled={disabled} onClick={e => action(e, 'view', category.name)}>View</Button>
+                        <Button disabled={disabled}
+                                onClick={e => action(e, 'view', category.name)}>View</Button>
                         <Button onClick={e => action(e, 'new', category.name)}>Add</Button>
                     </ButtonBox>
                   </Badge>
