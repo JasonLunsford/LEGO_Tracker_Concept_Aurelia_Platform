@@ -24,7 +24,7 @@ export default class Shell extends Component {
     let router = this.props.router;
 
     let message = _.get(this.props.model[view], 'message');
-    let categories = _.get(this.props.model[view], 'categories');
+    let categories = _.get(this.props.model, 'categories');
     let trialMessage = _.get(this.props.model[view], 'trialMessage');
 
     return {
