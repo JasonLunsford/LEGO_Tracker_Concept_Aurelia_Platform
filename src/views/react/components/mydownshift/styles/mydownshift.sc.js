@@ -13,8 +13,11 @@ export const DownshiftBox = styled.div`
         height: 30px;
 
         div.inputBox {
-            border:  ${props => props.theme.borders.default};
-            padding: 2px 5px;
+            align-items:     center;
+            border:          ${props => props.theme.borders.default};
+            display:         flex;
+            justify-content: space-evenly;
+            padding:         2px 5px;
         }
 
         div.menuBox {
@@ -26,19 +29,25 @@ export const DownshiftBox = styled.div`
 
             > div {
                 font-size: ${props => props.theme.fonts.medium};
-                padding: 0 5px;
+                padding:   0 5px 0 23px;
             }
         }
     }
 `;
 
+export const I = styled.i`
+    flex:    0 1 auto;
+    margin:  0;
+    padding: 0;
+`;
+
 export const Input = styled.input`
     border:    0;
-    display:   block;
+    flex:      0 1 auto;
     font-size: ${props => props.theme.fonts.large};
     height:    100%;
     margin:    0;
-    padding:   0;
+    padding:   0 3px;
     width:     100%;
 
     &:focus {

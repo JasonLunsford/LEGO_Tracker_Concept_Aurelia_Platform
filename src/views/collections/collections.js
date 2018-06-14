@@ -41,7 +41,7 @@ export class Collections {
             return;
         }
 
-        this.updateAppModel();     
+        this.updateAppModel();
     }
 
     saveModel() {
@@ -51,13 +51,14 @@ export class Collections {
     initAppModel() {
         const model = this.modelManager.getModel();
 
-        this.appModel = _.get(model, this.currentView);
+        this.appModel = _.get(model.views, this.currentView);
 
         this.message = `Collection Details for ${this.type} Displayed Here`;
         
         _.set(this.appModel, 'sectionTitle',  this.convert.upperFirst());
         _.set(this.appModel, 'message', 'Return to Dashboard');
         _.set(this.appModel, 'trialMessage', this.message);
+        _.set(this.appModel, 'type', this.type);
 
         this._render();
     }
@@ -66,6 +67,7 @@ export class Collections {
         this.message = `Collection Details for ${this.type} Displayed Here`;
 
         _.set(this.appModel, 'trialMessage', this.message);
+        _.set(this.appModel, 'type', this.type);
 
         this._render();
     }

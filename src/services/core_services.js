@@ -19,7 +19,8 @@ export class CoreServices {
     // returns: documents in collection
     async getCollection(collection) {
         let customConfig = {
-            url: this.convert.format(collection)
+            url: this.convert.format(collection),
+            timeout: 50000,
         }
 
         return await this._callServer(customConfig);

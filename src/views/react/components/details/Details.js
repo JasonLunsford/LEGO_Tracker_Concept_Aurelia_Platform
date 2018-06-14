@@ -6,7 +6,7 @@ import {Container, H2} from './styles/details.sc';
 export default class Details extends Component {
 
     render() {
-        let { trialMessage } = this.props;
+        let { trialMessage, type, router } = this.props;
 
         return (
             <Container>

@@ -5,7 +5,14 @@ import {ModelManager} from './helpers/model_manager';
 @inject(ModelManager)
 export class App {
     constructor(modelManager) {
-        modelManager.initModel();
+        this.modelManager = modelManager;
+
+        this.modelManager.initModel();
+    }
+
+    activate() {
+        this.modelManager.loadLEGOdata();
+        this.modelManager.loadCollections();
     }
 
     configureRouter(config, router) {

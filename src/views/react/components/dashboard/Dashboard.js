@@ -22,8 +22,7 @@ export default class Dashboard extends Component {
     }
 
     selectionUpdate(selection) {
-        console.log('selection: ', selection.value);
-        if (_.isEmpty(selection)) {
+        if (_.isNil(selection) || _.isEmpty(selection)) {
             this.setState({disabled: true});
             return;
         }
@@ -32,7 +31,7 @@ export default class Dashboard extends Component {
     }
 
     convert = {
-        pretty: name => { return _.chain(name).replace('_', ' ').startCase().value(); }
+        pretty: value => { return _.chain(value).replace('_', ' ').startCase().value(); }
     }
 
     items = [
@@ -44,7 +43,7 @@ export default class Dashboard extends Component {
     ];
 
     render() {
-        const { categories, router } = this.props;
+        const { collections, router } = this.props;
         const { disabled } = this.state;
 
         const collectionRouter = target => {
@@ -52,34 +51,39 @@ export default class Dashboard extends Component {
             router('collections', {target});
         }
 
-        const action = (e, state) => {
+        const detailsRouter = (target, {state, parent, child})  => {
+            setSectionTitle(this.convert.pretty(target));
+            router('details', {state, target, parent, child});
+        }
+
+        const action = (e, state, name) => {
             e.preventDefault();
             e.stopPropagation();
 
             switch (state) {
-                case 'add':
-                    console.log('fire add event');
+                case 'new':
+                    detailsRouter(name, {state})
                     break;
                 case 'view':
-                    console.log('fire view event');
+                    detailsRouter(name, {state, parent: 'hello', child: 'world'})
                     break;
             }
         }
 
         return (
             <Container>
-                {categories.map((category, index) => 
-                  <Badge key={index} onClick={() => collectionRouter(category.name)}>
+                {collections.map((collection, index) => 
+                  <Badge key={index} onClick={() => collectionRouter(collection.name)}>
                     <TitleBox>
-                        <Title>{this.convert.pretty(category.name)}</Title>
+                        <Title>{this.convert.pretty(collection.name)}</Title>
                         <LastUpdate>Last updated: March 16, 2018</LastUpdate>
                     </TitleBox>
                     <CountBox>
-                        <Count>{category.count}</Count>
+                        <Count>{collection.count}</Count>
                         <Span>Documents</Span>
                     </CountBox>
                     <SizeBox>
-                        <Span>{category.size} MB</Span>
+                        <Span>{collection.size} MB</Span>
                         <Span>Disk</Span>
                     </SizeBox>
                     <SearchBox>
@@ -87,8 +91,9 @@ export default class Dashboard extends Component {
                                      selectionUpdate={this.selectionUpdate.bind(this)} />
                     </SearchBox>
                     <ButtonBox>
-                        <Button disabled={disabled} onClick={e => action(e, 'view')}>View</Button>
-                        <Button onClick={e => action(e, 'add')}>Add</Button>
+                        <Button disabled={disabled}
+                                onClick={e => action(e, 'view', collection.name)}>View</Button>
+                        <Button onClick={e => action(e, 'new', collection.name)}>Add</Button>
                     </ButtonBox>
                   </Badge>
                 )}

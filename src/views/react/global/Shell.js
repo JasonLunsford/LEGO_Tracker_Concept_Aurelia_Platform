@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import styled, {injectGlobal, ThemeProvider} from 'styled-components';
-import {Container} from './styles/shell.sc';
+import styled, {ThemeProvider} from 'styled-components';
+import {Container, InjectBody} from './styles/shell.sc';
 import {coreTheme} from './styles/themes.sc';
 
 import Header from './Header';
@@ -15,14 +15,7 @@ import Details from '../components/details/Details';
 
 // Global style
 // eslint-disable-next-line
-injectGlobal`
-  body {
-    cursor:      default;
-    font-family: "Verdana", sans-serif;
-    margin:      0;
-    padding:     0 10px;
-  }
-`
+InjectBody();
 
 export default class Shell extends Component {
 
@@ -30,12 +23,12 @@ export default class Shell extends Component {
     let view = this.props.view;
     let router = this.props.router;
 
-    let message = _.get(this.props.model[view], 'message');
-    let categories = _.get(this.props.model[view], 'categories');
-    let trialMessage = _.get(this.props.model[view], 'trialMessage');
+    let message = _.get(this.props.model.views[view], 'message');
+    let collections = _.get(this.props.model, 'collections');
+    let trialMessage = _.get(this.props.model.views[view], 'trialMessage');
 
     return {
-      categories,
+      collections,
       view,
       message,
       trialMessage,
@@ -43,10 +36,10 @@ export default class Shell extends Component {
     };
   }
 
-  viewToggle({view, categories = [], trialMessage, router}) {
+  viewToggle({view, collections = [], trialMessage, router}) {
       switch (view) {
         case 'dashboard':
-          return <Dashboard categories={categories}
+          return <Dashboard collections={collections}
                             router={router} />
           break;
         case 'collections':
@@ -63,7 +56,7 @@ export default class Shell extends Component {
   }
 
   render() {
-    const { categories,
+    const { collections,
             view,
             message,
             trialMessage,
@@ -77,7 +70,7 @@ export default class Shell extends Component {
                   view={view} 
                   router={router}/>
           <SectionTitle />
-          {this.viewToggle({view, categories, trialMessage, router})}
+          {this.viewToggle({view, collections, trialMessage, router})}
         </Container>
       </ThemeProvider>
     );
@@ -87,7 +80,7 @@ export default class Shell extends Component {
 Shell.propTypes = {
   model:  PropTypes.shape({
             message: PropTypes.string,
-            categories: PropTypes.array,
+            collections: PropTypes.array,
             trialMessage: PropTypes.string
           }),
   view:   PropTypes.string.isRequired,
