@@ -14,10 +14,11 @@ export class ModelManager {
     }
     
     initModel() {
+        _.set(this.model, 'views', {});
         _.set(this.model, 'collections', {});
-        _.set(this.model, 'dashboard', {});
-        _.set(this.model, 'details', {});
-        _.set(this.model, 'categories', {});
+        _.set(this.model.views, 'collections', {});
+        _.set(this.model.views, 'dashboard', {});
+        _.set(this.model.views, 'details', {});
 
         return this.model;
     }
@@ -27,7 +28,7 @@ export class ModelManager {
     }
 
     saveModel(appModel, view) {
-        this.model[view] = _.assign({}, this.model[view], appModel);
+        this.model.views[view] = _.assign({}, this.model.views[view], appModel);
 
         return this.model;
     }
@@ -51,12 +52,29 @@ export class ModelManager {
 
         const promises = [...countPromises, ...sizePromises];
         
-        const categories = await this.getCategories(names, promises);
+        const collectionMetaData = await this.getCollectionMetaData(names, promises);
 
-        _.set(this.model, 'categories', categories);
+        _.set(this.model, 'collections', collectionMetaData);
     }
 
-    async getCategories(names, promises) {
+    async loadCollections() {
+        const names = await this.getNames();
+
+        let collectionPromises = _.map(names, name => {
+            return this.getCollection(name)
+        });
+
+        Promise.all(collectionPromises).then(collections => {
+            names.forEach((name, index) => {
+                let match = _.find(this.model.collections, result => result.name === name);
+                match.members = collections[index];
+            });
+        }).catch(reason => { 
+            console.log('Promise.all failed because: ', reason);
+        });
+    }
+
+    async getCollectionMetaData(names, promises) {
         return Promise.all(promises).then(results => {
             let data = [];
             let counts = _.filter(results, result => result.count >= 0 );
@@ -68,29 +86,14 @@ export class ModelManager {
 
                 data.push({
                     count:   c.count,
-                    members: [],
                     name:    value,
                     size:    s.size
                 });
             });
 
-            let collectionPromises = _.map(names, name => {
-                return this.getCollection(name)
-            });
-
-            // Promise.all(collectionPromises).then(results => {
-            //     console.log('results: ', results);
-
-            //     return data;
-            // }).catch(reason => {
-            //     console.log('reason: ', reason)
-
-            //     return data;
-            // });
-
             return data;
         }).catch(reason => { 
-            console.log('reason: ', reason);
+            console.log('Promise.all failed because: ', reason);
         });
     }
 

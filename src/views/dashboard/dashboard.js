@@ -33,8 +33,7 @@ export class Dashboard {
     initAppModel() {
         const model = this.modelManager.getModel();
 
-        this.appModel = _.get(model, this.currentView);
-        this.categoriesModel = _.get(model, 'categories');
+        this.appModel = _.get(model.views, this.currentView);
 
         _.set(this.appModel, 'sectionTitle', this.convert.upperFirst());
         _.set(this.appModel, 'message', 'Hello LEGO Super Fan!');

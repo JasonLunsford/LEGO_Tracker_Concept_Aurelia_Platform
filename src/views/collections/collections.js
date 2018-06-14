@@ -51,7 +51,7 @@ export class Collections {
     initAppModel() {
         const model = this.modelManager.getModel();
 
-        this.appModel = _.get(model, this.currentView);
+        this.appModel = _.get(model.views, this.currentView);
 
         this.message = `Collection Details for ${this.type} Displayed Here`;
         

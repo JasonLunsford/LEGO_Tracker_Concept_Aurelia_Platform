@@ -43,7 +43,7 @@ export default class Dashboard extends Component {
     ];
 
     render() {
-        const { categories, router } = this.props;
+        const { collections, router } = this.props;
         const { disabled } = this.state;
 
         const collectionRouter = target => {
@@ -72,18 +72,18 @@ export default class Dashboard extends Component {
 
         return (
             <Container>
-                {categories.map((category, index) => 
-                  <Badge key={index} onClick={() => collectionRouter(category.name)}>
+                {collections.map((collection, index) => 
+                  <Badge key={index} onClick={() => collectionRouter(collection.name)}>
                     <TitleBox>
-                        <Title>{this.convert.pretty(category.name)}</Title>
+                        <Title>{this.convert.pretty(collection.name)}</Title>
                         <LastUpdate>Last updated: March 16, 2018</LastUpdate>
                     </TitleBox>
                     <CountBox>
-                        <Count>{category.count}</Count>
+                        <Count>{collection.count}</Count>
                         <Span>Documents</Span>
                     </CountBox>
                     <SizeBox>
-                        <Span>{category.size} MB</Span>
+                        <Span>{collection.size} MB</Span>
                         <Span>Disk</Span>
                     </SizeBox>
                     <SearchBox>
@@ -92,8 +92,8 @@ export default class Dashboard extends Component {
                     </SearchBox>
                     <ButtonBox>
                         <Button disabled={disabled}
-                                onClick={e => action(e, 'view', category.name)}>View</Button>
-                        <Button onClick={e => action(e, 'new', category.name)}>Add</Button>
+                                onClick={e => action(e, 'view', collection.name)}>View</Button>
+                        <Button onClick={e => action(e, 'new', collection.name)}>Add</Button>
                     </ButtonBox>
                   </Badge>
                 )}

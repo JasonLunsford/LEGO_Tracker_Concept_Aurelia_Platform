@@ -12,6 +12,7 @@ export class App {
 
     activate() {
         this.modelManager.loadLEGOdata();
+        this.modelManager.loadCollections();
     }
 
     configureRouter(config, router) {
