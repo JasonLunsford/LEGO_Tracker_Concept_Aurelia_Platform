@@ -20,12 +20,13 @@ export class Dashboard {
         this.router = router;
 
         this.currentView = 'dashboard';
+        this.loadingScreen = true;
 
         this.initAppModel();
     }
 
     attached() {
-        this._render();
+        this.initCollectionLoad();
     }
 
     detached() {}
@@ -37,6 +38,24 @@ export class Dashboard {
 
         _.set(this.appModel, 'sectionTitle', this.convert.upperFirst());
         _.set(this.appModel, 'message', 'Hello LEGO Super Fan!');
+    }
+
+    initCollectionLoad() {
+        const model = this.modelManager.getModel();
+
+        if (_.has(model.collections[0], 'members')) {
+            this.loadingScreen = false;
+            this._render();
+
+            return;
+        }
+
+        this.modelManager.loadCollections().then(result => {
+            this.loadingScreen = false;
+            this._render();
+        }).catch(reason => {
+            console.log('Promise failed because: ', reason);
+        });
     }
 
     saveModel() {

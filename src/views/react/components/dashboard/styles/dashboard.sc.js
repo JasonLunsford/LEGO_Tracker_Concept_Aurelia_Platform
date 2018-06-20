@@ -26,8 +26,7 @@ export const Badge = styled.div`
 `;
 
 export const Span = styled.span`
-    flex:          1 1 auto;
-    padding-right: 10px;
+    flex: 1 1 auto;
 `;
 
 export const TitleBox = styled.div`

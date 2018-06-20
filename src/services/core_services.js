@@ -20,7 +20,7 @@ export class CoreServices {
     async getCollection(collection) {
         let customConfig = {
             url: this.convert.format(collection),
-            timeout: 50000,
+            timeout: 100000,
         }
 
         return await this._callServer(customConfig);

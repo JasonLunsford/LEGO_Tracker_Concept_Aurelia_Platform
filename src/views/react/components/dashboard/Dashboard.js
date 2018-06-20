@@ -34,14 +34,6 @@ export default class Dashboard extends Component {
         pretty: value => { return _.chain(value).replace('_', ' ').startCase().value(); }
     }
 
-    items = [
-      {value: 'apple'},
-      {value: 'pear'},
-      {value: 'orange'},
-      {value: 'grape'},
-      {value: 'banana'},
-    ];
-
     render() {
         const { collections, router } = this.props;
         const { disabled } = this.state;
@@ -87,7 +79,7 @@ export default class Dashboard extends Component {
                         <Span>Disk</Span>
                     </SizeBox>
                     <SearchBox>
-                        <MyDownshift items={this.items}
+                        <MyDownshift collection={collection}
                                      selectionUpdate={this.selectionUpdate.bind(this)} />
                     </SearchBox>
                     <ButtonBox>

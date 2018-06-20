@@ -18,7 +18,7 @@ export const InjectBody = () => {
     injectGlobal`
       body {
         cursor:      default;
-        font-family: "Verdana", sans-serif;
+        font-family: 'raleway', sans-serif;
         margin:      0;
         padding:     0 10px;
       }

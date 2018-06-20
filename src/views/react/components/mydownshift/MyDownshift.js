@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import Downshift from 'downshift';
 
+import _ from 'lodash';
+
 import styled from 'styled-components';
 import {Container, DownshiftBox, Input, I} from './styles/mydownshift.sc';
 
@@ -12,12 +14,22 @@ export default class MyDownshift extends Component {
     }
 
     render() {
-        const { items, selectionUpdate } = this.props;
+        const { collection, selectionUpdate } = this.props;
 
         const killEvent = e => {
             e.preventDefault();
             e.stopPropagation();
         }
+
+        const getMembers = collection => {
+            return _.get(collection, 'members', []);
+        }
+
+        const updateInput = state => {
+            console.log('name: ', state.selectedItem.name);
+        }
+
+        let items = [];
 
         return (
             <Container onClick={e => killEvent(e)}>
@@ -37,7 +49,11 @@ export default class MyDownshift extends Component {
                           <div>
                               <div className="inputBox">
                                 <I className="fas fa-search"></I>
-                                <Input {...getInputProps()} />
+                                <Input {...getInputProps({
+                                      onFocus: event => {
+                                        items = [...getMembers(collection)]
+                                      }
+                                    })} />
                                 <I className="fas fa-times" 
                                    onClick={() => clearSelection()}></I>
                               </div>
@@ -46,12 +62,13 @@ export default class MyDownshift extends Component {
                                 {items
                                   .filter(item => {
                                         let value = this.convert.lower(inputValue);
-                                        return !value || item.value.includes(value)
+                                        let name = this.convert.lower(item.name)
+                                        return _.includes(name, value)
                                     })
                                   .map((item, index) => (
                                     <div
                                       {...getItemProps({
-                                        key: item.value,
+                                        key: item.name,
                                         index,
                                         item,
                                         style: {
@@ -61,7 +78,7 @@ export default class MyDownshift extends Component {
                                         }
                                       })}
                                     >
-                                      {item.value}
+                                      {item.name}
                                     </div>
                                   ))}
                               </div>
