@@ -5,7 +5,7 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import {Container, Badge, Span, TitleBox, 
         Title, LastUpdate, CountBox, 
-        Count, SizeBox, ButtonBox, SearchBox,
+        Count, SizeBox, ButtonBox, SingleButtonBox, SearchBox,
         Button} from './styles/dashboard.sc';
 
 import { setSectionTitle } from '../../global/mobx/appState';
@@ -83,14 +83,17 @@ export default class Dashboard extends Component {
                         <Span>Disk</Span>
                     </SizeBox>
                     <SearchBox>
-                        <MyDownshift items={collection.members}
-                                     selectionUpdate={this.selectionUpdate.bind(this)} />
+                        {collection.name !=='elements' && (<MyDownshift items={collection.members}
+                                     selectionUpdate={this.selectionUpdate.bind(this)} />)}
                     </SearchBox>
-                    <ButtonBox>
+                    {collection.name !=='elements' && (<ButtonBox>
                         <Button disabled={disabled}
                                 onClick={e => action(e, 'view', collection.name)}>View</Button>
                         <Button onClick={e => action(e, 'new', collection.name)}>Add</Button>
-                    </ButtonBox>
+                    </ButtonBox>)}
+                    {collection.name ==='elements' && (<SingleButtonBox>
+                        <Button onClick={e => action(e, 'new', collection.name)}>Add</Button>
+                    </SingleButtonBox>)}
                   </Badge>
                 )}
             </Container>

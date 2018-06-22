@@ -85,6 +85,11 @@ export const ButtonBox = styled.div`
     z-index:         0;
 `;
 
+export const SingleButtonBox = ButtonBox.extend`
+    justify-content: flex-end;
+    margin-top:      40px;
+`;
+
 export const Button = styled.button`
     border:        ${props => props.disabled 
                     ? props.theme.buttons.disabled.border 
