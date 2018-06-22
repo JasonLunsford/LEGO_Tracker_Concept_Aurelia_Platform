@@ -25,6 +25,8 @@ export const DownshiftBox = styled.div`
             border-left:      ${props => props.theme.borders.default};
             border-right:     ${props => props.theme.borders.default};
             border-bottom:    ${props => props.theme.borders.default};
+            max-height:       200px;
+            overflow:         auto;
             padding:          0;
 
             > div {

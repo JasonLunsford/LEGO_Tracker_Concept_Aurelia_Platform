@@ -14,7 +14,8 @@ import MyDownshift from '../mydownshift/MyDownshift';
 export default class Dashboard extends Component {
 
     state = {
-        disabled: true
+        disabled: true,
+        selection: {}
     }
 
     componentWillMount() {
@@ -27,7 +28,10 @@ export default class Dashboard extends Component {
             return;
         }
 
-        this.setState({disabled: false});
+        this.setState({
+            disabled: false,
+            selection
+        });
     }
 
     convert = {
@@ -43,9 +47,9 @@ export default class Dashboard extends Component {
             router('collections', {target});
         }
 
-        const detailsRouter = (target, {state, parent, child})  => {
+        const detailsRouter = (target, {state, id})  => {
             setSectionTitle(this.convert.pretty(target));
-            router('details', {state, target, parent, child});
+            router('details', {state, target, id});
         }
 
         const action = (e, state, name) => {
@@ -57,7 +61,7 @@ export default class Dashboard extends Component {
                     detailsRouter(name, {state})
                     break;
                 case 'view':
-                    detailsRouter(name, {state, parent: 'hello', child: 'world'})
+                    detailsRouter(name, {state, id: this.state.selection._id})
                     break;
             }
         }
@@ -79,7 +83,7 @@ export default class Dashboard extends Component {
                         <Span>Disk</Span>
                     </SizeBox>
                     <SearchBox>
-                        <MyDownshift collection={collection}
+                        <MyDownshift items={collection.members}
                                      selectionUpdate={this.selectionUpdate.bind(this)} />
                     </SearchBox>
                     <ButtonBox>
