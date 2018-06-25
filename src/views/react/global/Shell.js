@@ -43,7 +43,7 @@ export default class Shell extends Component {
                             router={router} />
           break;
         case 'collections':
-          return <Collections trialMessage={trialMessage} />
+          return <Collections router={router} />
           break;
         case 'details':
           return <Details trialMessage={trialMessage} />

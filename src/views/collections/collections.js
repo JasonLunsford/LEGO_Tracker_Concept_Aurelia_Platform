@@ -22,16 +22,17 @@ export class Collections {
         this.router = router;
 
         this.currentView = 'collections';
+        this.loadingScreen = true;
+
+        this.initAppModel();
     }
 
     activate(params) {
         this.type = params.type;
-
-        // promise to resolve collection details here
     }
 
     attached() {
-        this.initAppModel();
+        this.initCollectionLoad();
     }
 
     detached() {}
@@ -52,21 +53,31 @@ export class Collections {
         const model = this.modelManager.getModel();
 
         this.appModel = _.get(model.views, this.currentView);
-
-        this.message = `Collection Details for ${this.type} Displayed Here`;
         
         _.set(this.appModel, 'sectionTitle',  this.convert.upperFirst());
         _.set(this.appModel, 'message', 'Return to Dashboard');
-        _.set(this.appModel, 'trialMessage', this.message);
         _.set(this.appModel, 'type', this.type);
+    }
 
-        this._render();
+    initCollectionLoad() {
+        const model = this.modelManager.getModel();
+
+        if (_.has(model.collections[0], 'members')) {
+            this.loadingScreen = false;
+            this._render();
+
+            return;
+        }
+
+        this.modelManager.loadCollections().then(result => {
+            this.loadingScreen = false;
+            this._render();
+        }).catch(reason => {
+            console.log('Promise failed because: ', reason);
+        });
     }
 
     updateAppModel() {
-        this.message = `Collection Details for ${this.type} Displayed Here`;
-
-        _.set(this.appModel, 'trialMessage', this.message);
         _.set(this.appModel, 'type', this.type);
 
         this._render();

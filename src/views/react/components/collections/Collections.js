@@ -6,11 +6,11 @@ import {Container, H2} from './styles/collections.sc';
 export default class Collections extends Component {
 
     render() {
-        let { trialMessage, type, router } = this.props;
+        let { router } = this.props;
 
         return (
             <Container>
-                <H2>{trialMessage}</H2>
+                <H2>Hello World</H2>
             </Container>
         );
     }
