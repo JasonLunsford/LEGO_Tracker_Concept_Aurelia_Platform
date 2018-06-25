@@ -23,6 +23,7 @@ export default class Shell extends Component {
     let view = this.props.view;
     let router = this.props.router;
 
+    // let type = get type from model, pass into Collections down in viewToggle
     let message = _.get(this.props.model.views[view], 'message');
     let collections = _.get(this.props.model, 'collections');
     let trialMessage = _.get(this.props.model.views[view], 'trialMessage');

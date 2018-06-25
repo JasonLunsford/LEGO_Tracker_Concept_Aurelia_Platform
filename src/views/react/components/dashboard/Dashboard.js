@@ -8,14 +8,15 @@ import {Container, Badge, Span, TitleBox,
         Count, SizeBox, ButtonBox, SingleButtonBox, SearchBox,
         Button} from './styles/dashboard.sc';
 
-import { setSectionTitle } from '../../global/mobx/appState';
+import { setSectionTitle,
+         setSelectedItem,
+         getSelectedItem } from '../../global/mobx/appState';
 import MyDownshift from '../mydownshift/MyDownshift';
 
 export default class Dashboard extends Component {
 
     state = {
-        disabled: true,
-        selection: {}
+        disabled: true
     }
 
     componentWillMount() {
@@ -24,17 +25,13 @@ export default class Dashboard extends Component {
 
     selectionUpdate(selection) {
         if (_.isNil(selection) || _.isEmpty(selection)) {
-            this.setState({
-                disabled: true,
-                selection: {}
-            });
+            this.setState({disabled: true});
+            setSelectedItem({});
             return;
         }
 
-        this.setState({
-            disabled: false,
-            selection
-        });
+        this.setState({disabled: false});
+        setSelectedItem(selection);
     }
 
     convert = {
@@ -64,7 +61,8 @@ export default class Dashboard extends Component {
                     detailsRouter(name, {state})
                     break;
                 case 'view':
-                    detailsRouter(name, {state, id: this.state.selection._id})
+                    let selectedItem = getSelectedItem();
+                    detailsRouter(name, {state, id: selectedItem._id})
                     break;
             }
         }

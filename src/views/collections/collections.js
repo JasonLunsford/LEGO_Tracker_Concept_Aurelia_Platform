@@ -37,14 +37,6 @@ export class Collections {
 
     detached() {}
 
-    typeChanged(newType, oldType) {
-        if (_.isNil(oldType)) {
-            return;
-        }
-
-        this.updateAppModel();
-    }
-
     saveModel() {
         return this.modelManager.saveModel(this.appModel, this.currentView);
     }
@@ -56,13 +48,14 @@ export class Collections {
         
         _.set(this.appModel, 'sectionTitle',  this.convert.upperFirst());
         _.set(this.appModel, 'message', 'Return to Dashboard');
-        _.set(this.appModel, 'type', this.type);
     }
 
     initCollectionLoad() {
         const model = this.modelManager.getModel();
 
         if (_.has(model.collections[0], 'members')) {
+            _.set(this.appModel, 'type', this.type);
+
             this.loadingScreen = false;
             this._render();
 
@@ -70,17 +63,13 @@ export class Collections {
         }
 
         this.modelManager.loadCollections().then(result => {
+            _.set(this.appModel, 'type', this.type);
+
             this.loadingScreen = false;
             this._render();
         }).catch(reason => {
             console.log('Promise failed because: ', reason);
         });
-    }
-
-    updateAppModel() {
-        _.set(this.appModel, 'type', this.type);
-
-        this._render();
     }
 
     convert = {
