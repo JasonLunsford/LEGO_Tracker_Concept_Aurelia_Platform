@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import {Container, H2} from './styles/collections.sc';
 
 import ColorTable from './ColorTable'
+import SetTable from './SetTable'
 
 export default class Collections extends Component {
 
@@ -17,6 +18,9 @@ export default class Collections extends Component {
         switch (type) {
             case 'colors':
                 return <ColorTable members={members} />;
+                break;
+            case 'sets':
+                return <SetTable members={members} />;
                 break;
         }
     }
