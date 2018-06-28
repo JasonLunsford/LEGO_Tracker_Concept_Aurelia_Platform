@@ -58,6 +58,24 @@ export const Cell = styled.div`
     height:           30px;
 
     span {
-        padding-left: 5px;
+        overflow:      hidden;
+        padding-left:  5px;
+        text-overflow: ellipsis;
+        white-space:   nowrap;
     }
 `;
+
+export const SmallCell = Cell.extend`
+    span {
+        width: 89px;
+    }
+`;
+
+export const I = styled.i`
+    display:         flex !important;
+    flex:            1 1 0;
+    justify-content: center;
+    margin:          0;
+    padding:         0;
+`;
+

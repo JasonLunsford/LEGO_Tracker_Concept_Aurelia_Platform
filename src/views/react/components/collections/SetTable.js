@@ -1,9 +1,27 @@
 import React, {Component} from 'react';
 
+import _ from 'lodash';
+
 import styled from 'styled-components';
-import {Table, Header, Body, Cell, Sample} from './styles/collections.sc';
+import {Table, Header, Body, SmallCell, I} from './styles/collections.sc';
 
 export default class SetTable extends Component {
+
+    getTheme(themeId) {
+        // return theme
+    }
+
+    getMinifigs(minifigs) {
+        if (_.isNil(minifigs) || _.isEmpty(minifigs)) {
+            return '0';
+        }
+
+        return minifigs;
+    }
+
+    prettyName(name) {
+        return _.startCase(name);
+    }
 
     render() {
         const { members } = this.props;
@@ -11,22 +29,32 @@ export default class SetTable extends Component {
         return (
             <Table> 
                 <Header>
-                    <Cell thickleft><span>Name</span></Cell>
-                    <Cell><span>Set Number</span></Cell>
-                    <Cell><span>Year</span></Cell>
-                    <Cell><span>Theme</span></Cell>
-                    <Cell><span>Pieces</span></Cell>
-                    <Cell><span>Spares</span></Cell>
-                    <Cell><span>Minifigs</span></Cell>
-                    <Cell><span>Members</span></Cell>
-                    <Cell><span>Gear</span></Cell>
-                    <Cell><span>Build Sources</span></Cell>
-                    <Cell thickright><span>View</span></Cell>
+                    <SmallCell thickleft><span>Name</span></SmallCell>
+                    <SmallCell><span>Set Number</span></SmallCell>
+                    <SmallCell><span>Year</span></SmallCell>
+                    <SmallCell><span>Theme</span></SmallCell>
+                    <SmallCell><span>Pieces</span></SmallCell>
+                    <SmallCell><span>Spares</span></SmallCell>
+                    <SmallCell><span>Minifigs</span></SmallCell>
+                    <SmallCell><span>Members</span></SmallCell>
+                    <SmallCell><span>Gear</span></SmallCell>
+                    <SmallCell><span>Builds</span></SmallCell>
+                    <SmallCell thickright><span>View</span></SmallCell>
                 </Header>
                 <Body>
                 {members.map((member, index) => 
                     <div key={index}>
-                        <Cell thickleft><span>{member.name}</span></Cell>
+                        <SmallCell thickleft><span title={this.prettyName(member.name)}>{this.prettyName(member.name)}</span></SmallCell>
+                        <SmallCell><span>{member.set_num}</span></SmallCell>
+                        <SmallCell><span>{member.year}</span></SmallCell>
+                        <SmallCell><span>{member.theme_id}</span></SmallCell>
+                        <SmallCell><span>{member.num_pieces}</span></SmallCell>
+                        <SmallCell><span>{member.num_spares}</span></SmallCell>
+                        <SmallCell><span>{this.getMinifigs(member.num_minifigs)}</span></SmallCell>
+                        <SmallCell><span>members</span></SmallCell>
+                        <SmallCell><span>{member.has_gear ? 'Yes' : 'No'}</span></SmallCell>
+                        <SmallCell><span>build_urls</span></SmallCell>
+                        <SmallCell thickright><I className="fas fa-external-link-alt"></I></SmallCell>
                     </div>
                 )}
                 </Body>
