@@ -14,27 +14,50 @@ export const H2 = styled.h2`
     width:      100%;
 `;
 
-export const Table = styled.table`
-    thead {
-        tr {
-            border: ${props => props.theme.borders.thick};
-            margin: 0 0 5px 0;
-        }
+export const Table = styled.div`
+    align-items:     start;
+    display:         flex;
+    flex-direction:  column;
+    justify-content: start;
+    width:           100%
+`;
+
+export const Header = styled.div`
+    border:    ${props => props.theme.borders.default};
+    display:   flex;
+    flex:      0 1 auto;
+    flex-flow: row nowrap;
+    margin:    0 0 10px 0;
+    width:     100%;
+`;
+
+export const Body = styled.div`
+    border:         ${props => props.theme.borders.default};
+    display:        flex;
+    flex:           0 1 auto;
+    flex-direction: column;
+    margin:         0;
+    width:          100%;
+
+    > div {
+        display:   flex;
+        flex-flow: row nowrap;
+        height:    30px;
+        width:     100%;
     }
+`;
 
-    tbody {
-        border: ${props => props.theme.borders.thick};
+export const Cell = styled.div`
+    align-items:      center;
+    background-color: ${props => props.sample};
+    border:           ${props => props.theme.borders.default};
+    border-left:      ${props => props.thickLeft ? props.theme.borders.thick : props.theme.borders.default};
+    border-right:     ${props => props.thickRight ? props.theme.borders.thick : props.theme.borders.default};
+    display:          flex;
+    flex:             1 1 0;
+    height:           30px;
 
-        tr {
-            border-bottom: ${props => props.theme.borders.thick};
-
-            td {
-                border-right: ${props => props.theme.borders.thick};
-            }
-
-            td:last-child {
-                border-right: 0;
-            }
-        }
+    span {
+        padding-left: 5px;
     }
 `;
