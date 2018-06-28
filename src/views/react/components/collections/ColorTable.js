@@ -8,8 +8,6 @@ export default class ColorTable extends Component {
     render() {
         const { members } = this.props;
 
-        // ditch the table construction, use <div>s and flexbox
-
         return (
             <Table> 
                 <Header>
