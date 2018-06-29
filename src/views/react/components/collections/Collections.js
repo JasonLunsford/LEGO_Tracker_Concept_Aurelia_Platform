@@ -14,13 +14,13 @@ export default class Collections extends Component {
         setSectionTitle(this.convert.pretty(this.props.type));
     }
 
-    table({type, members}) {
+    table({type, members, themes}) {
         switch (type) {
             case 'colors':
                 return <ColorTable members={members} />;
                 break;
             case 'sets':
-                return <SetTable members={members} />;
+                return <SetTable members={members} themes={themes}/>;
                 break;
         }
     }
@@ -30,11 +30,11 @@ export default class Collections extends Component {
     }
 
     render() {
-        const { members, router, type } = this.props;
+        const { members, router, type, themes } = this.props;
 
         return (
             <Container>
-                {this.table({type, members})}
+                {this.table({type, members, themes})}
             </Container>
         );
     }

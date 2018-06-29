@@ -28,10 +28,21 @@ export default class Shell extends Component {
     const collections = _.get(this.props.model, 'collections');
     const trialMessage = _.get(this.props.model.views[view], 'trialMessage');
 
-    const members = _.chain(collections).
-                    find(item => item.name === type).
-                    get('members').
-                    value();
+    const members = _.chain(collections)
+                     .find(item => item.name === type)
+                     .get('members')
+                     .value();
+
+    const themes = _.chain(collections)
+                    .find(item => item.name === 'themes')
+                    .get('members')
+                    .map(member => {
+                      return {
+                        name: member.name,
+                        id: member._id
+                      }
+                    })
+                    .value();
 
     return {
       collections,
@@ -40,11 +51,12 @@ export default class Shell extends Component {
       trialMessage,
       router,
       members,
-      type
+      type,
+      themes
     };
   }
 
-  viewToggle({view, collections = [], trialMessage, router, members, type}) {
+  viewToggle({view, collections = [], trialMessage, router, members, type, themes}) {
       switch (view) {
         case 'dashboard':
           return <Dashboard collections={collections}
@@ -53,7 +65,8 @@ export default class Shell extends Component {
         case 'collections':
           return <Collections router={router}
                               members={members}
-                              type={type}/>
+                              type={type}
+                              themes={themes}/>
           break;
         case 'details':
           return <Details trialMessage={trialMessage} />
@@ -72,7 +85,8 @@ export default class Shell extends Component {
             trialMessage,
             router,
             members,
-            type } = this.prepareView();
+            type,
+            themes } = this.prepareView();
 
     return (
       <ThemeProvider theme={coreTheme}>
@@ -82,7 +96,7 @@ export default class Shell extends Component {
                   view={view} 
                   router={router}/>
           <SectionTitle />
-          {this.viewToggle({view, collections, trialMessage, router, members, type})}
+          {this.viewToggle({view, collections, trialMessage, router, members, type, themes})}
         </Container>
       </ThemeProvider>
     );
