@@ -7,6 +7,14 @@ import {Table, Header, Body, SmallCell, I} from './styles/collections.sc';
 
 export default class SetTable extends Component {
 
+    componentWillMount() {
+        _.map(this.props.members, member => {
+            member.theme = this.getTheme(this.props.themes, member.theme_id);
+            member.name = _.startCase(member.name);
+            member.num_minifigs = this.getMinifigs(member.num_minifigs);
+        });
+    }
+
     getTheme(themes, themeId) {
         return _.chain(themes)
                 .find(theme => theme.id === themeId)
@@ -20,10 +28,6 @@ export default class SetTable extends Component {
         }
 
         return minifigs;
-    }
-
-    prettyName(name) {
-        return _.startCase(name);
     }
 
     render() {
@@ -47,16 +51,16 @@ export default class SetTable extends Component {
                 <Body>
                 {members.map((member, index) => 
                     <div key={index}>
-                        <SmallCell thickleft><span title={this.prettyName(member.name)}>{this.prettyName(member.name)}</span></SmallCell>
+                        <SmallCell thickleft><span title={member.name}>{member.name}</span></SmallCell>
                         <SmallCell><span>{member.set_num}</span></SmallCell>
                         <SmallCell><span>{member.year}</span></SmallCell>
-                        <SmallCell><span>{this.getTheme(themes, member.theme_id)}</span></SmallCell>
+                        <SmallCell><span title={member.theme}>{member.theme}</span></SmallCell>
                         <SmallCell><span>{member.num_pieces}</span></SmallCell>
                         <SmallCell><span>{member.num_spares}</span></SmallCell>
-                        <SmallCell><span>{this.getMinifigs(member.num_minifigs)}</span></SmallCell>
-                        <SmallCell><span>members</span></SmallCell>
+                        <SmallCell><span>{member.num_minifigs}</span></SmallCell>
+                        <SmallCell><span>[members]</span></SmallCell>
                         <SmallCell><span>{member.has_gear ? 'Yes' : 'No'}</span></SmallCell>
-                        <SmallCell><span>build_urls</span></SmallCell>
+                        <SmallCell><span>[build_urls]</span></SmallCell>
                         <SmallCell thickright><I className="fas fa-external-link-alt"></I></SmallCell>
                     </div>
                 )}
