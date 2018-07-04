@@ -95,7 +95,7 @@ export default class Shell extends Component {
                   date={this.getDate.today()} 
                   view={view} 
                   router={router}/>
-          <SectionTitle />
+          <SectionTitle view={view} />
           {this.viewToggle({view, collections, trialMessage, router, members, type, themes})}
         </Container>
       </ThemeProvider>

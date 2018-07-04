@@ -1,15 +1,23 @@
 import React, {Component} from 'react';
 
+import { observer } from 'mobx-react';
+
+import { setMembers, getFilteredMembers } from '../../global/mobx/appState';
+
 import styled from 'styled-components';
 import {Table, Header, Body, Cell, Sample} from './styles/collections.sc';
 
-export default class ColorTable extends Component {
+@observer export default class ColorTable extends Component {
+
+    componentWillMount() {
+        setMembers(this.props.members);
+    }
 
     render() {
-        const { members } = this.props;
+        const members = getFilteredMembers();
 
         return (
-            <Table> 
+            <Table>
                 <Header>
                     <Cell thickleft><span>Name</span></Cell>
                     <Cell><span>RGB</span></Cell>

@@ -2,15 +2,14 @@ import React, {Component} from 'react';
 
 import _ from 'lodash';
 
+import { observer } from 'mobx-react';
+
+import { setMembers, getFilteredMembers } from '../../global/mobx/appState';
+
 import styled from 'styled-components';
 import {Table, Header, Body, SmallCell, I} from './styles/collections.sc';
 
-export default class SetTable extends Component {
-
-    state = {
-        members: this.props.members,
-        query: ''
-    }
+@observer export default class SetTable extends Component {
 
     componentWillMount() {
         _.map(this.props.members, member => {
@@ -18,6 +17,8 @@ export default class SetTable extends Component {
             member.name = _.startCase(member.name);
             member.num_minifigs = this.getMinifigs(member.num_minifigs);
         });
+
+        setMembers(this.props.members);
     }
 
     getTheme(themes, themeId) {
@@ -35,37 +36,10 @@ export default class SetTable extends Component {
         return minifigs;
     }
 
-    handleSearch() {
-        if (!_.isEmpty(this.search.value)) {
-            let searchValue = _.toLower(this.search.value)
-            _.delay(() => {
-                let members = _.filter(this.props.members, member => {
-                    let searchName = _.toLower(member.name);
-                    return _.includes(searchName, searchValue);
-                });
-
-                this.setState({
-                    members,
-                    query: this.search.value
-                });
-            }, 1000);
-        } else {
-            this.setState({
-                members: this.props.members,
-                query: ''
-            });
-        }
-    }
-
     render() {
-        const { themes } = this.props;
+        const members = getFilteredMembers();
 
         return (
-            <div>
-            <input placeholder="Search..."
-                   ref={input => this.search = input}
-                   onChange={e => this.handleSearch()}
-            />
             <Table> 
                 <Header>
                     <SmallCell thickleft><span>Name</span></SmallCell>
@@ -81,7 +55,7 @@ export default class SetTable extends Component {
                     <SmallCell thickright><span>View</span></SmallCell>
                 </Header>
                 <Body>
-                {this.state.members.map((member, index) => 
+                {members.map((member, index) => 
                     <div key={index}>
                         <SmallCell thickleft><span title={member.name}>{member.name}</span></SmallCell>
                         <SmallCell><span>{member.set_num}</span></SmallCell>
@@ -98,7 +72,6 @@ export default class SetTable extends Component {
                 )}
                 </Body>
             </Table>
-            </div>
         );
     }
 }
