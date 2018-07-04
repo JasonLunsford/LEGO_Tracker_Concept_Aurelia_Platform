@@ -9,12 +9,14 @@ import {Container,
         Title, Search} from './styles/section_title.sc';
 
 @observer export default class SectionTitle extends Component {
+    constructor(props) {
+        super(props);
+        this.handleSearch = _.debounce(this.handleSearch, 500);
+    }
 
     handleSearch() {
-        _.delay(() => {
-            let searchValue = _.toLower(this.search.value)
-            setFilteredMembers(searchValue);
-        }, 1000);
+        let searchValue = _.toLower(this.search.value)
+        setFilteredMembers(searchValue);
     }
 
     render() {
