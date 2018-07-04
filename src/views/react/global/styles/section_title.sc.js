@@ -39,4 +39,8 @@ export const Search = styled.div`
     i {
         padding-right: 5px;
     }
+
+    i.clear {
+        cursor: pointer;
+    }
 `;

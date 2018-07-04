@@ -19,6 +19,11 @@ import {Container,
         setFilteredMembers(searchValue);
     }
 
+    clearSearch() {
+        this.search.value = '';
+        this.handleSearch();
+    }
+
     render() {
         let { view } = this.props;
 
@@ -31,6 +36,8 @@ import {Container,
                            ref={input => this.search = input}
                            onChange={e => this.handleSearch()}
                     />
+                    <i className="fas fa-times clear"
+                       onClick={() => this.clearSearch()}></i>
                 </Search>}
             </Container>
         );
