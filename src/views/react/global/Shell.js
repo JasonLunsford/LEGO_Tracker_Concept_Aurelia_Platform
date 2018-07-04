@@ -44,6 +44,17 @@ export default class Shell extends Component {
                     })
                     .value();
 
+    const categories = _.chain(collections)
+                        .find(item => item.name === 'piece_categories')
+                        .get('members')
+                        .map(member => {
+                          return {
+                            name: member.name,
+                            id: member._id
+                          }
+                        })
+                        .value();
+
     return {
       collections,
       view,
@@ -52,11 +63,12 @@ export default class Shell extends Component {
       router,
       members,
       type,
-      themes
+      themes,
+      categories
     };
   }
 
-  viewToggle({view, collections = [], trialMessage, router, members, type, themes}) {
+  viewToggle({view, collections = [], trialMessage, router, members, type, themes, categories}) {
       switch (view) {
         case 'dashboard':
           return <Dashboard collections={collections}
@@ -66,7 +78,8 @@ export default class Shell extends Component {
           return <Collections router={router}
                               members={members}
                               type={type}
-                              themes={themes}/>
+                              themes={themes}
+                              categories={categories} />
           break;
         case 'details':
           return <Details trialMessage={trialMessage} />
@@ -86,7 +99,8 @@ export default class Shell extends Component {
             router,
             members,
             type,
-            themes } = this.prepareView();
+            themes,
+            categories } = this.prepareView();
 
     return (
       <ThemeProvider theme={coreTheme}>
@@ -96,7 +110,7 @@ export default class Shell extends Component {
                   view={view} 
                   router={router}/>
           <SectionTitle view={view} />
-          {this.viewToggle({view, collections, trialMessage, router, members, type, themes})}
+          {this.viewToggle({view, collections, trialMessage, router, members, type, themes, categories})}
         </Container>
       </ThemeProvider>
     );

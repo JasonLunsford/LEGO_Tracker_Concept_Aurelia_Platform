@@ -5,8 +5,10 @@ import { setSectionTitle } from '../../global/mobx/appState';
 import styled from 'styled-components';
 import {Container, H2} from './styles/collections.sc';
 
-import ColorTable from './ColorTable'
-import SetTable from './SetTable'
+import ColorTable from './ColorTable';
+import SetTable from './SetTable';
+import ThemeTable from './ThemeTable';
+import PieceTable from './PieceTable';
 
 export default class Collections extends Component {
 
@@ -14,13 +16,19 @@ export default class Collections extends Component {
         setSectionTitle(this.convert.pretty(this.props.type));
     }
 
-    table({type, members, themes}) {
+    table({type, members, themes, categories}) {
         switch (type) {
             case 'colors':
                 return <ColorTable members={members} />;
                 break;
+            case 'pieces':
+                return <PieceTable members={members} categories={categories}/>;
+                break;
             case 'sets':
                 return <SetTable members={members} themes={themes}/>;
+                break;
+            case 'themes':
+                return <ThemeTable members={members}/>;
                 break;
         }
     }
@@ -30,11 +38,11 @@ export default class Collections extends Component {
     }
 
     render() {
-        const { members, router, type, themes } = this.props;
+        const { members, router, type, themes, categories } = this.props;
 
         return (
             <Container>
-                {this.table({type, members, themes})}
+                {this.table({type, members, themes, categories})}
             </Container>
         );
     }
