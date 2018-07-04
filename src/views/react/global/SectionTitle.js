@@ -26,6 +26,7 @@ import {Container,
             <Container>
                 <Title>{getSectionTitle()}</Title>
                 {view === 'collections' && <Search>
+                    <i className="fas fa-search"></i>
                     <input placeholder="Search..."
                            ref={input => this.search = input}
                            onChange={e => this.handleSearch()}

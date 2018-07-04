@@ -71,11 +71,10 @@ export const SmallCell = Cell.extend`
     }
 `;
 
-export const I = styled.i`
+export const ViewIcon = styled.i`
     display:         flex !important;
     flex:            1 1 0;
     justify-content: center;
     margin:          0;
     padding:         0;
 `;
-

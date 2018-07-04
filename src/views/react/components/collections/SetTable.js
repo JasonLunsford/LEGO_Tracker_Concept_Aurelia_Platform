@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 import { setMembers, getFilteredMembers } from '../../global/mobx/appState';
 
 import styled from 'styled-components';
-import {Table, Header, Body, SmallCell, I} from './styles/collections.sc';
+import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc';
 
 @observer export default class SetTable extends Component {
 
@@ -67,7 +67,7 @@ import {Table, Header, Body, SmallCell, I} from './styles/collections.sc';
                         <SmallCell><span>[members]</span></SmallCell>
                         <SmallCell><span>{member.has_gear ? 'Yes' : 'No'}</span></SmallCell>
                         <SmallCell><span>[build_urls]</span></SmallCell>
-                        <SmallCell thickright><I className="fas fa-external-link-alt"></I></SmallCell>
+                        <SmallCell thickright><ViewIcon className="fas fa-external-link-alt"></ViewIcon></SmallCell>
                     </div>
                 )}
                 </Body>
