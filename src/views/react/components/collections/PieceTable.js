@@ -32,7 +32,7 @@ import {Table, Header, Body, SmallCell} from './styles/collections.sc';
             <Table>
                 <Header>
                     <SmallCell thickleft><span>Name</span></SmallCell>
-                    <SmallCell><span>Piece Number</span></SmallCell>
+                    <SmallCell><span>Number</span></SmallCell>
                     <SmallCell><span>Category</span></SmallCell>
                     <SmallCell><span>Introduced</span></SmallCell>
                     <SmallCell><span>Ended</span></SmallCell>
