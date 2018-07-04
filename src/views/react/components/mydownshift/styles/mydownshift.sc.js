@@ -38,6 +38,7 @@ export const DownshiftBox = styled.div`
 `;
 
 export const I = styled.i`
+    cursor:  ${props => props.clear ? 'pointer' : 'default' };
     flex:    0 1 auto;
     margin:  0;
     padding: 0;

@@ -35,12 +35,9 @@ export const Search = styled.div`
             outline: none;
         }
     }
+`;
 
-    i {
-        padding-right: 5px;
-    }
-
-    i.clear {
-        cursor: pointer;
-    }
+export const I = styled.i`
+    cursor:        ${props => props.clear ? 'pointer' : 'default' };
+    padding-right: 5px;
 `;

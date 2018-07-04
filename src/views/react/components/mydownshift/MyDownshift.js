@@ -41,7 +41,8 @@ export default class MyDownshift extends Component {
                                 <I className="fas fa-search"></I>
                                 <Input {...getInputProps()} />
                                 <I className="fas fa-times" 
-                                   onClick={() => clearSelection()}></I>
+                                   onClick={() => clearSelection()}
+                                   clear></I>
                               </div>
                               {isOpen ? (
                               <div className="menuBox">
