@@ -28,7 +28,10 @@ export default class Shell extends Component {
     const collections = _.get(this.props.model, 'collections');
     const trialMessage = _.get(this.props.model.views[view], 'trialMessage');
 
-    const members = this.getCustomCollection(collections);
+    const members = _.chain(collections)
+                     .find(item => item.name === type)
+                     .get('members')
+                     .value();
 
     const themes = this.getCustomCollection(collections, 'themes');
     const categories = this.getCustomCollection(collections, 'piece_categories');
@@ -50,14 +53,7 @@ export default class Shell extends Component {
     };
   }
 
-  getCustomCollection(collections, name = '') {
-      if (_.isEmpty(name)) {
-        return _.chain(collections)
-                .find(item => item.name === name)
-                .get('members')
-                .value();        
-      }
-
+  getCustomCollection(collections, name) {
       return _.chain(collections)
               .find(item => item.name === name)
               .get('members')
