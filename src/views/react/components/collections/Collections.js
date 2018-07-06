@@ -9,6 +9,7 @@ import ColorTable from './ColorTable';
 import SetTable from './SetTable';
 import ThemeTable from './ThemeTable';
 import PieceTable from './PieceTable';
+import PieceCategoryTable from './PieceCategoryTable';
 
 export default class Collections extends Component {
 
@@ -22,13 +23,16 @@ export default class Collections extends Component {
                 return <ColorTable members={members} />;
                 break;
             case 'pieces':
-                return <PieceTable members={members} categories={categories}/>;
+                return <PieceTable members={members} categories={categories} />;
+                break;
+            case 'piece_categories':
+                return <PieceCategoryTable members={members} />;
                 break;
             case 'sets':
-                return <SetTable members={members} themes={themes}/>;
+                return <SetTable members={members} themes={themes} />;
                 break;
             case 'themes':
-                return <ThemeTable members={members}/>;
+                return <ThemeTable members={members} />;
                 break;
         }
     }

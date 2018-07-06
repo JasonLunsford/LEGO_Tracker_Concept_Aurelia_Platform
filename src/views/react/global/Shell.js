@@ -28,32 +28,12 @@ export default class Shell extends Component {
     const collections = _.get(this.props.model, 'collections');
     const trialMessage = _.get(this.props.model.views[view], 'trialMessage');
 
-    const members = _.chain(collections)
-                     .find(item => item.name === type)
-                     .get('members')
-                     .value();
+    const members = this.getCustomCollection(collections);
 
-    const themes = _.chain(collections)
-                    .find(item => item.name === 'themes')
-                    .get('members')
-                    .map(member => {
-                      return {
-                        name: member.name,
-                        id: member._id
-                      }
-                    })
-                    .value();
-
-    const categories = _.chain(collections)
-                        .find(item => item.name === 'piece_categories')
-                        .get('members')
-                        .map(member => {
-                          return {
-                            name: member.name,
-                            id: member._id
-                          }
-                        })
-                        .value();
+    const themes = this.getCustomCollection(collections, 'themes');
+    const categories = this.getCustomCollection(collections, 'piece_categories');
+    const pieces = this.getCustomCollection(collections, 'pieces');
+    const colors = this.getCustomCollection(collections, 'colors');
 
     return {
       collections,
@@ -64,11 +44,33 @@ export default class Shell extends Component {
       members,
       type,
       themes,
-      categories
+      categories,
+      pieces,
+      colors
     };
   }
 
-  viewToggle({view, collections = [], trialMessage, router, members, type, themes, categories}) {
+  getCustomCollection(collections, name = '') {
+      if (_.isEmpty(name)) {
+        return _.chain(collections)
+                .find(item => item.name === name)
+                .get('members')
+                .value();        
+      }
+
+      return _.chain(collections)
+              .find(item => item.name === name)
+              .get('members')
+              .map(member => {
+                return {
+                  name: member.name,
+                  id: member._id
+                }
+              })
+              .value();
+  }
+
+  viewToggle({view, collections = [], trialMessage, router, members, type, themes, categories, pieces, colors}) {
       switch (view) {
         case 'dashboard':
           return <Dashboard collections={collections}
@@ -79,7 +81,9 @@ export default class Shell extends Component {
                               members={members}
                               type={type}
                               themes={themes}
-                              categories={categories} />
+                              categories={categories}
+                              pieces={pieces}
+                              colors={colors} />
           break;
         case 'details':
           return <Details trialMessage={trialMessage} />
@@ -100,7 +104,9 @@ export default class Shell extends Component {
             members,
             type,
             themes,
-            categories } = this.prepareView();
+            categories,
+            pieces,
+            colors } = this.prepareView();
 
     return (
       <ThemeProvider theme={coreTheme}>
@@ -110,7 +116,7 @@ export default class Shell extends Component {
                   view={view} 
                   router={router}/>
           <SectionTitle view={view} />
-          {this.viewToggle({view, collections, trialMessage, router, members, type, themes, categories})}
+          {this.viewToggle({view, collections, trialMessage, router, members, type, themes, categories, pieces, colors})}
         </Container>
       </ThemeProvider>
     );
