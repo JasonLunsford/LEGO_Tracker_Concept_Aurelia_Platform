@@ -21,11 +21,13 @@ export default class Shell extends Component {
 
   prepareView() {
     const view = this.props.view;
+    const collections = _.get(this.props.model, 'collections');
+    const type = _.get(this.props.model.views[view], 'type');
+
     const router = this.props.router;
 
-    const type = _.get(this.props.model.views[view], 'type');
+    
     const message = _.get(this.props.model.views[view], 'message');
-    const collections = _.get(this.props.model, 'collections');
     const trialMessage = _.get(this.props.model.views[view], 'trialMessage');
 
     const members = _.chain(collections)
@@ -39,17 +41,17 @@ export default class Shell extends Component {
     const colors = this.getCustomCollection(collections, 'colors');
 
     return {
-      collections,
-      view,
-      message,
-      trialMessage,
-      router,
-      members,
-      type,
-      themes,
       categories,
+      collections,
+      colors,
+      members,
+      message,
       pieces,
-      colors
+      router,
+      themes,
+      trialMessage,
+      type,
+      view
     };
   }
 
