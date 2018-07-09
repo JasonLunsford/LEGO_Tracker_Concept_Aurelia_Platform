@@ -24,32 +24,21 @@ export default class Shell extends Component {
     const collections = _.get(this.props.model, 'collections');
     const type = _.get(this.props.model.views[view], 'type');
 
-    const router = this.props.router;
-
-    
-    const message = _.get(this.props.model.views[view], 'message');
-    const trialMessage = _.get(this.props.model.views[view], 'trialMessage');
-
     const members = _.chain(collections)
                      .find(item => item.name === type)
                      .get('members')
                      .value();
 
-    const themes = this.getCustomCollection(collections, 'themes');
-    const categories = this.getCustomCollection(collections, 'piece_categories');
-    const pieces = this.getCustomCollection(collections, 'pieces');
-    const colors = this.getCustomCollection(collections, 'colors');
-
     return {
-      categories,
+      categories: this.getCustomCollection(collections, 'piece_categories'),
       collections,
-      colors,
+      colors: this.getCustomCollection(collections, 'colors'),
       members,
-      message,
-      pieces,
-      router,
-      themes,
-      trialMessage,
+      message: _.get(this.props.model.views[view], 'message'),
+      pieces: this.getCustomCollection(collections, 'pieces'),
+      router: this.props.router,
+      themes: this.getCustomCollection(collections, 'themes'),
+      trialMessage: _.get(this.props.model.views[view], 'trialMessage'),
       type,
       view
     };
