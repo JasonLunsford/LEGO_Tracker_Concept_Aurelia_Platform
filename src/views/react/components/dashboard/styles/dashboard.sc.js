@@ -26,8 +26,7 @@ export const Badge = styled.div`
 `;
 
 export const Span = styled.span`
-    flex:          1 1 auto;
-    padding-right: 10px;
+    flex: 1 1 auto;
 `;
 
 export const TitleBox = styled.div`
@@ -84,6 +83,11 @@ export const ButtonBox = styled.div`
     margin-bottom:   10px;
     padding:         0;
     z-index:         0;
+`;
+
+export const SingleButtonBox = ButtonBox.extend`
+    justify-content: flex-end;
+    margin-top:      40px;
 `;
 
 export const Button = styled.button`

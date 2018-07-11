@@ -2,7 +2,7 @@
 export class RouteManager {
 
     myRouter(mode, aspects = {}) {
-        let { target, state, parent, child } = aspects;
+        let { target, state, id } = aspects;
         let route = `${mode}`;
 
         switch (mode) {
@@ -16,7 +16,7 @@ export class RouteManager {
                 switch (state) {
                     case 'edit':
                     case 'view':
-                        route = `${route}/${parent}/${child}`;
+                        route = `${route}/${id}`;
                         break;
                     default:
                         break;

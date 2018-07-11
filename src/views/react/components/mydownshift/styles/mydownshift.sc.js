@@ -25,6 +25,8 @@ export const DownshiftBox = styled.div`
             border-left:      ${props => props.theme.borders.default};
             border-right:     ${props => props.theme.borders.default};
             border-bottom:    ${props => props.theme.borders.default};
+            max-height:       200px;
+            overflow:         auto;
             padding:          0;
 
             > div {
@@ -36,6 +38,7 @@ export const DownshiftBox = styled.div`
 `;
 
 export const I = styled.i`
+    cursor:  ${props => props.clear ? 'pointer' : 'default' };
     flex:    0 1 auto;
     margin:  0;
     padding: 0;

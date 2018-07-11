@@ -33,6 +33,26 @@ export class ModelManager {
         return this.model;
     }
 
+    loadCollections() {
+        return new Promise((resolve, reject) => {
+            const names = _.chain(this.model).get('collections').map(collection => collection.name).value();
+
+            let collectionPromises = _.map(names, name => {
+                return this.getCollection(name);
+            });
+
+            Promise.all(collectionPromises).then(collections => {
+                names.forEach((name, index) => {
+                    let match = _.find(this.model.collections, result => result.name === name);
+                    match.members = collections[index];
+                    resolve('Data Loaded');
+                });
+            }).catch(reason => {                 
+                reject(reason);
+            });
+        });
+    }
+
     _extractNames(source) {
         return _.map(source, item => {
             return item.name;
@@ -55,23 +75,6 @@ export class ModelManager {
         const collectionMetaData = await this.getCollectionMetaData(names, promises);
 
         _.set(this.model, 'collections', collectionMetaData);
-    }
-
-    async loadCollections() {
-        const names = await this.getNames();
-
-        let collectionPromises = _.map(names, name => {
-            return this.getCollection(name)
-        });
-
-        Promise.all(collectionPromises).then(collections => {
-            names.forEach((name, index) => {
-                let match = _.find(this.model.collections, result => result.name === name);
-                match.members = collections[index];
-            });
-        }).catch(reason => { 
-            console.log('Promise.all failed because: ', reason);
-        });
     }
 
     async getCollectionMetaData(names, promises) {

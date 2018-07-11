@@ -1,4 +1,7 @@
 <template>
     <require from='../../assets/styles/fontawesome-all.css'></require>
+    <require from='../loadingScreen/loadingScreen'></require>
+
+    <loading-screen if.bind="loadingScreen"></loading-screen>
     <div element.ref="insert"></div>
 </template>

@@ -5,10 +5,12 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import {Container, Badge, Span, TitleBox, 
         Title, LastUpdate, CountBox, 
-        Count, SizeBox, ButtonBox, SearchBox,
+        Count, SizeBox, ButtonBox, SingleButtonBox, SearchBox,
         Button} from './styles/dashboard.sc';
 
-import { setSectionTitle } from '../../global/mobx/appState';
+import { setSectionTitle,
+         setSelectedItem,
+         getSelectedItem } from '../../global/mobx/appState';
 import MyDownshift from '../mydownshift/MyDownshift';
 
 export default class Dashboard extends Component {
@@ -24,23 +26,17 @@ export default class Dashboard extends Component {
     selectionUpdate(selection) {
         if (_.isNil(selection) || _.isEmpty(selection)) {
             this.setState({disabled: true});
+            setSelectedItem({});
             return;
         }
 
         this.setState({disabled: false});
+        setSelectedItem(selection);
     }
 
     convert = {
         pretty: value => { return _.chain(value).replace('_', ' ').startCase().value(); }
     }
-
-    items = [
-      {value: 'apple'},
-      {value: 'pear'},
-      {value: 'orange'},
-      {value: 'grape'},
-      {value: 'banana'},
-    ];
 
     render() {
         const { collections, router } = this.props;
@@ -51,9 +47,9 @@ export default class Dashboard extends Component {
             router('collections', {target});
         }
 
-        const detailsRouter = (target, {state, parent, child})  => {
+        const detailsRouter = (target, {state, id})  => {
             setSectionTitle(this.convert.pretty(target));
-            router('details', {state, target, parent, child});
+            router('details', {state, target, id});
         }
 
         const action = (e, state, name) => {
@@ -65,7 +61,8 @@ export default class Dashboard extends Component {
                     detailsRouter(name, {state})
                     break;
                 case 'view':
-                    detailsRouter(name, {state, parent: 'hello', child: 'world'})
+                    let selectedItem = getSelectedItem();
+                    detailsRouter(name, {state, id: selectedItem._id})
                     break;
             }
         }
@@ -87,14 +84,17 @@ export default class Dashboard extends Component {
                         <Span>Disk</Span>
                     </SizeBox>
                     <SearchBox>
-                        <MyDownshift items={this.items}
-                                     selectionUpdate={this.selectionUpdate.bind(this)} />
+                        {collection.name !=='elements' && (<MyDownshift items={collection.members}
+                                     selectionUpdate={this.selectionUpdate.bind(this)} />)}
                     </SearchBox>
-                    <ButtonBox>
+                    {collection.name !=='elements' && (<ButtonBox>
                         <Button disabled={disabled}
                                 onClick={e => action(e, 'view', collection.name)}>View</Button>
                         <Button onClick={e => action(e, 'new', collection.name)}>Add</Button>
-                    </ButtonBox>
+                    </ButtonBox>)}
+                    {collection.name ==='elements' && (<SingleButtonBox>
+                        <Button onClick={e => action(e, 'new', collection.name)}>Add</Button>
+                    </SingleButtonBox>)}
                   </Badge>
                 )}
             </Container>

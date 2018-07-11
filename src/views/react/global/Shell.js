@@ -20,33 +20,60 @@ InjectBody();
 export default class Shell extends Component {
 
   prepareView() {
-    let view = this.props.view;
-    let router = this.props.router;
+    const view = this.props.view;
+    const collections = _.get(this.props.model, 'collections');
+    const type = _.get(this.props.model.views[view], 'type');
 
-    let message = _.get(this.props.model.views[view], 'message');
-    let collections = _.get(this.props.model, 'collections');
-    let trialMessage = _.get(this.props.model.views[view], 'trialMessage');
+    const members = _.chain(collections)
+                     .find(item => item.name === type)
+                     .get('members')
+                     .value();
 
     return {
+      categories: this.getCustomCollection(collections, 'piece_categories'),
       collections,
-      view,
-      message,
-      trialMessage,
-      router
+      colors: this.getCustomCollection(collections, 'colors'),
+      members,
+      message: _.get(this.props.model.views[view], 'message'),
+      pieces: this.getCustomCollection(collections, 'pieces'),
+      router: this.props.router,
+      themes: this.getCustomCollection(collections, 'themes'),
+      trialMessage: _.get(this.props.model.views[view], 'trialMessage'),
+      type,
+      view
     };
   }
 
-  viewToggle({view, collections = [], trialMessage, router}) {
-      switch (view) {
+  getCustomCollection(collections, name) {
+      return _.chain(collections)
+              .find(item => item.name === name)
+              .get('members')
+              .map(member => {
+                return {
+                  name: member.name,
+                  id: member._id
+                }
+              })
+              .value();
+  }
+
+  viewToggle(viewObj) {
+      switch (viewObj.view) {
         case 'dashboard':
-          return <Dashboard collections={collections}
-                            router={router} />
+          return <Dashboard collections={viewObj.collections}
+                            router={viewObj.router} />
           break;
         case 'collections':
-          return <Collections trialMessage={trialMessage} />
+          return <Collections router={viewObj.router}
+                              members={viewObj.members}
+                              type={viewObj.type}
+                              themes={viewObj.themes}
+                              categories={viewObj.categories}
+                              pieces={viewObj.pieces}
+                              colors={viewObj.colors} />
           break;
         case 'details':
-          return <Details trialMessage={trialMessage} />
+          return <Details trialMessage={viewObj.trialMessage} />
           break;
       }
   }
@@ -56,21 +83,17 @@ export default class Shell extends Component {
   }
 
   render() {
-    const { collections,
-            view,
-            message,
-            trialMessage,
-            router } = this.prepareView();
+    const viewObj = this.prepareView();
 
     return (
       <ThemeProvider theme={coreTheme}>
         <Container>
-          <Header message={message} 
+          <Header message={viewObj.message} 
                   date={this.getDate.today()} 
-                  view={view} 
-                  router={router}/>
-          <SectionTitle />
-          {this.viewToggle({view, collections, trialMessage, router})}
+                  view={viewObj.view} 
+                  router={viewObj.router}/>
+          <SectionTitle view={viewObj.view} />
+          {this.viewToggle(viewObj)}
         </Container>
       </ThemeProvider>
     );
