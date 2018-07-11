@@ -8,7 +8,17 @@ import styled from 'styled-components';
 import {Table, Header, Body, Cell} from './styles/collections.sc';
 
 @observer export default class ThemesTable extends Component {
+    constructor(props) {
+        super(props);
 
+        this.handleScroll = _.debounce(this.handleScroll, 250);
+    }
+
+    state = {
+        counter: 100,
+        lastScrollTop: 0
+    }
+    
     componentWillMount() {
         _.map(this.props.members, member => {
             member.name = _.startCase(member.name);
@@ -16,6 +26,26 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
         });
 
         setMembers(this.props.members);
+    }
+
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll.bind(this));
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll.bind(this));
+    }
+
+    handleScroll(event) {
+        let scrollTop = window.scrollY;
+
+        if (scrollTop > this.state.lastScrollTop) {
+            let start = this.state.counter;
+            this.setState({
+                counter: start + 100,
+                lastScrollTop: scrollTop <= 0 ? 0 : scrollTop
+            });
+        }
     }
 
     getParentName(parent) {
@@ -27,7 +57,7 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
     }
 
     render() {
-        const members = getFilteredMembers();
+        const members = getFilteredMembers(this.state.counter);
 
         return (
             <Table>

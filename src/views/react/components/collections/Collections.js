@@ -6,10 +6,11 @@ import styled from 'styled-components';
 import {Container, H2} from './styles/collections.sc';
 
 import ColorTable from './ColorTable';
+import ElementTable from './ElementTable';
+import PieceCategoryTable from './PieceCategoryTable';
+import PieceTable from './PieceTable';
 import SetTable from './SetTable';
 import ThemeTable from './ThemeTable';
-import PieceTable from './PieceTable';
-import PieceCategoryTable from './PieceCategoryTable';
 
 export default class Collections extends Component {
 
@@ -17,10 +18,15 @@ export default class Collections extends Component {
         setSectionTitle(this.convert.pretty(this.props.type));
     }
 
-    table({type, members, themes, categories}) {
+    table({type, members, themes, categories, colors, pieces}) {
         switch (type) {
             case 'colors':
                 return <ColorTable members={members} />;
+                break;
+            case 'elements':
+                return <ElementTable members={members}
+                                     colors={colors}
+                                     pieces={pieces} />;
                 break;
             case 'pieces':
                 return <PieceTable members={members} categories={categories} />;
@@ -42,11 +48,17 @@ export default class Collections extends Component {
     }
 
     render() {
-        const { members, router, type, themes, categories } = this.props;
+        const { members,
+                router,
+                type,
+                themes,
+                categories,
+                colors,
+                pieces } = this.props;
 
         return (
             <Container>
-                {this.table({type, members, themes, categories})}
+                {this.table({type, members, themes, categories, colors, pieces})}
             </Container>
         );
     }

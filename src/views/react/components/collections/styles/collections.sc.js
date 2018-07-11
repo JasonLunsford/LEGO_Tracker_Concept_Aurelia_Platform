@@ -62,6 +62,7 @@ export const Cell = styled.div`
         padding-left:  5px;
         text-overflow: ellipsis;
         white-space:   nowrap;
+        width:         ${props => props.long ? '100%' : '180px'};
     }
 `;
 

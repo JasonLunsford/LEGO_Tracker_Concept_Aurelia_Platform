@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { observable } from 'mobx';
 
 const appState = observable({
@@ -42,6 +44,6 @@ export const getSelectedItem = () => {
     return appState.selectedItem;
 }
 
-export const getFilteredMembers = () => {
-    return appState.filteredMembers;
+export const getFilteredMembers = index => {
+    return _.slice(appState.filteredMembers, 0, index);
 }
