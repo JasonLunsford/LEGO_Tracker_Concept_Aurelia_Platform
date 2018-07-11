@@ -57,23 +57,23 @@ export default class Shell extends Component {
               .value();
   }
 
-  viewToggle({view, collections = [], trialMessage, router, members, type, themes, categories, pieces, colors}) {
-      switch (view) {
+  viewToggle(viewObj) {
+      switch (viewObj.view) {
         case 'dashboard':
-          return <Dashboard collections={collections}
-                            router={router} />
+          return <Dashboard collections={viewObj.collections}
+                            router={viewObj.router} />
           break;
         case 'collections':
-          return <Collections router={router}
-                              members={members}
-                              type={type}
-                              themes={themes}
-                              categories={categories}
-                              pieces={pieces}
-                              colors={colors} />
+          return <Collections router={viewObj.router}
+                              members={viewObj.members}
+                              type={viewObj.type}
+                              themes={viewObj.themes}
+                              categories={viewObj.categories}
+                              pieces={viewObj.pieces}
+                              colors={viewObj.colors} />
           break;
         case 'details':
-          return <Details trialMessage={trialMessage} />
+          return <Details trialMessage={viewObj.trialMessage} />
           break;
       }
   }
@@ -83,27 +83,17 @@ export default class Shell extends Component {
   }
 
   render() {
-    const { collections,
-            view,
-            message,
-            trialMessage,
-            router,
-            members,
-            type,
-            themes,
-            categories,
-            pieces,
-            colors } = this.prepareView();
+    const viewObj = this.prepareView();
 
     return (
       <ThemeProvider theme={coreTheme}>
         <Container>
-          <Header message={message} 
+          <Header message={viewObj.message} 
                   date={this.getDate.today()} 
-                  view={view} 
-                  router={router}/>
-          <SectionTitle view={view} />
-          {this.viewToggle({view, collections, trialMessage, router, members, type, themes, categories, pieces, colors})}
+                  view={viewObj.view} 
+                  router={viewObj.router}/>
+          <SectionTitle view={viewObj.view} />
+          {this.viewToggle(viewObj)}
         </Container>
       </ThemeProvider>
     );

@@ -93,7 +93,7 @@ import {Table, Header, Body, SmallCell, Cell} from './styles/collections.sc';
                 {members.map((member, index) => 
                     <div key={index}>
                         <Cell thickleft><span>{member.number}</span></Cell>
-                        <Cell><span>{member.piece}</span></Cell>
+                        <Cell><span title={member.piece}>{member.piece}</span></Cell>
                         <Cell><span>{member.color}</span></Cell>
                         <Cell><span>{member.num_sets}</span></Cell>
                         <Cell><span>{member.num_usage}</span></Cell>

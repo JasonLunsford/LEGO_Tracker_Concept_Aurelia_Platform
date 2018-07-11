@@ -18,27 +18,29 @@ export default class Collections extends Component {
         setSectionTitle(this.convert.pretty(this.props.type));
     }
 
-    table({type, members, themes, categories, colors, pieces}) {
-        switch (type) {
+    table(tableObj) {
+        switch (tableObj.type) {
             case 'colors':
-                return <ColorTable members={members} />;
+                return <ColorTable members={tableObj.members} />;
                 break;
             case 'elements':
-                return <ElementTable members={members}
-                                     colors={colors}
-                                     pieces={pieces} />;
+                return <ElementTable members={tableObj.members}
+                                     colors={tableObj.colors}
+                                     pieces={tableObj.pieces} />;
                 break;
             case 'pieces':
-                return <PieceTable members={members} categories={categories} />;
+                return <PieceTable members={tableObj.members}
+                                   categories={tableObj.categories} />;
                 break;
             case 'piece_categories':
-                return <PieceCategoryTable members={members} />;
+                return <PieceCategoryTable members={tableObj.members} />;
                 break;
             case 'sets':
-                return <SetTable members={members} themes={themes} />;
+                return <SetTable members={tableObj.members}
+                                 themes={tableObj.themes} />;
                 break;
             case 'themes':
-                return <ThemeTable members={members} />;
+                return <ThemeTable members={tableObj.members} />;
                 break;
         }
     }
@@ -48,17 +50,9 @@ export default class Collections extends Component {
     }
 
     render() {
-        const { members,
-                router,
-                type,
-                themes,
-                categories,
-                colors,
-                pieces } = this.props;
-
         return (
             <Container>
-                {this.table({type, members, themes, categories, colors, pieces})}
+                {this.table(this.props)}
             </Container>
         );
     }
