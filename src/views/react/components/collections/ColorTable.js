@@ -16,6 +16,7 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
 
     state = {
         counter: 100,
+        direction: '',
         lastScrollTop: 0
     }
 
@@ -43,15 +44,39 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
         }
     }
 
+    sortMe(key) {
+        let m;
+
+        if (_.isEmpty(this.state.direction) || this.state.direction === 'down') {
+            m = _.sortBy(this.props.members, member => member[key]);
+            this.setState({direction: 'up'});
+        } else if (this.state.direction === 'up') {
+            m = _.chain(this.props.members)
+                 .sortBy(member => member[key])
+                 .reverse()
+                 .value();
+            this.setState({direction: 'down'});
+        }
+
+        setMembers(m);
+    }
+
     render() {
-        const members = getFilteredMembers(this.state.counter);
+        let members = getFilteredMembers(this.state.counter);
 
         return (
             <Table>
                 <Header>
-                    <Cell thickleft><span>Name</span></Cell>
+                    <Cell thickleft
+                          sortable
+                          onClick={() => this.sortMe('name')}>
+                        <span>Name</span>
+                    </Cell>
                     <Cell><span>RGB</span></Cell>
-                    <Cell><span>Is Transparent?</span></Cell>
+                    <Cell sortable
+                          onClick={() => this.sortMe('is_trans')}>
+                        <span>Is Transparent?</span>
+                    </Cell>
                     <Cell thickright><span>Sample</span></Cell>
                 </Header>
                 <Body>

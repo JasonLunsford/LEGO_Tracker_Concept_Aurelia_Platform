@@ -53,6 +53,7 @@ export const Cell = styled.div`
     border:           ${props => props.theme.borders.default};
     border-left:      ${props => props.thickLeft ? props.theme.borders.thick : props.theme.borders.default};
     border-right:     ${props => props.thickRight ? props.theme.borders.thick : props.theme.borders.default};
+    cursor:           ${props => props.sortable ? 'pointer' : 'default' };
     display:          flex;
     flex:             1 1 0;
     height:           30px;
