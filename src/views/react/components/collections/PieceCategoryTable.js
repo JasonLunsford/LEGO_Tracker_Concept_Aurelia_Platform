@@ -61,19 +61,6 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
         }
     }
 
-    handleSort(key) {
-        const members = this.props.members;
-        const direction = this.state.direction;
-
-        this.props.sortMe(key, direction, members);
-
-        if (_.isEmpty(direction) || direction === 'down') {
-            this.setState({direction: 'up'});
-        } else {
-            this.setState({direction: 'down'});
-        }
-    }
-
     render() {
         const members = getFilteredMembers(this.state.counter);
 
