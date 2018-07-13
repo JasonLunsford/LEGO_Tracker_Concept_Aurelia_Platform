@@ -15,7 +15,8 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
     }
 
     state = {
-        counter: 100,
+        counter:       100,
+        direction:     '',
         lastScrollTop: 0
     }
 
@@ -47,14 +48,50 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
         }
     }
 
+    handleSort(key) {
+        const members = this.props.members;
+        const direction = this.state.direction;
+
+        this.props.sortMe(key, direction, members);
+
+        if (_.isEmpty(direction) || direction === 'down') {
+            this.setState({direction: 'up'});
+        } else {
+            this.setState({direction: 'down'});
+        }
+    }
+
+    handleSort(key) {
+        const members = this.props.members;
+        const direction = this.state.direction;
+
+        this.props.sortMe(key, direction, members);
+
+        if (_.isEmpty(direction) || direction === 'down') {
+            this.setState({direction: 'up'});
+        } else {
+            this.setState({direction: 'down'});
+        }
+    }
+
     render() {
         const members = getFilteredMembers(this.state.counter);
 
         return (
             <Table>
                 <Header>
-                    <Cell long thickleft><span>Name</span></Cell>
-                    <Cell long thickright><span>Piece Count</span></Cell>
+                    <Cell long 
+                          thickleft
+                          sortable
+                          onClick={() => this.handleSort('name')}>
+                        <span>Name</span>
+                    </Cell>
+                    <Cell long 
+                          thickright
+                          sortable
+                          onClick={() => this.handleSort('piece_count')}>
+                        <span>Piece Count</span>
+                    </Cell>
                 </Header>
                 <Body>
                 {members.map((member, index) => 

@@ -17,7 +17,8 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
     }
 
     state = {
-        counter: 100,
+        counter:       100,
+        direction:     '',
         lastScrollTop: 0
     }
 
@@ -39,18 +40,6 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
         window.removeEventListener('scroll', this.handleScroll.bind(this));
     }
 
-    handleScroll(event) {
-        let scrollTop = window.scrollY;
-
-        if (scrollTop > this.state.lastScrollTop) {
-            let start = this.state.counter;
-            this.setState({
-                counter: start + 100,
-                lastScrollTop: scrollTop <= 0 ? 0 : scrollTop
-            });
-        }
-    }
-
     getTheme(themes, themeId) {
         return _.chain(themes)
                 .find(theme => theme.id === themeId)
@@ -66,21 +55,68 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
         return minifigs;
     }
 
+    handleScroll(event) {
+        let scrollTop = window.scrollY;
+
+        if (scrollTop > this.state.lastScrollTop) {
+            let start = this.state.counter;
+            this.setState({
+                counter: start + 100,
+                lastScrollTop: scrollTop <= 0 ? 0 : scrollTop
+            });
+        }
+    }
+
+    handleSort(key) {
+        const members = this.props.members;
+        const direction = this.state.direction;
+
+        this.props.sortMe(key, direction, members);
+
+        if (_.isEmpty(direction) || direction === 'down') {
+            this.setState({direction: 'up'});
+        } else {
+            this.setState({direction: 'down'});
+        }
+    }
+
     render() {
         const members = getFilteredMembers(this.state.counter);
 
         return (
             <Table> 
                 <Header>
-                    <SmallCell thickleft><span>Name</span></SmallCell>
+                    <SmallCell thickleft
+                               sortable
+                               onClick={() => this.handleSort('name')}>
+                        <span>Name</span>
+                    </SmallCell>
                     <SmallCell><span>Set Number</span></SmallCell>
-                    <SmallCell><span>Year</span></SmallCell>
-                    <SmallCell><span>Theme</span></SmallCell>
-                    <SmallCell><span>Pieces</span></SmallCell>
-                    <SmallCell><span>Spares</span></SmallCell>
-                    <SmallCell><span>Minifigs</span></SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('year')}>
+                        <span>Year</span>
+                    </SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('theme')}>
+                        <span>Theme</span>
+                    </SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('num_pieces')}>
+                        <span>Pieces</span>
+                    </SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('num_spares')}>
+                        <span>Spares</span>
+                    </SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('num_minifigs')}>
+                        <span>Minifigs</span>
+                    </SmallCell>
                     <SmallCell><span>Members</span></SmallCell>
-                    <SmallCell><span>Gear</span></SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('has_gear')}>
+                        <span>Gear</span>
+                    </SmallCell>
                     <SmallCell><span>Builds</span></SmallCell>
                     <SmallCell thickright><span>View</span></SmallCell>
                 </Header>

@@ -15,7 +15,8 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
     }
 
     state = {
-        counter: 100,
+        counter:       100,
+        direction:     '',
         lastScrollTop: 0
     }
     
@@ -36,6 +37,14 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
         window.removeEventListener('scroll', this.handleScroll.bind(this));
     }
 
+    getParentName(parent) {
+        if (_.isNil(parent) || _.isEmpty(parent)) {
+            return 'No Parent';
+        }
+
+        return _.startCase(parent);
+    }
+
     handleScroll(event) {
         let scrollTop = window.scrollY;
 
@@ -48,12 +57,17 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
         }
     }
 
-    getParentName(parent) {
-        if (_.isNil(parent) || _.isEmpty(parent)) {
-            return 'No Parent';
-        }
+    handleSort(key) {
+        const members = this.props.members;
+        const direction = this.state.direction;
 
-        return _.startCase(parent);
+        this.props.sortMe(key, direction, members);
+
+        if (_.isEmpty(direction) || direction === 'down') {
+            this.setState({direction: 'up'});
+        } else {
+            this.setState({direction: 'down'});
+        }
     }
 
     render() {
@@ -62,9 +76,19 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
         return (
             <Table>
                 <Header>
-                    <Cell thickleft><span>Name</span></Cell>
-                    <Cell><span>Parent Theme</span></Cell>
-                    <Cell><span>Set Count</span></Cell>
+                    <Cell thickleft
+                          sortable
+                          onClick={() => this.handleSort('name')}>
+                        <span>Name</span>
+                    </Cell>
+                    <Cell sortable
+                          onClick={() => this.handleSort('parent_name')}>
+                        <span>Parent Theme</span>
+                    </Cell>
+                    <Cell sortable
+                          onClick={() => this.handleSort('set_count')}>
+                        <span>Set Count</span>
+                    </Cell>
                 </Header>
                 <Body>
                 {members.map((member, index) => 

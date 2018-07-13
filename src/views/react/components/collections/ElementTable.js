@@ -17,7 +17,8 @@ import {Table, Header, Body, SmallCell, Cell} from './styles/collections.sc';
     }
 
     state = {
-        counter: 100,
+        counter:       100,
+        direction:     '',
         lastScrollTop: 0
     }
 
@@ -37,18 +38,6 @@ import {Table, Header, Body, SmallCell, Cell} from './styles/collections.sc';
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll.bind(this));
-    }
-
-    handleScroll(event) {
-        let scrollTop = window.scrollY;
-
-        if (scrollTop > this.state.lastScrollTop) {
-            let start = this.state.counter;
-            this.setState({
-                counter: start + 100,
-                lastScrollTop: scrollTop <= 0 ? 0 : scrollTop
-            });
-        }
     }
 
     getColor(colors, colorId) {
@@ -75,6 +64,31 @@ import {Table, Header, Body, SmallCell, Cell} from './styles/collections.sc';
         return number;
     }
 
+    handleScroll(event) {
+        let scrollTop = window.scrollY;
+
+        if (scrollTop > this.state.lastScrollTop) {
+            let start = this.state.counter;
+            this.setState({
+                counter: start + 100,
+                lastScrollTop: scrollTop <= 0 ? 0 : scrollTop
+            });
+        }
+    }
+
+    handleSort(key) {
+        const members = this.props.members;
+        const direction = this.state.direction;
+
+        this.props.sortMe(key, direction, members);
+
+        if (_.isEmpty(direction) || direction === 'down') {
+            this.setState({direction: 'up'});
+        } else {
+            this.setState({direction: 'down'});
+        }
+    }
+
     render() {
         const members = getFilteredMembers(this.state.counter);
 
@@ -82,12 +96,28 @@ import {Table, Header, Body, SmallCell, Cell} from './styles/collections.sc';
             <Table> 
                 <Header>
                     <Cell thickleft><span>Number</span></Cell>
-                    <Cell><span>Piece</span></Cell>
-                    <Cell><span>Color</span></Cell>
-                    <Cell><span>Number of Sets</span></Cell>
-                    <Cell><span>Number of Usages</span></Cell>
+                    <Cell sortable
+                          onClick={() => this.handleSort('piece')}>
+                        <span>Piece</span>
+                    </Cell>
+                    <Cell sortable
+                          onClick={() => this.handleSort('color')}>
+                        <span>Color</span>
+                    </Cell>
+                    <Cell sortable
+                          onClick={() => this.handleSort('num_sets')}>
+                        <span>Number of Sets</span>
+                    </Cell>
+                    <Cell sortable
+                          onClick={() => this.handleSort('num_usage')}>
+                        <span>Number of Usages</span>
+                    </Cell>
                     <Cell><span>Images</span></Cell>
-                    <Cell thickright><span>Price</span></Cell>
+                    <Cell thickright
+                          sortable
+                          onClick={() => this.handleSort('price')}>
+                        <span>Price</span>
+                    </Cell>
                 </Header>
                 <Body>
                 {members.map((member, index) => 

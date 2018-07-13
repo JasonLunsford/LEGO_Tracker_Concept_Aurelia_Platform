@@ -15,7 +15,8 @@ import {Table, Header, Body, SmallCell} from './styles/collections.sc';
     }
 
     state = {
-        counter: 100,
+        counter:       100,
+        direction:     '',
         lastScrollTop: 0
     }
 
@@ -36,6 +37,13 @@ import {Table, Header, Body, SmallCell} from './styles/collections.sc';
         window.removeEventListener('scroll', this.handleScroll.bind(this));
     }
 
+    getCategory(categories, categoryId) {
+        return _.chain(categories)
+                .find(category => category.id === categoryId)
+                .get('name')
+                .value();
+    }
+
     handleScroll() {
         let scrollTop = window.scrollY;
 
@@ -48,11 +56,17 @@ import {Table, Header, Body, SmallCell} from './styles/collections.sc';
         }
     }
 
-    getCategory(categories, categoryId) {
-        return _.chain(categories)
-                .find(category => category.id === categoryId)
-                .get('name')
-                .value();
+    handleSort(key) {
+        const members = this.props.members;
+        const direction = this.state.direction;
+
+        this.props.sortMe(key, direction, members);
+
+        if (_.isEmpty(direction) || direction === 'down') {
+            this.setState({direction: 'up'});
+        } else {
+            this.setState({direction: 'down'});
+        }
     }
 
     render() {
@@ -61,12 +75,28 @@ import {Table, Header, Body, SmallCell} from './styles/collections.sc';
         return (
             <Table>
                 <Header>
-                    <SmallCell thickleft><span>Name</span></SmallCell>
+                    <SmallCell thickleft
+                               sortable
+                               onClick={() => this.handleSort('name')}>
+                        <span>Name</span>
+                    </SmallCell>
                     <SmallCell><span>Number</span></SmallCell>
-                    <SmallCell><span>Category</span></SmallCell>
-                    <SmallCell><span>Introduced</span></SmallCell>
-                    <SmallCell><span>Ended</span></SmallCell>
-                    <SmallCell><span>Weight</span></SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('category')}>
+                        <span>Category</span>
+                    </SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('year_from')}>
+                        <span>Introduced</span>
+                    </SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('year_to')}>
+                        <span>Ended</span>
+                    </SmallCell>
+                    <SmallCell sortable
+                               onClick={() => this.handleSort('weight')}>
+                        <span>Weight</span>
+                    </SmallCell>
                     <SmallCell><span>Alternates</span></SmallCell>
                     <SmallCell><span>Molds</span></SmallCell>
                     <SmallCell thickright><span>Prints</span></SmallCell>
