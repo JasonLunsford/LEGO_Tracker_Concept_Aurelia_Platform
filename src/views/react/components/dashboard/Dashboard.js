@@ -5,8 +5,10 @@ import _ from 'lodash';
 import styled from 'styled-components';
 import {Container, Badge, Span, TitleBox, 
         Title, LastUpdate, CountBox, 
-        Count, SizeBox, ButtonBox, SingleButtonBox, SearchBox,
-        Button} from './styles/dashboard.sc';
+        Count, SizeBox, ButtonBox,
+        SingleButtonBox, SearchBox} from './styles/dashboard.sc';
+
+import {Button} from '../../global/styles/themes.sc';
 
 import { setSectionTitle,
          setSelectedItem,

@@ -6,6 +6,8 @@ import { observer } from 'mobx-react';
 
 import { setMembers, getFilteredMembers } from '../../global/mobx/appState';
 
+import Modal from '../modal/Modal';
+
 import styled from 'styled-components';
 import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc';
 
@@ -19,7 +21,11 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
     state = {
         counter:       100,
         direction:     '',
-        lastScrollTop: 0
+        lastScrollTop: 0,
+        member:        {
+            set_img_urls: []
+        },
+        show:          false
     }
 
     componentWillMount() {
@@ -80,64 +86,86 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
         }
     }
 
+    showModal = member => {
+        this.setState({ member });
+        this.setState({ show: true });
+    }
+
+    hideModal = () => {
+        this.setState({ show: false });
+    }
+
     render() {
         const members = getFilteredMembers(this.state.counter);
 
         return (
-            <Table> 
-                <Header>
-                    <SmallCell thickleft
-                               sortable
-                               onClick={() => this.handleSort('name')}>
-                        <span>Name</span>
-                    </SmallCell>
-                    <SmallCell><span>Set Number</span></SmallCell>
-                    <SmallCell sortable
-                               onClick={() => this.handleSort('year')}>
-                        <span>Year</span>
-                    </SmallCell>
-                    <SmallCell sortable
-                               onClick={() => this.handleSort('theme')}>
-                        <span>Theme</span>
-                    </SmallCell>
-                    <SmallCell sortable
-                               onClick={() => this.handleSort('num_pieces')}>
-                        <span>Pieces</span>
-                    </SmallCell>
-                    <SmallCell sortable
-                               onClick={() => this.handleSort('num_spares')}>
-                        <span>Spares</span>
-                    </SmallCell>
-                    <SmallCell sortable
-                               onClick={() => this.handleSort('num_minifigs')}>
-                        <span>Minifigs</span>
-                    </SmallCell>
-                    <SmallCell><span>Members</span></SmallCell>
-                    <SmallCell sortable
-                               onClick={() => this.handleSort('has_gear')}>
-                        <span>Gear</span>
-                    </SmallCell>
-                    <SmallCell><span>Builds</span></SmallCell>
-                    <SmallCell thickright><span>View</span></SmallCell>
-                </Header>
-                <Body>
-                {members.map((member, index) => 
-                    <div key={index}>
-                        <SmallCell thickleft><span title={member.name}>{member.name}</span></SmallCell>
-                        <SmallCell><span>{member.set_num}</span></SmallCell>
-                        <SmallCell><span>{member.year}</span></SmallCell>
-                        <SmallCell><span title={member.theme}>{member.theme}</span></SmallCell>
-                        <SmallCell><span>{member.num_pieces}</span></SmallCell>
-                        <SmallCell><span>{member.num_spares}</span></SmallCell>
-                        <SmallCell><span>{member.num_minifigs}</span></SmallCell>
-                        <SmallCell><span>[members]</span></SmallCell>
-                        <SmallCell><span>{member.has_gear ? 'Yes' : 'No'}</span></SmallCell>
-                        <SmallCell><span>[build_urls]</span></SmallCell>
-                        <SmallCell thickright><ViewIcon className="fas fa-external-link-alt"></ViewIcon></SmallCell>
-                    </div>
-                )}
-                </Body>
-            </Table>
+            <div>
+                <Table> 
+                    <Header>
+                        <SmallCell thickleft
+                                   sortable
+                                   onClick={() => this.handleSort('name')}>
+                            <span>Name</span>
+                        </SmallCell>
+                        <SmallCell><span>Set Number</span></SmallCell>
+                        <SmallCell sortable
+                                   onClick={() => this.handleSort('year')}>
+                            <span>Year</span>
+                        </SmallCell>
+                        <SmallCell sortable
+                                   onClick={() => this.handleSort('theme')}>
+                            <span>Theme</span>
+                        </SmallCell>
+                        <SmallCell sortable
+                                   onClick={() => this.handleSort('num_pieces')}>
+                            <span>Pieces</span>
+                        </SmallCell>
+                        <SmallCell sortable
+                                   onClick={() => this.handleSort('num_spares')}>
+                            <span>Spares</span>
+                        </SmallCell>
+                        <SmallCell sortable
+                                   onClick={() => this.handleSort('num_minifigs')}>
+                            <span>Minifigs</span>
+                        </SmallCell>
+                        <SmallCell><span>Members</span></SmallCell>
+                        <SmallCell sortable
+                                   onClick={() => this.handleSort('has_gear')}>
+                            <span>Gear</span>
+                        </SmallCell>
+                        <SmallCell><span>Builds</span></SmallCell>
+                        <SmallCell thickright><span>View</span></SmallCell>
+                    </Header>
+                    <Body>
+                    {members.map((member, index) => 
+                        <div key={index}>
+                            <SmallCell thickleft
+                                       onClick={() => this.showModal(member)}>
+                                <span title={member.name}>{member.name}</span>
+                            </SmallCell>
+                            <SmallCell><span>{member.set_num}</span></SmallCell>
+                            <SmallCell><span>{member.year}</span></SmallCell>
+                            <SmallCell><span title={member.theme}>{member.theme}</span></SmallCell>
+                            <SmallCell><span>{member.num_pieces}</span></SmallCell>
+                            <SmallCell><span>{member.num_spares}</span></SmallCell>
+                            <SmallCell><span>{member.num_minifigs}</span></SmallCell>
+                            <SmallCell><span>[members]</span></SmallCell>
+                            <SmallCell><span>{member.has_gear ? 'Yes' : 'No'}</span></SmallCell>
+                            <SmallCell><span>[build_urls]</span></SmallCell>
+                            <SmallCell thickright><ViewIcon className="fas fa-external-link-alt"></ViewIcon></SmallCell>
+                        </div>
+                    )}
+                    </Body>
+                </Table>
+                <Modal show={this.state.show} handleClose={this.hideModal}>
+                    {this.state.member.set_img_urls.map((img, index) => 
+                        <div key={index}>
+                            <p>{this.state.member.name} ({img.source})</p>
+                            <img src={img.url} alt={this.state.member.name} />
+                        </div>
+                    )}
+                </Modal>
+            </div>
         );
     }
 }
