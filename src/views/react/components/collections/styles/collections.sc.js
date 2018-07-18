@@ -53,6 +53,7 @@ export const Cell = styled.div`
     border:           ${props => props.theme.borders.default};
     border-left:      ${props => props.thickLeft ? props.theme.borders.thick : props.theme.borders.default};
     border-right:     ${props => props.thickRight ? props.theme.borders.thick : props.theme.borders.default};
+    border-bottom:    ${props => props.noBottom ? '0px' : props.theme.borders.default};
     cursor:           ${props => props.sortable ? 'pointer' : 'default' };
     display:          flex;
     flex:             1 1 0;
@@ -80,3 +81,37 @@ export const ViewIcon = styled.i`
     margin:          0;
     padding:         0;
 `;
+
+export const ModalHeader = Header.extend`
+    border-bottom: 0;
+    margin:        0;
+`;
+
+export const ModalBody = Body.extend`
+    > div {
+        display:   flex;
+        flex-flow: row nowrap;
+        height:    100%;
+        width:     100%;
+    }
+`;
+
+export const ModalCell = Cell.extend`
+    display:         flex;
+    height:          100%;
+    justify-content: ${props => props.image ? 'center' : 'start' };
+    min-height:      100px;
+    padding:         5px 0;
+`;
+
+export const ModalTitle = styled.p`
+    font-size:   24px;
+    font-weight: bold;
+    margin:      0 0 10px 0;
+    padding:     0;
+`;
+
+export const Img = styled.img`
+    height: 100px;
+`;
+

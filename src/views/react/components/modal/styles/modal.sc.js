@@ -16,8 +16,14 @@ export const ModalMain = styled.div`
     background: white;
     height:     auto;
     left:       50%;
+    padding:    10px;
     position:   fixed;
     top:        50%;
     transform:  translate(-50%,-50%);
-    width:      80%;
+    width:      50%;
+`;
+
+export const ButtonBox = styled.div`
+    text-align: right;
+    margin-top: 10px;
 `;

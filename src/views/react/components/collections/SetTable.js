@@ -9,7 +9,10 @@ import { setMembers, getFilteredMembers } from '../../global/mobx/appState';
 import Modal from '../modal/Modal';
 
 import styled from 'styled-components';
-import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc';
+import {Table, Header, Body, 
+        SmallCell, ViewIcon, Cell,
+        ModalBody, ModalCell, Img,
+        ModalTitle, ModalHeader} from './styles/collections.sc';
 
 @observer export default class SetTable extends Component {
     constructor(props) {
@@ -25,7 +28,8 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
         member:        {
             set_img_urls: []
         },
-        show:          false
+        show:          false,
+        type:          ''
     }
 
     componentWillMount() {
@@ -86,13 +90,40 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
         }
     }
 
-    showModal = member => {
-        this.setState({ member });
-        this.setState({ show: true });
-    }
-
     hideModal = () => {
         this.setState({ show: false });
+    }
+
+    showModal = (member, type) => {
+        this.setState({ 
+            member,
+            show: true,
+            type
+        });
+    }
+
+    modals = () => {
+        let member = this.state.member;
+        let type = this.state.type;
+
+        switch (type) {
+            case 'name':
+                return (<Table>
+                    <ModalHeader>
+                        <Cell noBottom><span>Image</span></Cell>
+                        <Cell noBottom><span>Description</span></Cell>
+                    </ModalHeader>
+                    <ModalBody>
+                        {member.set_img_urls.map((img, index) => 
+                            <div key={index}>
+                                <ModalCell image><Img src={img.url}></Img></ModalCell>
+                                <ModalCell><span>{img.source}</span></ModalCell>
+                            </div>
+                        )}
+                    </ModalBody>
+                </Table>)
+                break;
+        }
     }
 
     render() {
@@ -140,7 +171,7 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
                     {members.map((member, index) => 
                         <div key={index}>
                             <SmallCell thickleft
-                                       onClick={() => this.showModal(member)}>
+                                       onClick={() => this.showModal(member, 'name')}>
                                 <span title={member.name}>{member.name}</span>
                             </SmallCell>
                             <SmallCell><span>{member.set_num}</span></SmallCell>
@@ -158,12 +189,10 @@ import {Table, Header, Body, SmallCell, ViewIcon} from './styles/collections.sc'
                     </Body>
                 </Table>
                 <Modal show={this.state.show} handleClose={this.hideModal}>
-                    {this.state.member.set_img_urls.map((img, index) => 
-                        <div key={index}>
-                            <p>{this.state.member.name} ({img.source})</p>
-                            <img src={img.url} alt={this.state.member.name} />
-                        </div>
-                    )}
+                    <div>
+                        <ModalTitle>{this.state.member.name}</ModalTitle>
+                        {this.modals()}
+                    </div>
                 </Modal>
             </div>
         );
