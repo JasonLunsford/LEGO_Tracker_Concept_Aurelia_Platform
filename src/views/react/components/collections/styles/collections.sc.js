@@ -14,6 +14,11 @@ export const H2 = styled.h2`
     width:      100%;
 `;
 
+ export const Link = styled.span`
+    color:  ${props => props.theme.colors.blue};
+    cursor: pointer;
+ `;
+
 export const Table = styled.div`
     align-items:     start;
     display:         flex;
@@ -99,9 +104,13 @@ export const ModalBody = Body.extend`
 export const ModalCell = Cell.extend`
     display:         flex;
     height:          100%;
-    justify-content: ${props => props.image ? 'center' : 'start' };
-    min-height:      100px;
+    justify-content: start
     padding:         5px 0;
+`;
+
+export const ModalImgCell = ModalCell.extend`
+    justify-content: ${props => props.center ? 'center' : 'start' };
+    min-height:      100px;
 `;
 
 export const ModalTitle = styled.p`

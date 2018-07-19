@@ -24,3 +24,4 @@ export const Bar = styled.div`
     color:  ${props => props.theme.colors.blue};
     cursor: pointer;
  `;
+ 

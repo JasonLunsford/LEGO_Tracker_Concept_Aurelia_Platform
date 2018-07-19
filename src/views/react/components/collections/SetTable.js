@@ -8,11 +8,12 @@ import { setMembers, getFilteredMembers } from '../../global/mobx/appState';
 
 import Modal from '../modal/Modal';
 
+import SetName from './modals/SetName';
+import SetNumber from './modals/SetNumber';
+
 import styled from 'styled-components';
 import {Table, Header, Body, 
-        SmallCell, ViewIcon, Cell,
-        ModalBody, ModalCell, Img,
-        ModalTitle, ModalHeader} from './styles/collections.sc';
+        SmallCell, ViewIcon, Cell, Link} from './styles/collections.sc';
 
 @observer export default class SetTable extends Component {
     constructor(props) {
@@ -108,20 +109,10 @@ import {Table, Header, Body,
 
         switch (type) {
             case 'name':
-                return (<Table>
-                    <ModalHeader>
-                        <Cell noBottom><span>Image</span></Cell>
-                        <Cell noBottom><span>Description</span></Cell>
-                    </ModalHeader>
-                    <ModalBody>
-                        {member.set_img_urls.map((img, index) => 
-                            <div key={index}>
-                                <ModalCell image><Img src={img.url}></Img></ModalCell>
-                                <ModalCell><span>{img.source}</span></ModalCell>
-                            </div>
-                        )}
-                    </ModalBody>
-                </Table>)
+                return <SetName member={member} />
+                break;
+            case 'number':
+                return <SetNumber member={member} />
                 break;
         }
     }
@@ -136,33 +127,33 @@ import {Table, Header, Body,
                         <SmallCell thickleft
                                    sortable
                                    onClick={() => this.handleSort('name')}>
-                            <span>Name</span>
+                            <Link>Name</Link>
                         </SmallCell>
                         <SmallCell><span>Set Number</span></SmallCell>
                         <SmallCell sortable
                                    onClick={() => this.handleSort('year')}>
-                            <span>Year</span>
+                            <Link>Year</Link>
                         </SmallCell>
                         <SmallCell sortable
                                    onClick={() => this.handleSort('theme')}>
-                            <span>Theme</span>
+                            <Link>Theme</Link>
                         </SmallCell>
                         <SmallCell sortable
                                    onClick={() => this.handleSort('num_pieces')}>
-                            <span>Pieces</span>
+                            <Link>Pieces</Link>
                         </SmallCell>
                         <SmallCell sortable
                                    onClick={() => this.handleSort('num_spares')}>
-                            <span>Spares</span>
+                            <Link>Spares</Link>
                         </SmallCell>
                         <SmallCell sortable
                                    onClick={() => this.handleSort('num_minifigs')}>
-                            <span>Minifigs</span>
+                            <Link>Minifigs</Link>
                         </SmallCell>
                         <SmallCell><span>Members</span></SmallCell>
                         <SmallCell sortable
                                    onClick={() => this.handleSort('has_gear')}>
-                            <span>Gear</span>
+                            <Link>Gear</Link>
                         </SmallCell>
                         <SmallCell><span>Builds</span></SmallCell>
                         <SmallCell thickright><span>View</span></SmallCell>
@@ -172,17 +163,19 @@ import {Table, Header, Body,
                         <div key={index}>
                             <SmallCell thickleft
                                        onClick={() => this.showModal(member, 'name')}>
-                                <span title={member.name}>{member.name}</span>
+                                <Link title={member.name}>{member.name}</Link>
                             </SmallCell>
-                            <SmallCell><span>{member.set_num}</span></SmallCell>
+                            <SmallCell onClick={() => this.showModal(member, 'number')}>
+                                <Link>{member.set_num}</Link>
+                            </SmallCell>
                             <SmallCell><span>{member.year}</span></SmallCell>
                             <SmallCell><span title={member.theme}>{member.theme}</span></SmallCell>
                             <SmallCell><span>{member.num_pieces}</span></SmallCell>
                             <SmallCell><span>{member.num_spares}</span></SmallCell>
                             <SmallCell><span>{member.num_minifigs}</span></SmallCell>
-                            <SmallCell><span>[members]</span></SmallCell>
-                            <SmallCell><span>{member.has_gear ? 'Yes' : 'No'}</span></SmallCell>
-                            <SmallCell><span>[build_urls]</span></SmallCell>
+                            <SmallCell><span>{member.members.length}</span></SmallCell>
+                            <SmallCell><span>{member.has_gear ? 'True' : 'False'}</span></SmallCell>
+                            <SmallCell><span>{member.build_urls.length}</span></SmallCell>
                             <SmallCell thickright><ViewIcon className="fas fa-external-link-alt"></ViewIcon></SmallCell>
                         </div>
                     )}
@@ -190,7 +183,6 @@ import {Table, Header, Body,
                 </Table>
                 <Modal show={this.state.show} handleClose={this.hideModal}>
                     <div>
-                        <ModalTitle>{this.state.member.name}</ModalTitle>
                         {this.modals()}
                     </div>
                 </Modal>
