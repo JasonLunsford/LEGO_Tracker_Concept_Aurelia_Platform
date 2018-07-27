@@ -10,7 +10,6 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-    border:      ${props => props.theme.borders.thick};
     flex:        1 1 auto;
     font-size:   ${props => props.theme.fonts.xxlarge};
     font-weight: normal;

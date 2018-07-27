@@ -22,7 +22,7 @@ import {Table, Header, Body, SmallCell} from './styles/collections.sc';
 
     componentWillMount() {
         _.map(this.props.members, member => {
-            member.category = this.getCategory(this.props.categories, member.piece_cat_id);
+            member.category = this.props.getName(this.props.categories, member.piece_cat_id);
             member.name = _.startCase(member.name);
         });
 
@@ -35,13 +35,6 @@ import {Table, Header, Body, SmallCell} from './styles/collections.sc';
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll.bind(this));
-    }
-
-    getCategory(categories, categoryId) {
-        return _.chain(categories)
-                .find(category => category.id === categoryId)
-                .get('name')
-                .value();
     }
 
     handleScroll() {

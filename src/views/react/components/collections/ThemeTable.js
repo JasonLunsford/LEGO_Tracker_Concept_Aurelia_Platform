@@ -23,7 +23,7 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
     componentWillMount() {
         _.map(this.props.members, member => {
             member.name = _.startCase(member.name);
-            member.parent_name = this.getParentName(member.parent_name);
+            member.parent_name = this.props.getParentName(member.parent_name);
         });
 
         setMembers(this.props.members);
@@ -35,14 +35,6 @@ import {Table, Header, Body, Cell} from './styles/collections.sc';
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll.bind(this));
-    }
-
-    getParentName(parent) {
-        if (_.isNil(parent) || _.isEmpty(parent)) {
-            return 'No Parent';
-        }
-
-        return _.startCase(parent);
     }
 
     handleScroll(event) {

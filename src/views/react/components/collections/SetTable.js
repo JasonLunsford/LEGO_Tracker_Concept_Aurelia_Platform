@@ -10,6 +10,7 @@ import Modal from '../modal/Modal';
 
 import SetName from './modals/SetName';
 import SetNumber from './modals/SetNumber';
+import SetPiece from './modals/SetPiece';
 
 import styled from 'styled-components';
 import {Table, Header, Body, 
@@ -26,18 +27,16 @@ import {Table, Header, Body,
         counter:       100,
         direction:     '',
         lastScrollTop: 0,
-        member:        {
-            set_img_urls: []
-        },
+        member:        {},
         show:          false,
         type:          ''
     }
 
     componentWillMount() {
         _.map(this.props.members, member => {
-            member.theme = this.getTheme(this.props.themes, member.theme_id);
+            member.theme = this.props.getName(this.props.themes, member.theme_id);
             member.name = _.startCase(member.name);
-            member.num_minifigs = this.getMinifigs(member.num_minifigs);
+            member.num_minifigs = this.props.getMinifigs(member.num_minifigs);
         });
 
         setMembers(this.props.members);
@@ -49,21 +48,6 @@ import {Table, Header, Body,
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll.bind(this));
-    }
-
-    getTheme(themes, themeId) {
-        return _.chain(themes)
-                .find(theme => theme.id === themeId)
-                .get('name')
-                .value();
-    }
-
-    getMinifigs(minifigs) {
-        if (_.isNil(minifigs) || _.isEmpty(minifigs)) {
-            return '0';
-        }
-
-        return minifigs;
     }
 
     handleScroll(event) {
@@ -104,8 +88,8 @@ import {Table, Header, Body,
     }
 
     modals = () => {
-        let member = this.state.member;
-        let type = this.state.type;
+        const { member, type } = this.state;
+        const props = this.props;
 
         switch (type) {
             case 'name':
@@ -114,11 +98,23 @@ import {Table, Header, Body,
             case 'number':
                 return <SetNumber member={member} />
                 break;
+            case 'piece':
+                return <SetPiece member={member}
+                                 colors={props.colors}
+                                 pieces={props.pieces}
+                                 elements={props.elements}
+                                 getName={props.getName}
+                                 getNumber={props.getNumber}
+                                 getWeight={props.getWeight} />
+                break;
         }
     }
 
     render() {
         const members = getFilteredMembers(this.state.counter);
+        const memberLength = array => {
+            return _.size(array);
+        }
 
         return (
             <div>
@@ -170,21 +166,21 @@ import {Table, Header, Body,
                             </SmallCell>
                             <SmallCell><span>{member.year}</span></SmallCell>
                             <SmallCell><span title={member.theme}>{member.theme}</span></SmallCell>
-                            <SmallCell><span>{member.num_pieces}</span></SmallCell>
+                            <SmallCell onClick={() => this.showModal(member, 'piece')}>
+                                <Link>{member.num_pieces}</Link>
+                            </SmallCell>
                             <SmallCell><span>{member.num_spares}</span></SmallCell>
                             <SmallCell><span>{member.num_minifigs}</span></SmallCell>
-                            <SmallCell><span>{member.members.length}</span></SmallCell>
+                            <SmallCell><span>{memberLength(member.members)}</span></SmallCell>
                             <SmallCell><span>{member.has_gear ? 'True' : 'False'}</span></SmallCell>
-                            <SmallCell><span>{member.build_urls.length}</span></SmallCell>
+                            <SmallCell><span>{memberLength(member.build_urls)}</span></SmallCell>
                             <SmallCell thickright><ViewIcon className="fas fa-external-link-alt"></ViewIcon></SmallCell>
                         </div>
                     )}
                     </Body>
                 </Table>
                 <Modal show={this.state.show} handleClose={this.hideModal}>
-                    <div>
-                        {this.modals()}
-                    </div>
+                    {this.modals()}
                 </Modal>
             </div>
         );

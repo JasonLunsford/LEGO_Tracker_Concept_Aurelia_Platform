@@ -24,9 +24,9 @@ import {Table, Header, Body, SmallCell, Cell} from './styles/collections.sc';
 
     componentWillMount() {
         _.map(this.props.members, member => {
-            member.number = this.getElementNumber(member.element_num);
-            member.color = this.getColor(this.props.colors, member.color_id);
-            member.piece = this.getPiece(this.props.pieces, member.piece_id);
+            member.number = this.props.getElementNumber(member.element_num);
+            member.color = this.props.getName(this.props.colors, member.color_id);
+            member.piece = this.props.getName(this.props.pieces, member.piece_id);
         });
 
         setMembers(this.props.members);
@@ -38,30 +38,6 @@ import {Table, Header, Body, SmallCell, Cell} from './styles/collections.sc';
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll.bind(this));
-    }
-
-    getColor(colors, colorId) {
-        return _.chain(colors)
-                .find(color => color.id === colorId)
-                .get('name')
-                .startCase()
-                .value();
-    }
-
-    getPiece(pieces, pieceId) {
-        return _.chain(pieces)
-                .find(piece => piece.id === pieceId)
-                .get('name')
-                .startCase()
-                .value();
-    }
-
-    getElementNumber(number) {
-        if (_.isNil(number) || _.isEmpty(number)) {
-            return 'unknown';
-        }
-
-        return number;
     }
 
     handleScroll(event) {

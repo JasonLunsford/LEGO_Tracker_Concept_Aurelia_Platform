@@ -33,9 +33,10 @@ export default class Shell extends Component {
       categories: this.getCustomCollection(collections, 'piece_categories'),
       collections,
       colors: this.getCustomCollection(collections, 'colors'),
+      elements: this.getElements(collections),
       members,
       message: _.get(this.props.model.views[view], 'message'),
-      pieces: this.getCustomCollection(collections, 'pieces'),
+      pieces: this.getPieces(collections),
       router: this.props.router,
       themes: this.getCustomCollection(collections, 'themes'),
       trialMessage: _.get(this.props.model.views[view], 'trialMessage'),
@@ -57,6 +58,35 @@ export default class Shell extends Component {
               .value();
   }
 
+  getElements(collections) {
+      return _.chain(collections)
+              .find(item => item.name === 'elements')
+              .get('members')
+              .map(member => {
+                return {
+                  appears: member.num_sets,
+                  id:      member._id,
+                  number:  member.element_num
+                }
+              })
+              .value();
+  }
+
+  getPieces(collections) {
+      return _.chain(collections)
+              .find(item => item.name === 'pieces')
+              .get('members')
+              .map(member => {
+                return {
+                  id:     member._id,
+                  name:   member.name,
+                  number: member.piece_num,
+                  weight: member.weight
+                }
+              })
+              .value();
+  } 
+
   viewToggle(viewObj) {
       switch (viewObj.view) {
         case 'dashboard':
@@ -70,7 +100,8 @@ export default class Shell extends Component {
                               themes={viewObj.themes}
                               categories={viewObj.categories}
                               pieces={viewObj.pieces}
-                              colors={viewObj.colors} />
+                              colors={viewObj.colors}
+                              elements={viewObj.elements} />
           break;
         case 'details':
           return <Details trialMessage={viewObj.trialMessage} />

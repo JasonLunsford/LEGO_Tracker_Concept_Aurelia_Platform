@@ -14,13 +14,14 @@ export const Container = styled.div`
 
 export const ModalMain = styled.div`
     background: white;
-    height:     auto;
+    height:     350px;
     left:       50%;
+    overflow:   scroll;
     padding:    10px;
     position:   fixed;
     top:        50%;
     transform:  translate(-50%,-50%);
-    width:      50%;
+    width:      auto;
 `;
 
 export const ButtonBox = styled.div`
