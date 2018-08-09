@@ -17,7 +17,7 @@ export default class SetName extends Component {
                 <Table>
                     <ModalHeader>
                         <Cell noBottom><span>Image</span></Cell>
-                        <Cell noBottom><span>Description</span></Cell>
+                        <Cell noBottom><span>Source</span></Cell>
                     </ModalHeader>
                     <ModalBody>
                         {member.set_img_urls.map((img, index) => 

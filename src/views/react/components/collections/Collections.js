@@ -28,7 +28,7 @@ export default class Collections extends Component {
 
     getMinifigs(minifigs) {
         if (_.isNil(minifigs) || _.isEmpty(minifigs)) {
-            return '0';
+            return 0;
         }
 
         return minifigs;

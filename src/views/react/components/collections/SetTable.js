@@ -36,7 +36,7 @@ import {Table, Header, Body,
         _.map(this.props.members, member => {
             member.theme = this.props.getName(this.props.themes, member.theme_id);
             member.name = _.startCase(member.name);
-            member.num_minifigs = this.props.getMinifigs(member.num_minifigs);
+            member.num_minifig = this.props.getMinifigs(member.num_minifigs);
         });
 
         setMembers(this.props.members);
@@ -100,6 +100,17 @@ import {Table, Header, Body,
                 break;
             case 'piece':
                 return <SetPiece member={member}
+                                 showSpares={false}
+                                 colors={props.colors}
+                                 pieces={props.pieces}
+                                 elements={props.elements}
+                                 getName={props.getName}
+                                 getNumber={props.getNumber}
+                                 getWeight={props.getWeight} />
+                break;
+            case 'spare':
+                return <SetPiece member={member}
+                                 showSpares={true}
                                  colors={props.colors}
                                  pieces={props.pieces}
                                  elements={props.elements}
@@ -169,8 +180,10 @@ import {Table, Header, Body,
                             <SmallCell onClick={() => this.showModal(member, 'piece')}>
                                 <Link>{member.num_pieces}</Link>
                             </SmallCell>
-                            <SmallCell><span>{member.num_spares}</span></SmallCell>
-                            <SmallCell><span>{member.num_minifigs}</span></SmallCell>
+                            <SmallCell onClick={() => this.showModal(member, 'spare')}>
+                                <Link>{member.num_spares}</Link>
+                            </SmallCell>
+                            <SmallCell><span>{member.num_minifig}</span></SmallCell>
                             <SmallCell><span>{memberLength(member.members)}</span></SmallCell>
                             <SmallCell><span>{member.has_gear ? 'True' : 'False'}</span></SmallCell>
                             <SmallCell><span>{memberLength(member.build_urls)}</span></SmallCell>

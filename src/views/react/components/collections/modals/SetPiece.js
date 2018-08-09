@@ -11,20 +11,26 @@ export default class SetPiece extends Component {
     getPieces() {
         const props = this.props;
 
+        let results = [];
+
         if (_.isEmpty(props.member.set_pieces)) {
             return [];
         }
 
-        return _.map(props.member.set_pieces, piece => {
-            return {
-                color:    props.getName(props.colors, piece.color_id),
-                element:  props.getNumber(props.elements, piece.element_id) || 'unknown',
-                name:     props.getName(props.pieces, piece.piece_id),
-                number:   props.getNumber(props.pieces, piece.piece_id),
-                quantity: piece.quantity,
-                weight:   props.getWeight(props.pieces, piece.piece_id)
+        _.forEach(props.member.set_pieces, piece => {
+            if (piece.is_spare === props.showSpares) {
+                results.push({
+                    color:    props.getName(props.colors, piece.color_id),
+                    element:  props.getNumber(props.elements, piece.element_id) || 'unknown',
+                    name:     props.getName(props.pieces, piece.piece_id),
+                    number:   props.getNumber(props.pieces, piece.piece_id),
+                    quantity: piece.quantity,
+                    weight:   props.getWeight(props.pieces, piece.piece_id)
+                });
             }
-        })
+        });
+
+        return results;
     }
 
     render() {
